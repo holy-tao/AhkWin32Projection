@@ -64,6 +64,11 @@ class LOGICAL_PROCESSOR_RELATIONSHIP extends Win32Enum {
     static RelationProcessorModule => 7
 
     /**
+     * @type {Integer (Int32)}
+     */
+    static RelationProcessorSharedComputeUnit => 8
+
+    /**
      * On input, retrieves information about all possible relationship types. This value is not used on output.
      * 
      * <b>Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP Professional x64 Edition:  </b>This value is not supported  until Windows Server 2008 R2.

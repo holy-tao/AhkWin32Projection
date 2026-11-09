@@ -744,4 +744,9 @@ class WELL_KNOWN_SID_TYPE extends Win32Enum {
      * @type {Integer (Int32)}
      */
     static WinBuiltinOpenSSHUsersSid => 121
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static WinBuiltinCUAUsersSid => 122
 }

@@ -137,4 +137,16 @@ class PROC_THREAD_ATTRIBUTE_NUM extends Win32Enum {
      * @type {Integer (UInt32)}
      */
     static SveVectorLength => 30
+
+    /**
+     * Native name: ProcThreadAttributeSmeVectorLength
+     * @type {Integer (UInt32)}
+     */
+    static SmeVectorLength => 31
+
+    /**
+     * Native name: ProcThreadAttributeContainmentConfiguration
+     * @type {Integer (UInt32)}
+     */
+    static ContainmentConfiguration => 33
 }

@@ -326,8 +326,8 @@ class MIDL_STUB_MESSAGE extends Win32Struct {
      * @type {Integer}
      */
     _bitfield {
-        get => NumGet(this, 192, "int")
-        set => NumPut("int", value, this, 192)
+        get => NumGet(this, 192, "uint")
+        set => NumPut("uint", value, this, 192)
     }
 
     /**

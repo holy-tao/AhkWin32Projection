@@ -139,8 +139,14 @@ class PROCESS_MITIGATION_POLICY extends Win32Enum {
     static ProcessSEHOPPolicy => 18
 
     /**
+     * Native name: ProcessActivationContextTrustPolicy
+     * @type {Integer (Int32)}
+     */
+    static ActivationContextTrustPolicy => 19
+
+    /**
      * Ends the enumeration.
      * @type {Integer (Int32)}
      */
-    static MaxProcessMitigationPolicy => 19
+    static MaxProcessMitigationPolicy => 20
 }

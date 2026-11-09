@@ -81,17 +81,14 @@ class IDsDisplaySpecifier extends IUnknown {
      * <a href="https://docs.microsoft.com/windows/desktop/api/dsclient/nf-dsclient-idsdisplayspecifier-setserver">IDsDisplaySpecifier::SetServer</a>.
      * @param {PWSTR} pszObjectClass Pointer to a null-terminated Unicode string that contains the name of the object class to retrieve the display specifier   for.
      * @param {Pointer<Guid>} riid Contains the interface identifier of the desired interface.
-     * @param {Pointer<Pointer<Void>>} ppv Pointer to an interface pointer that receives the display specifier of the object class.
-     * @returns {HRESULT} Returns a standard <b>HRESULT</b> value including the following.
+     * @returns {Pointer<Void>} Pointer to an interface pointer that receives the display specifier of the object class.
      * @see https://learn.microsoft.com/windows/win32/api/dsclient/nf-dsclient-idsdisplayspecifier-getdisplayspecifier
      */
-    GetDisplaySpecifier(pszObjectClass, riid, ppv) {
+    GetDisplaySpecifier(pszObjectClass, riid) {
         pszObjectClass := pszObjectClass is String ? StrPtr(pszObjectClass) : pszObjectClass
 
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(5, this, "ptr", pszObjectClass, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+        result := ComCall(5, this, "ptr", pszObjectClass, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 
     /**

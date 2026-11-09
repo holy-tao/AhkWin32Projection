@@ -569,6 +569,11 @@ class Cryptography {
     /**
      * @type {String}
      */
+    static BCRYPT_PARAMETER_SET_NAME_LIST => "ParameterSetNameList"
+
+    /**
+     * @type {String}
+     */
     static BCRYPT_INITIALIZATION_VECTOR => "IV"
 
     /**
@@ -727,6 +732,26 @@ class Cryptography {
     static TLS_13_PRE_SHARED_KEY => "TLS13PRESHAREDKEY"
 
     /**
+     * @type {String}
+     */
+    static TLS_KEM_CIPHERTEXT => "TLS_KEM_CIPHER_TEXT"
+
+    /**
+     * @type {String}
+     */
+    static TLS_HYBRID_KEYEXCHANGE => "TLS_HYBRID_KEYEXCHANGE"
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static TLS_KEM_CIPHERTEXT_MAGIC => 1129008205
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static TLS_HYBRID_KEYEXCHANGE_MAGIC => 1213418580
+
+    /**
      * @type {Integer (UInt32)}
      */
     static BCRYPT_ECDH_PUBLIC_P256_MAGIC => 827016005
@@ -805,6 +830,11 @@ class Cryptography {
      * @type {Integer (UInt32)}
      */
     static BCRYPT_ECDSA_PRIVATE_GENERIC_MAGIC => 1447314245
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static MAX_HYBRID_KEY_EXCHANGE_BLOBS => 4
 
     /**
      * @type {Integer (UInt32)}
@@ -980,6 +1010,66 @@ class Cryptography {
      * @type {String}
      */
     static BCRYPT_MLKEM_DECAPSULATION_BLOB => "MLKEMPRIVATEBLOB"
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static BCRYPT_COMPOSITE_MLDSA_PUBLIC_MAGIC => 1263553859
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static BCRYPT_COMPOSITE_MLDSA_PRIVATE_MAGIC => 1263750467
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static BCRYPT_COMPOSITE_MLKEM_PUBLIC_MAGIC => 1347112259
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static BCRYPT_COMPOSITE_MLKEM_PRIVATE_LAMPS_MAGIC => 1380666691
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static BCRYPT_COMPOSITE_MLKEM_PRIVATE_MAGIC => 1380666691
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static BCRYPT_COMPOSITE_MLKEM_PRIVATE_IRTF_SEED_MAGIC => 1397443907
+
+    /**
+     * @type {String}
+     */
+    static BCRYPT_COMPOSITE_MLKEM_PUBLIC_BLOB => "COMPMLKEMPUBLICBLOB"
+
+    /**
+     * @type {String}
+     */
+    static BCRYPT_COMPOSITE_MLKEM_PRIVATE_LAMPS_BLOB => "COMPMLKEMPRIVATELAMPSBLOB"
+
+    /**
+     * @type {String}
+     */
+    static BCRYPT_COMPOSITE_MLKEM_PRIVATE_BLOB => "COMPMLKEMPRIVATELAMPSBLOB"
+
+    /**
+     * @type {String}
+     */
+    static BCRYPT_COMPOSITE_MLKEM_PRIVATE_IRTF_SEED_BLOB => "COMPMLKEMPRIVATEIRTFSEEDBLOB"
+
+    /**
+     * @type {String}
+     */
+    static BCRYPT_COMPOSITE_MLKEM_ENCAPSULATION_BLOB => "COMPMLKEMPUBLICBLOB"
+
+    /**
+     * @type {String}
+     */
+    static BCRYPT_COMPOSITE_MLKEM_DECAPSULATION_BLOB => "COMPMLKEMPRIVATELAMPSBLOB"
 
     /**
      * @type {String}
@@ -1334,6 +1424,41 @@ class Cryptography {
     /**
      * @type {String}
      */
+    static BCRYPT_COMPOSITE_MLDSA_PARAMETER_SET_44_ECDSA_P256_SHA256 => "44-ECDSA-P256-SHA256"
+
+    /**
+     * @type {String}
+     */
+    static BCRYPT_COMPOSITE_MLDSA_PARAMETER_SET_65_ECDSA_P256_SHA512 => "65-ECDSA-P256-SHA512"
+
+    /**
+     * @type {String}
+     */
+    static BCRYPT_COMPOSITE_MLDSA_PARAMETER_SET_65_ECDSA_P384_SHA512 => "65-ECDSA-P384-SHA512"
+
+    /**
+     * @type {String}
+     */
+    static BCRYPT_COMPOSITE_MLDSA_PARAMETER_SET_87_ECDSA_P384_SHA512 => "87-ECDSA-P384-SHA512"
+
+    /**
+     * @type {String}
+     */
+    static BCRYPT_COMPOSITE_MLKEM_PARAMETER_SET_768_P256 => "768-P256"
+
+    /**
+     * @type {String}
+     */
+    static BCRYPT_COMPOSITE_MLKEM_PARAMETER_SET_768_X25519 => "768-X25519"
+
+    /**
+     * @type {String}
+     */
+    static BCRYPT_COMPOSITE_MLKEM_PARAMETER_SET_1024_P384 => "1024-P384"
+
+    /**
+     * @type {String}
+     */
     static MS_PRIMITIVE_PROVIDER => "Microsoft Primitive Provider"
 
     /**
@@ -1610,6 +1735,16 @@ class Cryptography {
      * @type {String}
      */
     static BCRYPT_MLKEM_ALGORITHM => "ML-KEM"
+
+    /**
+     * @type {String}
+     */
+    static BCRYPT_COMPOSITE_MLDSA_ALGORITHM => "Composite-ML-DSA"
+
+    /**
+     * @type {String}
+     */
+    static BCRYPT_COMPOSITE_MLKEM_ALGORITHM => "Composite-ML-KEM"
 
     /**
      * @type {Integer (UInt32)}
@@ -1985,6 +2120,16 @@ class Cryptography {
      * @type {BCRYPT_ALG_HANDLE}
      */
     static BCRYPT_MLKEM_ALG_HANDLE => BCRYPT_ALG_HANDLE({Value: 1153}, false)
+
+    /**
+     * @type {BCRYPT_ALG_HANDLE}
+     */
+    static BCRYPT_COMPOSITE_MLDSA_ALG_HANDLE => BCRYPT_ALG_HANDLE({Value: 1169}, false)
+
+    /**
+     * @type {BCRYPT_ALG_HANDLE}
+     */
+    static BCRYPT_COMPOSITE_MLKEM_ALG_HANDLE => BCRYPT_ALG_HANDLE({Value: 1185}, false)
 
     /**
      * @type {Integer (UInt32)}
@@ -2762,6 +2907,16 @@ class Cryptography {
     static NCRYPT_XMSS_ALGORITHM => "XMSS"
 
     /**
+     * @type {String}
+     */
+    static NCRYPT_COMPOSITE_MLDSA_ALGORITHM => "Composite-ML-DSA"
+
+    /**
+     * @type {String}
+     */
+    static NCRYPT_COMPOSITE_MLKEM_ALGORITHM => "Composite-ML-KEM"
+
+    /**
      * @type {Integer (UInt32)}
      */
     static NCRYPT_KEY_DERIVATION_INTERFACE => 7
@@ -2845,6 +3000,16 @@ class Cryptography {
      * @type {String}
      */
     static NCRYPT_XMSS_ALGORITHM_GROUP => "XMSS"
+
+    /**
+     * @type {String}
+     */
+    static NCRYPT_COMPOSITE_MLDSA_ALGORITHM_GROUP => "CompositeMLDSA"
+
+    /**
+     * @type {String}
+     */
+    static NCRYPT_COMPOSITE_MLKEM_ALGORITHM_GROUP => "CompositeMLKEM"
 
     /**
      * @type {Integer (UInt32)}
@@ -3289,6 +3454,11 @@ class Cryptography {
     /**
      * @type {Integer (UInt32)}
      */
+    static NCRYPT_MLDSA_EXTERNAL_MU_FLAG => 128
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static NCRYPT_ATTESTATION_FLAG => 32
 
     /**
@@ -3325,6 +3495,11 @@ class Cryptography {
      * @type {Integer (UInt32)}
      */
     static NCRYPT_PROTECT_TO_LOCAL_SYSTEM => 32768
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static NCRYPT_USE_RECOVERY_LDAP_PORT => 65536
 
     /**
      * @type {Integer (UInt32)}
@@ -3375,6 +3550,11 @@ class Cryptography {
      * @type {Integer (UInt32)}
      */
     static NCRYPT_KEY_ENCAPSULATION_OPERATION => 128
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static NCRYPT_PCP_SDDIDK_OPERATION => 268435456
 
     /**
      * @type {Integer (UInt32)}
@@ -3942,6 +4122,21 @@ class Cryptography {
     static NCRYPT_PCP_SYMMETRIC_KEYBITS_PROPERTY => "PCP_SYMMETRIC_KEYBITS"
 
     /**
+     * @type {String}
+     */
+    static NCRYPT_PCP_AIKSTORE_PROPERTY => "PCP_AIKSTORE"
+
+    /**
+     * @type {String}
+     */
+    static NCRYPT_PCP_EKSTORE_PROPERTY => "PCP_EKSTORE"
+
+    /**
+     * @type {String}
+     */
+    static NCRYPT_PCP_SDDIDK_CONTEXT_PROPERTY => "PCP_SDDIDK_CONTEXT"
+
+    /**
      * @type {Integer (UInt32)}
      */
     static NCRYPT_TPM_PAD_PSS_IGNORE_SALT => 32
@@ -3975,6 +4170,11 @@ class Cryptography {
      * @type {Integer (UInt32)}
      */
     static NCRYPT_PCP_HMACVERIFICATION_KEY => 16
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static NCRYPT_PCP_SDDIDK_KEY => 32
 
     /**
      * @type {String}
@@ -9060,6 +9260,36 @@ class Cryptography {
      * @type {String}
      */
     static szOID_ENROLL_EK_CA_KEYID => "1.3.6.1.4.1.311.21.43"
+
+    /**
+     * @type {String}
+     */
+    static szOID_ENROLL_V2_CONTAINER_NAME => "1.3.6.1.4.1.311.21.44"
+
+    /**
+     * @type {String}
+     */
+    static szOID_ENROLL_V2_EK_ALGORITHM => "1.3.6.1.4.1.311.21.45"
+
+    /**
+     * @type {String}
+     */
+    static szOID_ENROLL_V2_EK_PARAMETER => "1.3.6.1.4.1.311.21.46"
+
+    /**
+     * @type {String}
+     */
+    static szOID_ENROLL_V2_AIK_INFO => "1.3.6.1.4.1.311.21.47"
+
+    /**
+     * @type {String}
+     */
+    static szOID_ENROLL_V2_ATTESTATION_STATEMENT => "1.3.6.1.4.1.311.21.48"
+
+    /**
+     * @type {String}
+     */
+    static szOID_CERTSRV_V2_ATTESTATION_VERIFIED => "1.3.6.1.4.1.311.21.49"
 
     /**
      * @type {String}

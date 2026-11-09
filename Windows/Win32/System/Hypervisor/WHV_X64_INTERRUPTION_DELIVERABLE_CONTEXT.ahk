@@ -4,6 +4,7 @@
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
+ * @architecture X64
  */
 class WHV_X64_INTERRUPTION_DELIVERABLE_CONTEXT extends Win32Struct {
     static sizeof => 4

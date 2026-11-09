@@ -63,4 +63,10 @@ class eAVDecDDOperationalMode extends Win32Enum {
      * @type {Integer (Int32)}
      */
     static PORTABLE14 => 7
+
+    /**
+     * Native name: eAVDecDDOperationalMode_PORTABLE16
+     * @type {Integer (Int32)}
+     */
+    static PORTABLE16 => 8
 }

@@ -2219,6 +2219,41 @@ class Direct3D11 {
     /**
      * @type {Guid}
      */
+    static D3D11_DECODER_PROFILE_APV_VLD_422_10 => Guid("{226a709d-ae12-44c5-ba21-164feeb7f9b6}")
+
+    /**
+     * @type {Guid}
+     */
+    static D3D11_DECODER_PROFILE_APV_VLD_422_12 => Guid("{f6f152ad-94e5-4bfa-9227-676cddeff42b}")
+
+    /**
+     * @type {Guid}
+     */
+    static D3D11_DECODER_PROFILE_APV_VLD_444_10 => Guid("{6a4a8d7d-7610-469f-855f-39f13051c013}")
+
+    /**
+     * @type {Guid}
+     */
+    static D3D11_DECODER_PROFILE_APV_VLD_444_12 => Guid("{f1039a1c-e208-45c1-952c-040841b67667}")
+
+    /**
+     * @type {Guid}
+     */
+    static D3D11_DECODER_PROFILE_APV_VLD_4444_10 => Guid("{c83799b9-9655-4b95-8008-56a322ce5d81}")
+
+    /**
+     * @type {Guid}
+     */
+    static D3D11_DECODER_PROFILE_APV_VLD_4444_12 => Guid("{6a763ee3-4d05-47fe-a429-723474b69d7c}")
+
+    /**
+     * @type {Guid}
+     */
+    static D3D11_DECODER_PROFILE_APV_VLD_400_10 => Guid("{37148862-6bd6-4618-8293-777b686b0824}")
+
+    /**
+     * @type {Guid}
+     */
     static D3D11_CRYPTO_TYPE_AES128_CTR => Guid("{9b6bd711-4f74-41c9-9e7b-0be2d7d93b4f}")
 
     /**

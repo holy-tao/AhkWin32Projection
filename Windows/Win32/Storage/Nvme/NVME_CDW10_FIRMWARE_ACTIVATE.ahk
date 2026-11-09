@@ -16,6 +16,7 @@ class NVME_CDW10_FIRMWARE_ACTIVATE extends Win32Struct {
      * - FS
      * - AA
      * - Reserved
+     * - BPID
      * @type {Integer}
      */
     _bitfield {
@@ -35,8 +36,16 @@ class NVME_CDW10_FIRMWARE_ACTIVATE extends Win32Struct {
      * @type {Integer}
      */
     AA {
-        get => (this._bitfield >> 3) & 0x3
-        set => this._bitfield := ((value & 0x3) << 3) | (this._bitfield & ~(0x3 << 3))
+        get => (this._bitfield >> 3) & 0x7
+        set => this._bitfield := ((value & 0x7) << 3) | (this._bitfield & ~(0x7 << 3))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    BPID {
+        get => (this._bitfield >> 31) & 0x1
+        set => this._bitfield := ((value & 0x1) << 31) | (this._bitfield & ~(0x1 << 31))
     }
 
     /**

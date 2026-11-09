@@ -3,6 +3,7 @@
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
+ * @architecture X64
  */
 class WHV_EXCEPTION_TYPE extends Win32Enum {
 
@@ -90,4 +91,9 @@ class WHV_EXCEPTION_TYPE extends Win32Enum {
      * @type {Integer (Int32)}
      */
     static WHvX64ExceptionTypeSimdFloatingPointFault => 19
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static WHvX64ExceptionTypeControlProtectionFault => 21
 }

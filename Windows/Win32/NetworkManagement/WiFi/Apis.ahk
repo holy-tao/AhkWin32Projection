@@ -2691,6 +2691,18 @@ class WiFi {
     /**
      * @type {DEVPROPKEY}
      */
+    static DEVPKEY_PciRootBus_Segment {
+        get {
+            value := DEVPROPKEY()
+            Guid("{d817fc28-793e-4b9e-9970-469d8be63073}").CopyTo(value.fmtid.ptr)
+            value.pid := 19
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
     static DEVPKEY_PciDevice_DeviceType {
         get {
             value := DEVPROPKEY()
@@ -3248,6 +3260,18 @@ class WiFi {
             value := DEVPROPKEY()
             Guid("{3ab22e31-8264-4b4e-9af5-a8d2d8e33e62}").CopyTo(value.fmtid.ptr)
             value.pid := 47
+            return value
+        }
+    }
+
+    /**
+     * @type {DEVPROPKEY}
+     */
+    static DEVPKEY_PciDevice_TeeIOSupported {
+        get {
+            value := DEVPROPKEY()
+            Guid("{3ab22e31-8264-4b4e-9af5-a8d2d8e33e62}").CopyTo(value.fmtid.ptr)
+            value.pid := 48
             return value
         }
     }

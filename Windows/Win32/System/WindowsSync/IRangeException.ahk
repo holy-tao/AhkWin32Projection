@@ -138,56 +138,11 @@ class IRangeException extends IUnknown {
     /**
      * Gets the clock vector that is associated with this exception. (IRangeException.GetClockVector)
      * @param {Pointer<Guid>} riid The IID of the object to retrieve. Must be <b>IID_IEnumClockVector</b>.
-     * @param {Pointer<Pointer<Void>>} ppUnk Returns an object that implements <i>riid</i> and represents the clock vector that is associated with this exception.
-     * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The method succeeded.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%"></td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_NOINTERFACE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%"></td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%"></td>
-     * </tr>
-     * </table>
+     * @returns {Pointer<Void>} Returns an object that implements <i>riid</i> and represents the clock vector that is associated with this exception.
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-irangeexception-getclockvector
      */
-    GetClockVector(riid, ppUnk) {
-        ppUnkMarshal := ppUnk is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(5, this, "ptr", riid, ppUnkMarshal, ppUnk, "HRESULT")
-        return result
+    GetClockVector(riid) {
+        result := ComCall(5, this, "ptr", riid, "ptr*", &ppUnk := 0, "HRESULT")
+        return ppUnk
     }
 }

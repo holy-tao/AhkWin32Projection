@@ -62,6 +62,7 @@
 #Include .\PROPSHEETPAGEA.ahk
 #Include .\PROPSHEETPAGEW.ahk
 #Include .\SET_THEME_APP_PROPERTIES_FLAGS.ahk
+#Include .\SYNTHETIC_DEVICE_CREATION_PARAMS.ahk
 #Include .\TASKDIALOGCONFIG.ahk
 #Include .\TASKDIALOG_COMMON_BUTTON_FLAGS.ahk
 #Include .\TA_PROPERTY.ahk
@@ -17653,6 +17654,16 @@ class Controls {
             throw OSError(A_LastError)
         }
 
+        resultHandle := HSYNTHETICPOINTERDEVICE({Value: result}, True)
+        return resultHandle
+    }
+
+    /**
+     * @param {Pointer<SYNTHETIC_DEVICE_CREATION_PARAMS>} pParams 
+     * @returns {HSYNTHETICPOINTERDEVICE} 
+     */
+    static CreateSyntheticPointerDevice2(pParams) {
+        result := DllCall("USER32.dll\CreateSyntheticPointerDevice2", "ptr", pParams, "ptr")
         resultHandle := HSYNTHETICPOINTERDEVICE({Value: result}, True)
         return resultHandle
     }

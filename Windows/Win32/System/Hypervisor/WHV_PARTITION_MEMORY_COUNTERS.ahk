@@ -3,6 +3,7 @@
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
+ * @architecture X64, Arm64
  */
 class WHV_PARTITION_MEMORY_COUNTERS extends Win32Struct {
     static sizeof => 24

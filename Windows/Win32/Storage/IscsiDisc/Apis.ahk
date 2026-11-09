@@ -245,6 +245,11 @@ class IscsiDisc {
     static IOCTL_MINIPORT_SIGNATURE_ENDURANCE_INFO => "ENDURINF"
 
     /**
+     * @type {String}
+     */
+    static IOCTL_MINIPORT_SIGNATURE_BOOT_PARTITION => "BOOTPINF"
+
+    /**
      * @type {Integer (UInt32)}
      */
     static NRB_FUNCTION_NVCACHE_INFO => 236
@@ -688,6 +693,91 @@ class IscsiDisc {
      * @type {Integer (UInt32)}
      */
     static STORAGE_FIRMWARE_ACTIVATE_STRUCTURE_VERSION => 1
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static BOOT_PARTITION_STATUS_SUCCESS => 0
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static BOOT_PARTITION_STATUS_ERROR => 1
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static BOOT_PARTITION_STATUS_ILLEGAL_REQUEST => 2
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static BOOT_PARTITION_STATUS_INVALID_PARAMETER => 3
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static BOOT_PARTITION_STATUS_INPUT_BUFFER_TOO_BIG => 4
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static BOOT_PARTITION_STATUS_OUTPUT_BUFFER_TOO_SMALL => 5
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static BOOT_PARTITION_STATUS_INVALID_SLOT => 6
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static BOOT_PARTITION_STATUS_INVALID_IMAGE => 7
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static BOOT_PARTITION_STATUS_INVALID_ALIGNMENT => 8
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static BOOT_PARTITION_STATUS_WRITE_PROHIBITED => 9
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static BOOT_PARTITION_FUNCTION_DOWNLOAD => 1
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static BOOT_PARTITION_FUNCTION_ACTIVATE => 2
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static BOOT_PARTITION_FUNCTION_GET_INFO => 3
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static STORAGE_BOOT_PARTITION_GET_INFO_STRUCTURE_VERSION_V1 => 1
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static STORAGE_BOOT_PARTITION_DOWNLOAD_STRUCTURE_VERSION => 1
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static STORAGE_BOOT_PARTITION_ACTIVATE_STRUCTURE_VERSION => 1
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static BOOT_PARTITION_REQUEST_BLOCK_STRUCTURE_VERSION => 1
 
     /**
      * @type {Integer (UInt32)}

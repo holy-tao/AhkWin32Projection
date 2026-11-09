@@ -1107,6 +1107,11 @@ class Rpc {
     static USER_CALL_NEW_CORRELATION_DESC => 512
 
     /**
+     * @type {Integer (UInt32)}
+     */
+    static USER_MARSHALUNMARSHAL_DONT_CLEANUP_UNMARSHALLED_OBJECT => 32768
+
+    /**
      * @type {Integer (Int32)}
      */
     static MIDL_WINRT_TYPE_SERIALIZATION_INFO_CURRENT_VERSION => 1

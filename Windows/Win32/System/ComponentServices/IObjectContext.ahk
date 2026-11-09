@@ -53,78 +53,12 @@ class IObjectContext extends IUnknown {
      * <b>CreateInstance</b> always returns the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface on the newly instantiated object. You should immediately cast the returned value to the interface through which you want to communicate with the new object. The interface ID you pass in the <i>riid</i> parameter does not need to be the same interface as the one to which you cast the returned value, but it must be an interface that is implemented by the object you are instantiating.
      * @param {Pointer<Guid>} rclsid The CLSID of the type of object to instantiate.
      * @param {Pointer<Guid>} riid Any interface that's implemented by the object you want to instantiate.
-     * @param {Pointer<Pointer<Void>>} ppv A reference to the requested interface on the new object. If instantiation fails, this parameter is set to <b>NULL</b>.
-     * @returns {HRESULT} This method can return the following values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The method completed successfully.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>REGDB_E_CLASSNOTREG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The component specified by clsid is not registered as a COM component.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * There's not enough memory available to instantiate the object.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument passed in the <i>ppvObj</i> parameter is invalid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_UNEXPECTED</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * An unexpected error occurred. This can happen if one object passes its <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/nn-comsvcs-iobjectcontext">IObjectContext</a> pointer to another object and the other object calls <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/nf-comsvcs-iobjectcontext-createinstance">CreateInstance</a> using this pointer. An <b>IObjectContext</b> pointer is not valid outside the context of the object that originally obtained it.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Pointer<Void>} A reference to the requested interface on the new object. If instantiation fails, this parameter is set to <b>NULL</b>.
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-iobjectcontext-createinstance
      */
-    CreateInstance(rclsid, riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(3, this, "ptr", rclsid, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+    CreateInstance(rclsid, riid) {
+        result := ComCall(3, this, "ptr", rclsid, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 
     /**

@@ -181,6 +181,16 @@ class MINIDUMP_STREAM_TYPE extends Win32Enum {
     /**
      * @type {Integer (Int32)}
      */
+    static CompressedMemoryStream => 25
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static CompressedMemoryStreamSQL => 28672
+
+    /**
+     * @type {Integer (Int32)}
+     */
     static ceStreamNull => 32768
 
     /**

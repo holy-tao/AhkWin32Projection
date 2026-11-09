@@ -149,4 +149,10 @@ class DXGI_SWAP_CHAIN_FLAG extends Win32BitflagEnum {
      * @type {Integer (Int32)}
      */
     static RESTRICTED_TO_ALL_HOLOGRAPHIC_DISPLAYS => 4096
+
+    /**
+     * Native name: DXGI_SWAP_CHAIN_FLAG_USE_DEFAULT_COLOR_SPACE
+     * @type {Integer (Int32)}
+     */
+    static USE_DEFAULT_COLOR_SPACE => 32768
 }

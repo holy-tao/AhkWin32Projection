@@ -70,11 +70,14 @@ class SYSTEM_PROCESS_INFORMATION extends Win32Struct {
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    Reserved2 {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
+    InheritedFromUniqueProcessId {
+        get {
+            if(!this.HasProp("__InheritedFromUniqueProcessId"))
+                this.__InheritedFromUniqueProcessId := HANDLE(88, this)
+            return this.__InheritedFromUniqueProcessId
+        }
     }
 
     /**

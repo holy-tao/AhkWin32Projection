@@ -466,6 +466,11 @@ class Debug {
     /**
      * @type {Integer (UInt32)}
      */
+    static CBA_QUERY_IF_SYMBOL_DOWNLOAD_DISALLOWED => 64
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static CBA_DEBUG_INFO => 268435456
 
     /**
@@ -981,6 +986,11 @@ class Debug {
     /**
      * @type {Integer (UInt32)}
      */
+    static SSRVURI_HTTP_MSFZ0 => 8
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static SSRVURI_UNC_NORMAL => 16
 
     /**
@@ -992,6 +1002,11 @@ class Debug {
      * @type {Integer (UInt32)}
      */
     static SSRVURI_UNC_FILEPTR => 64
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SSRVURI_UNC_MSFZ0 => 128
 
     /**
      * @type {Integer (UInt32)}
@@ -1062,6 +1077,11 @@ class Debug {
      * @type {Integer (UInt32)}
      */
     static SSRVACTION_CHECKSUMSTATUS => 8
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SSRVACTION_QUERY_IF_DOWNLOAD_DISALLOWED => 9
 
     /**
      * @type {Integer (UInt32)}
@@ -1212,6 +1232,11 @@ class Debug {
      * @type {Integer (UInt32)}
      */
     static IMAGEHLP_RMAP_IGNORE_MISCOMPARE => 4
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static IMAGEHLP_RMAP_NOBASERELOCATIONS => 134217728
 
     /**
      * @type {Integer (UInt32)}
@@ -1436,6 +1461,11 @@ class Debug {
     /**
      * @type {Integer (UInt32)}
      */
+    static WHEA_MAX_MC_BANKS64 => 64
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static WHEA_ERROR_SOURCE_FLAG_FIRMWAREFIRST => 1
 
     /**
@@ -1447,6 +1477,11 @@ class Debug {
      * @type {Integer (UInt32)}
      */
     static WHEA_ERROR_SOURCE_FLAG_GHES_ASSIST => 4
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static WHEA_ERROR_SOURCE_FLAG_V2_DESCRIPTOR => 8
 
     /**
      * @type {Integer (UInt32)}
@@ -2024,14 +2059,6 @@ class Debug {
     }
 
     /**
-     * @param {Pointer<CONTEXT>} ContextRecord 
-     * @returns {String} Nothing - always returns an empty string
-     */
-    static RtlCaptureContext2(ContextRecord) {
-        DllCall("KERNEL32.dll\RtlCaptureContext2", "ptr", ContextRecord)
-    }
-
-    /**
      * Reports that a dynamic function table has increased in size.
      * @remarks
      * <b>RtlGrowFunctionTable</b> should be called after populating the corresponding entries in the <a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-runtime_function">RUNTIME_FUNCTION</a> array specified in <a href="https://docs.microsoft.com/windows/desktop/api/winnt/nf-winnt-rtladdgrowablefunctiontable">RtlAddGrowableFunctionTable.</a>
@@ -2310,6 +2337,14 @@ class Debug {
      */
     static RtlCaptureContext(ContextRecord) {
         DllCall("KERNEL32.dll\RtlCaptureContext", "ptr", ContextRecord)
+    }
+
+    /**
+     * @param {Pointer<CONTEXT>} ContextRecord 
+     * @returns {String} Nothing - always returns an empty string
+     */
+    static RtlCaptureContext2(ContextRecord) {
+        DllCall("KERNEL32.dll\RtlCaptureContext2", "ptr", ContextRecord)
     }
 
     /**

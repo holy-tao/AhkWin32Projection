@@ -77,4 +77,10 @@ class SECPKG_FAILURE_SPECIAL_REASON extends Win32Enum {
      * @type {Integer (Int32)}
      */
     static NullSession => 11
+
+    /**
+     * Native name: SecpkgFailureReason_GlobalSPN
+     * @type {Integer (Int32)}
+     */
+    static GlobalSPN => 12
 }

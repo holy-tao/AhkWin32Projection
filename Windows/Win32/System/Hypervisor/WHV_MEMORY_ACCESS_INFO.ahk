@@ -3,6 +3,7 @@
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
+ * @architecture X64
  */
 class WHV_MEMORY_ACCESS_INFO extends Win32Struct {
     static sizeof => 8

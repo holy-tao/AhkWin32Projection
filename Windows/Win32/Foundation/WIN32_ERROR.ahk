@@ -2784,6 +2784,12 @@ class WIN32_ERROR extends Win32Enum {
     static DEVICE_HARDWARE_ERROR => 483
 
     /**
+     * Native name: ERROR_DEVICE_NACKED
+     * @type {Integer (UInt32)}
+     */
+    static DEVICE_NACKED => 484
+
+    /**
      * Native name: ERROR_INVALID_ADDRESS
      * @type {Integer (UInt32)}
      */
@@ -2994,10 +3000,22 @@ class WIN32_ERROR extends Win32Enum {
     static VOLUME_ROLLBACK_DETECTED => 521
 
     /**
+     * Native name: ERROR_INVALID_OPLOCK_REQUEST
+     * @type {Integer (UInt32)}
+     */
+    static INVALID_OPLOCK_REQUEST => 522
+
+    /**
      * Native name: ERROR_CLOUD_FILE_HYDRATION_NOT_AVAILABLE
      * @type {Integer (UInt32)}
      */
     static CLOUD_FILE_HYDRATION_NOT_AVAILABLE => 523
+
+    /**
+     * Native name: ERROR_CIMFS_VERIFICATION_FAILED
+     * @type {Integer (UInt32)}
+     */
+    static CIMFS_VERIFICATION_FAILED => 524
 
     /**
      * Native name: ERROR_SYSTEM_FILE_NOT_SUPPORTED
@@ -4654,6 +4672,12 @@ class WIN32_ERROR extends Win32Enum {
      * @type {Integer (UInt32)}
      */
     static SECTION_DIRECT_MAP_ONLY => 819
+
+    /**
+     * Native name: ERROR_LINUX_SUBSYSTEM_UPDATE_REQUIRED_LIFTED_REQUIRED
+     * @type {Integer (UInt32)}
+     */
+    static LINUX_SUBSYSTEM_UPDATE_REQUIRED_LIFTED_REQUIRED => 820
 
     /**
      * Native name: ERROR_EA_ACCESS_DENIED
@@ -9078,6 +9102,12 @@ class WIN32_ERROR extends Win32Enum {
     static VSMIDK_MODULUS_MISMATCH => 4565
 
     /**
+     * Native name: ERROR_VSM_FW_MEASUREMENTS_SEAL_FAILURE
+     * @type {Integer (UInt32)}
+     */
+    static VSM_FW_MEASUREMENTS_SEAL_FAILURE => 4566
+
+    /**
      * Native name: ERROR_PLATFORM_MANIFEST_NOT_AUTHORIZED
      * @type {Integer (UInt32)}
      */
@@ -10546,6 +10576,24 @@ class WIN32_ERROR extends Win32Enum {
      * @type {Integer (UInt32)}
      */
     static CNU_NOT_READY => 6256
+
+    /**
+     * Native name: ERROR_CNU_RUN_INIT_FAILED
+     * @type {Integer (UInt32)}
+     */
+    static CNU_RUN_INIT_FAILED => 6257
+
+    /**
+     * Native name: ERROR_CNU_RUN_PREPARE_CLUSTER_FAILED
+     * @type {Integer (UInt32)}
+     */
+    static CNU_RUN_PREPARE_CLUSTER_FAILED => 6258
+
+    /**
+     * Native name: ERROR_CNU_RUN_PROCESS_CLUSTER_FAILED
+     * @type {Integer (UInt32)}
+     */
+    static CNU_RUN_PROCESS_CLUSTER_FAILED => 6259
 
     /**
      * Native name: ERROR_CAMERA_INVALID_CONFIGURATION
@@ -18683,6 +18731,12 @@ class WIN32_ERROR extends Win32Enum {
     static HV_PAGE_REQUEST_INVALID => 3224698976
 
     /**
+     * Native name: ERROR_HV_DEVICE_ALREADY_IN_DOMAIN
+     * @type {Integer (UInt32)}
+     */
+    static HV_DEVICE_ALREADY_IN_DOMAIN => 3224698982
+
+    /**
      * Native name: ERROR_HV_INVALID_CPU_GROUP_ID
      * @type {Integer (UInt32)}
      */
@@ -19077,6 +19131,168 @@ class WIN32_ERROR extends Win32Enum {
      * @type {Integer (UInt32)}
      */
     static VID_PROCESS_ALREADY_SET => 3224830000
+
+    /**
+     * Native name: ERROR_VID_PARTITION_INVARIANTS_MISMATCH
+     * @type {Integer (UInt32)}
+     */
+    static VID_PARTITION_INVARIANTS_MISMATCH => 3224830001
+
+    /**
+     * Native name: ERROR_VID_MEMORY_BLOCK_INVARIANTS_MISMATCH
+     * @type {Integer (UInt32)}
+     */
+    static VID_MEMORY_BLOCK_INVARIANTS_MISMATCH => 3224830002
+
+    /**
+     * Native name: ERROR_VID_MEMORY_BLOCK_RESTORE_STATE_MISMATCH
+     * @type {Integer (UInt32)}
+     */
+    static VID_MEMORY_BLOCK_RESTORE_STATE_MISMATCH => 3224830003
+
+    /**
+     * Native name: ERROR_VID_KSR_PERSISTED_ITEMS_STILL_REGISTERED
+     * @type {Integer (UInt32)}
+     */
+    static VID_KSR_PERSISTED_ITEMS_STILL_REGISTERED => 3224830004
+
+    /**
+     * Native name: ERROR_VID_MEMORY_PARTITION_SETUP_FAILED
+     * @type {Integer (UInt32)}
+     */
+    static VID_MEMORY_PARTITION_SETUP_FAILED => 3224830005
+
+    /**
+     * Native name: ERROR_VID_MEMORY_RESERVE_NOT_ENABLED
+     * @type {Integer (UInt32)}
+     */
+    static VID_MEMORY_RESERVE_NOT_ENABLED => 3224830006
+
+    /**
+     * Native name: ERROR_VID_MEMORY_BLOCK_PAGECOUNT_MISMATCH
+     * @type {Integer (UInt32)}
+     */
+    static VID_MEMORY_BLOCK_PAGECOUNT_MISMATCH => 3224830007
+
+    /**
+     * Native name: ERROR_VID_KSR_IOHANDLER_PROPERTY_MISMATCH
+     * @type {Integer (UInt32)}
+     */
+    static VID_KSR_IOHANDLER_PROPERTY_MISMATCH => 3224830008
+
+    /**
+     * Native name: ERROR_VID_KSR_MSR_HANDLER_PROPERTY_MISMATCH
+     * @type {Integer (UInt32)}
+     */
+    static VID_KSR_MSR_HANDLER_PROPERTY_MISMATCH => 3224830009
+
+    /**
+     * Native name: ERROR_VID_KSR_MEMORY_PARTITION_STATE_SIZE_MISMATCH
+     * @type {Integer (UInt32)}
+     */
+    static VID_KSR_MEMORY_PARTITION_STATE_SIZE_MISMATCH => 3224830010
+
+    /**
+     * Native name: ERROR_VID_KSR_METADATA_MISMATCH
+     * @type {Integer (UInt32)}
+     */
+    static VID_KSR_METADATA_MISMATCH => 3224830011
+
+    /**
+     * Native name: ERROR_VID_KSR_TOTAL_PAGE_COUNT_MISMATCH
+     * @type {Integer (UInt32)}
+     */
+    static VID_KSR_TOTAL_PAGE_COUNT_MISMATCH => 3224830012
+
+    /**
+     * Native name: ERROR_VID_MBP_ARRAY_NOT_PERSISTED
+     * @type {Integer (UInt32)}
+     */
+    static VID_MBP_ARRAY_NOT_PERSISTED => 3224830013
+
+    /**
+     * Native name: ERROR_VID_KSR_INVALID_PERSIST_ID
+     * @type {Integer (UInt32)}
+     */
+    static VID_KSR_INVALID_PERSIST_ID => 3224830014
+
+    /**
+     * Native name: ERROR_VID_KSR_INVALID_PERSISTENCE_OPTIONS
+     * @type {Integer (UInt32)}
+     */
+    static VID_KSR_INVALID_PERSISTENCE_OPTIONS => 3224830015
+
+    /**
+     * Native name: ERROR_VID_GPA_RANGE_INVALID_FLAGS
+     * @type {Integer (UInt32)}
+     */
+    static VID_GPA_RANGE_INVALID_FLAGS => 3224830016
+
+    /**
+     * Native name: ERROR_VID_MEMORY_BLOCK_INVALID_FLAGS
+     * @type {Integer (UInt32)}
+     */
+    static VID_MEMORY_BLOCK_INVALID_FLAGS => 3224830017
+
+    /**
+     * Native name: ERROR_VID_KSR_ALREADY_PERSISTED
+     * @type {Integer (UInt32)}
+     */
+    static VID_KSR_ALREADY_PERSISTED => 3224830018
+
+    /**
+     * Native name: ERROR_VID_KSR_ALREADY_UNPERSISTED
+     * @type {Integer (UInt32)}
+     */
+    static VID_KSR_ALREADY_UNPERSISTED => 3224830019
+
+    /**
+     * Native name: ERROR_VID_KSR_PERSISTENCE_DISALLOWED
+     * @type {Integer (UInt32)}
+     */
+    static VID_KSR_PERSISTENCE_DISALLOWED => 3224830020
+
+    /**
+     * Native name: ERROR_VID_KSR_CLIENT_TYPE_MISMATCH
+     * @type {Integer (UInt32)}
+     */
+    static VID_KSR_CLIENT_TYPE_MISMATCH => 3224830021
+
+    /**
+     * Native name: ERROR_VID_KSR_INVALID_STATE
+     * @type {Integer (UInt32)}
+     */
+    static VID_KSR_INVALID_STATE => 3224830022
+
+    /**
+     * Native name: ERROR_VID_KSR_NOT_READY
+     * @type {Integer (UInt32)}
+     */
+    static VID_KSR_NOT_READY => 3224830023
+
+    /**
+     * Native name: ERROR_VID_GPA_RANGE_OVERLAP_PROHIBITED
+     * @type {Integer (UInt32)}
+     */
+    static VID_GPA_RANGE_OVERLAP_PROHIBITED => 3224830024
+
+    /**
+     * Native name: ERROR_VID_PARTITION_NOT_HIERARCHICAL_HOST
+     * @type {Integer (UInt32)}
+     */
+    static VID_PARTITION_NOT_HIERARCHICAL_HOST => 3224830025
+
+    /**
+     * Native name: ERROR_VID_GPA_RANGE_INVARIANTS_MISMATCH
+     * @type {Integer (UInt32)}
+     */
+    static VID_GPA_RANGE_INVARIANTS_MISMATCH => 3224830026
+
+    /**
+     * Native name: ERROR_VID_KSR_PSCI_HANDLER_PROPERTY_MISMATCH
+     * @type {Integer (UInt32)}
+     */
+    static VID_KSR_PSCI_HANDLER_PROPERTY_MISMATCH => 3224830027
 
     /**
      * Native name: ERROR_VMCOMPUTE_TERMINATED_DURING_START

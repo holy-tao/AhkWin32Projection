@@ -3,6 +3,7 @@
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
+ * @architecture X64, Arm64
  */
 class WHV_CAPABILITY_FEATURES extends Win32Struct {
     static sizeof => 16
@@ -21,6 +22,8 @@ class WHV_CAPABILITY_FEATURES extends Win32Struct {
      * - VirtualPciDeviceSupport
      * - IommuSupport
      * - VpHotAddRemove
+     * - DeviceAccessTracking
+     * - ReservedX640
      * - Reserved
      * @type {Integer}
      */
@@ -107,6 +110,22 @@ class WHV_CAPABILITY_FEATURES extends Win32Struct {
     VpHotAddRemove {
         get => (this._bitfield >> 9) & 0x1
         set => this._bitfield := ((value & 0x1) << 9) | (this._bitfield & ~(0x1 << 9))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    DeviceAccessTracking {
+        get => (this._bitfield >> 10) & 0x1
+        set => this._bitfield := ((value & 0x1) << 10) | (this._bitfield & ~(0x1 << 10))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    ReservedX640 {
+        get => (this._bitfield >> 11) & 0x1
+        set => this._bitfield := ((value & 0x1) << 11) | (this._bitfield & ~(0x1 << 11))
     }
 
     /**

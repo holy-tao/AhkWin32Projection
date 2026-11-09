@@ -414,6 +414,35 @@ class COPYFILE2_MESSAGE extends Win32Struct {
             }
         }
 
+        class _SparseChunkStatus extends Win32Struct {
+            static sizeof => 24
+            static packingSize => 8
+
+            /**
+             * @type {Integer}
+             */
+            uliChunkNumber {
+                get => NumGet(this, 0, "uint")
+                set => NumPut("uint", value, this, 0)
+            }
+
+            /**
+             * @type {Integer}
+             */
+            uliChunkSize {
+                get => NumGet(this, 8, "uint")
+                set => NumPut("uint", value, this, 8)
+            }
+
+            /**
+             * @type {Integer}
+             */
+            uliChunkOffset {
+                get => NumGet(this, 16, "uint")
+                set => NumPut("uint", value, this, 16)
+            }
+        }
+
         /**
          * @type {_ChunkStarted}
          */
@@ -477,6 +506,17 @@ class COPYFILE2_MESSAGE extends Win32Struct {
                 if(!this.HasProp("__Error"))
                     this.__Error := COPYFILE2_MESSAGE._Info._Error(0, this)
                 return this.__Error
+            }
+        }
+
+        /**
+         * @type {_SparseChunkStatus}
+         */
+        SparseChunkStatus {
+            get {
+                if(!this.HasProp("__SparseChunkStatus"))
+                    this.__SparseChunkStatus := COPYFILE2_MESSAGE._Info._SparseChunkStatus(0, this)
+                return this.__SparseChunkStatus
             }
         }
     }

@@ -5,6 +5,7 @@
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
+ * @architecture X64, Arm64
  */
 class WHV_NOTIFICATION_PORT_PARAMETERS extends Win32Struct {
     static sizeof => 32
@@ -23,8 +24,24 @@ class WHV_NOTIFICATION_PORT_PARAMETERS extends Win32Struct {
      * @type {Integer}
      */
     Reserved {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
+        get => NumGet(this, 4, "ushort")
+        set => NumPut("ushort", value, this, 4)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Reserved1 {
+        get => NumGet(this, 6, "char")
+        set => NumPut("char", value, this, 6)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    ConnectionVtl {
+        get => NumGet(this, 7, "char")
+        set => NumPut("char", value, this, 7)
     }
 
     class _Event extends Win32Struct {

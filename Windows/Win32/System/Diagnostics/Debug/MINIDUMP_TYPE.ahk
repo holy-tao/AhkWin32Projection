@@ -241,10 +241,15 @@ class MINIDUMP_TYPE extends Win32BitflagEnum {
     static MiniDumpFilterWriteCombinedMemory => 16777216
 
     /**
+     * @type {Integer (Int32)}
+     */
+    static MiniDumpWithMemoryCompressed => 67108864
+
+    /**
      * `0x00ffffff`. Indicates which flags are valid.
      * @type {Integer (Int32)}
      */
-    static MiniDumpValidTypeFlags => 33554431
+    static MiniDumpValidTypeFlags => 100663295
 
     /**
      * @type {Integer (Int32)}
@@ -254,5 +259,5 @@ class MINIDUMP_TYPE extends Win32BitflagEnum {
     /**
      * @type {Integer (Int32)}
      */
-    static MiniDumpValidTypeFlagsEx => 67108863
+    static MiniDumpValidTypeFlagsEx => 134217727
 }

@@ -30,8 +30,13 @@ class IMAGEHLP_EXTENDED_OPTIONS extends Win32Enum {
     static SYMOPT_EX_NEVERLOADSYMBOLS => 3
 
     /**
+     * @type {Integer (Int32)}
+     */
+    static SYMOPT_EX_DISALLOW_NETWORK_PATHS => 4
+
+    /**
      * Unused.
      * @type {Integer (Int32)}
      */
-    static SYMOPT_EX_MAX => 4
+    static SYMOPT_EX_MAX => 5
 }

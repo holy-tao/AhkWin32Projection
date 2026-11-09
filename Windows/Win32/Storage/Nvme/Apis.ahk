@@ -202,6 +202,16 @@ class Nvme {
     /**
      * @type {Guid}
      */
+    static GUID_OCP_DSSD_SPECIFIC_INFORMATIONGuid => Guid("{5bd594c1-94e0-9447-a21d-29998f56be6f}")
+
+    /**
+     * @type {Guid}
+     */
+    static GUID_OCP_DSSD_SPECIFIC_INFORMATION => Guid("{5bd594c1-94e0-9447-a21d-29998f56be6f}")
+
+    /**
+     * @type {Guid}
+     */
     static GUID_MFND_CHILD_CONTROLLER_EVENT_LOG_PAGEGuid => Guid("{98bcce18-a5f0-bf35-a544-d97f259d669c}")
 
     /**
@@ -328,6 +338,16 @@ class Nvme {
      * @type {Integer (UInt32)}
      */
     static NVME_CDW10_LSP_ACTION_ESTABLISH_CONTEXT_AND_READ_512_BYTES_OF_HEADER => 3
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static NVME_CDW10_LSP_BOOT_PARTITION_0 => 0
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static NVME_CDW10_LSP_BOOT_PARTITION_1 => 1
 
     /**
      * @type {Integer (UInt32)}

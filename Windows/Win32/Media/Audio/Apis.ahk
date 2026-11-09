@@ -741,6 +741,18 @@ class Audio {
     /**
      * @type {PROPERTYKEY}
      */
+    static PKEY_AudioEndpoint_StableId {
+        get {
+            value := PROPERTYKEY()
+            Guid("{1da5d803-d492-4edd-8c23-e0c0ffee7f0e}").CopyTo(value.fmtid.ptr)
+            value.pid := 12
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
     static PKEY_AudioEngine_DeviceFormat {
         get {
             value := PROPERTYKEY()

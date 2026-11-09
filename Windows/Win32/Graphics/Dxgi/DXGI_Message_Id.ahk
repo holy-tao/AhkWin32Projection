@@ -1801,6 +1801,42 @@ class DXGI_Message_Id extends Win32Enum {
     static MSG_IDXGIFactory_MakeWindowAssociation_NoOpBehavior => 298
 
     /**
+     * Native name: DXGI_MSG_IDXGIFactory8_CreateSwapChain_InvalidColorSpaceFlag
+     * @type {Integer (Int32)}
+     */
+    static MSG_IDXGIFactory8_CreateSwapChain_InvalidColorSpaceFlag => 299
+
+    /**
+     * Native name: DXGI_MSG_IDXGIFactory8_CreateSwapChain_InvalidColorSpace
+     * @type {Integer (Int32)}
+     */
+    static MSG_IDXGIFactory8_CreateSwapChain_InvalidColorSpace => 300
+
+    /**
+     * Native name: DXGI_MSG_IDXGISwapChain5_ResizeBuffers2_InvalidColorSpace
+     * @type {Integer (Int32)}
+     */
+    static MSG_IDXGISwapChain5_ResizeBuffers2_InvalidColorSpace => 301
+
+    /**
+     * Native name: DXGI_MSG_IDXGISwapChain5_SetColorSpace1_Unsupported
+     * @type {Integer (Int32)}
+     */
+    static MSG_IDXGISwapChain5_SetColorSpace1_Unsupported => 302
+
+    /**
+     * Native name: DXGI_MSG_IDXGIAdapter5_GetSingleAdapterHybridMode_Unsupported
+     * @type {Integer (Int32)}
+     */
+    static MSG_IDXGIAdapter5_GetSingleAdapterHybridMode_Unsupported => 303
+
+    /**
+     * Native name: DXGI_MSG_IDXGIAdapter5_SetSingleAdapterHybridMode_Unsupported
+     * @type {Integer (Int32)}
+     */
+    static MSG_IDXGIAdapter5_SetSingleAdapterHybridMode_Unsupported => 304
+
+    /**
      * Native name: DXGI_MSG_Phone_IDXGIFactory_CreateSwapChain_NotForegroundWindow
      * @type {Integer (Int32)}
      */

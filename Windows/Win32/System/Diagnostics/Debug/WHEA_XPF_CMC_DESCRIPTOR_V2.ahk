@@ -1,0 +1,70 @@
+#Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\BOOLEAN.ahk
+#Include .\WHEA_NOTIFICATION_DESCRIPTOR.ahk
+#Include .\WHEA_NOTIFICATION_FLAGS.ahk
+#Include .\WHEA_XPF_MC_BANK_DESCRIPTOR.ahk
+#Include .\XPF_MC_BANK_FLAGS.ahk
+
+/**
+ * @namespace Windows.Win32.System.Diagnostics.Debug
+ */
+class WHEA_XPF_CMC_DESCRIPTOR_V2 extends Win32Struct {
+    static sizeof => 2088
+
+    static packingSize => 8
+
+    /**
+     * @type {Integer}
+     */
+    Type {
+        get => NumGet(this, 0, "ushort")
+        set => NumPut("ushort", value, this, 0)
+    }
+
+    /**
+     * @type {BOOLEAN}
+     */
+    Enabled {
+        get => NumGet(this, 2, "char")
+        set => NumPut("char", value, this, 2)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    NumberOfBanks {
+        get => NumGet(this, 3, "char")
+        set => NumPut("char", value, this, 3)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Reserved {
+        get => NumGet(this, 4, "uint")
+        set => NumPut("uint", value, this, 4)
+    }
+
+    /**
+     * @type {WHEA_NOTIFICATION_DESCRIPTOR}
+     */
+    Notify {
+        get {
+            if(!this.HasProp("__Notify"))
+                this.__Notify := WHEA_NOTIFICATION_DESCRIPTOR(8, this)
+            return this.__Notify
+        }
+    }
+
+    /**
+     * @type {WHEA_XPF_MC_BANK_DESCRIPTOR}
+     */
+    Banks {
+        get {
+            if(!this.HasProp("__BanksProxyArray"))
+                this.__BanksProxyArray := Win32FixedArray(this.ptr + 40, 64, WHEA_XPF_MC_BANK_DESCRIPTOR, "")
+            return this.__BanksProxyArray
+        }
+    }
+}

@@ -1526,6 +1526,191 @@ class QoS {
     /**
      * @type {Integer (UInt32)}
      */
+    static SIPAEV_AMD_PROMONTORY_21 => 33384
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_MPIO_E32_PHY_FW => 33385
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_MPIO_C20_PHY_FW => 33386
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_PMU3_DATA => 33387
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_PMU4_DATA => 33388
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_PMU5_DATA => 33389
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_PMU6_DATA => 33390
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_PMU7_DATA => 33391
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_PMU8_DATA => 33392
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_PMU9_DATA => 33393
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_PMU10_DATA => 33394
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_PMU11_DATA => 33395
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_PMU12_DATA => 33396
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_PMU13_DATA => 33397
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_PMU14_DATA => 33398
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_PMU15_DATA => 33399
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_PMU3 => 33400
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_PMU4 => 33401
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_PMU5 => 33402
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_PMU6 => 33403
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_PMU7 => 33404
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_PMU8 => 33405
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_PMU9 => 33406
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_PMU10 => 33407
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_PMU11 => 33408
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_PMU12 => 33409
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_PMU13 => 33410
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_PMU14 => 33411
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_PMU15 => 33412
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_MINIZSC_MSMU => 33413
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_DMCU_ERAM => 33414
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_DMCU_ISR => 33415
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_DMUB_ERAM => 33416
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_DMUB_ISR => 33417
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_UZSC_MSMU => 33418
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_MINIZSC_MSMU_1 => 33419
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_S3_IMAGE => 33420
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static SIPAEV_AMD_PSP_BL_END => 33535
 
     /**
@@ -1542,6 +1727,71 @@ class QoS {
      * @type {Integer (UInt32)}
      */
     static SIPAEV_AMD_AGESA_DRV => 33538
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_PSP_SOC_DRIVER => 33539
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_PSP_HAD_DRIVER => 33540
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_PSP_BOOT_DRIVER => 33541
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_PSP_INTERFACE_DRIVER => 33542
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_PSP_SFDR_DRIVER => 33543
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_DRV_SEV => 33544
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_DRV_RAS => 33545
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_DRV_ASD => 33546
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_DRV_MFD => 33547
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_DRV_FHP => 33548
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_DRV_SPDM => 33549
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_DRV_PLAT => 33550
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEV_AMD_DRV_IPKEYMGR => 33551
 
     /**
      * @type {Integer (UInt32)}
@@ -1971,6 +2221,16 @@ class QoS {
     /**
      * @type {Integer (UInt32)}
      */
+    static SIPAEVENT_SI_POLICY_SUPPLEMENTAL_SIGNER => 327736
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEVENT_SI_POLICY_SUPPLEMENTAL_POLICY => 327737
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static SIPAEVENT_VSM_SEALED_SI_POLICY => 327738
 
     /**
@@ -1991,7 +2251,22 @@ class QoS {
     /**
      * @type {Integer (UInt32)}
      */
+    static SIPAEVENT_REFS_ATTESTATION_SUMMARY => 327742
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static SIPAEVENT_VTL1_DUMP_CONFIG => 327744
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEVENT_REFS_ATTESTATION_CERTIFICATE_HEADER_VERSION => 1
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SIPAEVENT_REFS_ATTESTATION_SUMMARY_HEADER_VERSION => 1
 
     /**
      * @type {Integer (UInt32)}

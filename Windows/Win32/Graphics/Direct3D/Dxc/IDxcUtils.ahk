@@ -155,14 +155,11 @@ class IDxcUtils extends IUnknown {
     /**
      * @param {Pointer<DxcBuffer>} pData 
      * @param {Pointer<Guid>} iid 
-     * @param {Pointer<Pointer<Void>>} ppvReflection 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    CreateReflection(pData, iid, ppvReflection) {
-        ppvReflectionMarshal := ppvReflection is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(13, this, "ptr", pData, "ptr", iid, ppvReflectionMarshal, ppvReflection, "HRESULT")
-        return result
+    CreateReflection(pData, iid) {
+        result := ComCall(13, this, "ptr", pData, "ptr", iid, "ptr*", &ppvReflection := 0, "HRESULT")
+        return ppvReflection
     }
 
     /**

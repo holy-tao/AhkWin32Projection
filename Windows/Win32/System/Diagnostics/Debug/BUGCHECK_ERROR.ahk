@@ -624,6 +624,11 @@ class BUGCHECK_ERROR extends Win32Enum {
     /**
      * @type {Integer (UInt32)}
      */
+    static SOFT_RESTART_LIVE_DUMP => 113
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static ASSIGN_DRIVE_LETTERS_FAILED => 114
 
     /**
@@ -1115,6 +1120,11 @@ class BUGCHECK_ERROR extends Win32Enum {
      * @type {Integer (UInt32)}
      */
     static DRIVER_INVALID_STACK_ACCESS => 220
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static DRIVER_VERIFIER_MISMATCH => 221
 
     /**
      * @type {Integer (UInt32)}
@@ -2644,7 +2654,42 @@ class BUGCHECK_ERROR extends Win32Enum {
     /**
      * @type {Integer (UInt32)}
      */
-    static STORAGE_DRIVER_LIVEDUMP => 519
+    static INVALID_CACHED_SYSTEM_TABLE => 516
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static KCSAN_RACY_ACCESS => 517
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static MULTITIER_MEMORY_DRIVER_INTERNAL => 518
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static FILEINFO_POSSIBLE_DEADLOCK_LIVE_DUMP => 519
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static STORAGE_DRIVER_LIVEDUMP => 520
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static STORVSP_LIVEDUMP => 1073742345
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static INTERRUPTS_STATE_MISMATCH => 522
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static TEST_INITIATED_CRASH => 523
 
     /**
      * @type {Integer (UInt32)}
@@ -2704,7 +2749,22 @@ class BUGCHECK_ERROR extends Win32Enum {
     /**
      * @type {Integer (UInt32)}
      */
+    static ASSERTBUGCODE_I3CHOST_DRIVER => 1059
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static MANUALLY_INITIATED_POWER_BUTTON_HOLD_LIVE_DUMP => 4552
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static MANUALLY_INITIATED_BLACKSCREEN_HOTKEY_LIVE_DUMP => 8648
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static MANUALLY_INITIATED_POWER_BUTTON_HOLD_KERNEL_LIVE_DUMP => 12744
 
     /**
      * @type {Integer (UInt32)}
@@ -2715,11 +2775,6 @@ class BUGCHECK_ERROR extends Win32Enum {
      * @type {Integer (UInt32)}
      */
     static XBOX_MANUALLY_INITIATED_CRASH => 196614
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static MANUALLY_INITIATED_BLACKSCREEN_HOTKEY_LIVE_DUMP => 8648
 
     /**
      * @type {Integer (UInt32)}
@@ -2736,4 +2791,9 @@ class BUGCHECK_ERROR extends Win32Enum {
      * @type {Integer (UInt32)}
      */
     static CONTEXT_MODIFIER => 2147483648
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SMBD_BUGCHECK_CODE => 1397572164
 }

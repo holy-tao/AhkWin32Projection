@@ -228,4 +228,14 @@ class MINIDUMP_CALLBACK_TYPE extends Win32Enum {
      * @type {Integer (Int32)}
      */
     static VmPostReadCallback => 20
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static CompressedMemoryStreamStartCallback => 21
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static CompressedMemoryStreamFinishCallback => 22
 }

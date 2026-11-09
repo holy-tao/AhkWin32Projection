@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Win32Handle.ahk
 
 /**
  * Represents activation factories that are registered by calling the RoRegisterActivationFactories function.
@@ -8,10 +9,16 @@
  * @see https://learn.microsoft.com/windows/win32/WinRT/ro-registration-cookie
  * @namespace Windows.Win32.System.WinRT
  */
-class RO_REGISTRATION_COOKIE extends Win32Struct {
+class RO_REGISTRATION_COOKIE extends Win32Handle {
     static sizeof => 8
 
     static packingSize => 8
+
+    /**
+     * The list of values which indicate that the handle is invalid
+     * @type {Array<Integer>}
+     */
+    static invalidValues => [0]
 
     /**
      * @type {Pointer}

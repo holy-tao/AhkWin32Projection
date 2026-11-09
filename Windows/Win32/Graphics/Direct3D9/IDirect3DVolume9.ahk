@@ -190,19 +190,14 @@ class IDirect3DVolume9 extends IUnknown {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * Reference identifier of the volume being requested.
-     * @param {Pointer<Pointer<Void>>} ppContainer Type: <b>void**</b>
+     * @returns {Pointer<Void>} Type: <b>void**</b>
      * 
      * Address of a pointer to fill with the container pointer, if the query succeeds.
-     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
-     * 
-     * If the method succeeds, the return value is D3D_OK. If the method fails, the return value can be D3DERR_INVALIDCALL.
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dvolume9-getcontainer
      */
-    GetContainer(riid, ppContainer) {
-        ppContainerMarshal := ppContainer is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(7, this, "ptr", riid, ppContainerMarshal, ppContainer, "HRESULT")
-        return result
+    GetContainer(riid) {
+        result := ComCall(7, this, "ptr", riid, "ptr*", &ppContainer := 0, "HRESULT")
+        return ppContainer
     }
 
     /**

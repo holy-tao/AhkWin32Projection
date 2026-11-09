@@ -31,8 +31,14 @@ class MEM_SECTION_EXTENDED_PARAMETER_TYPE extends Win32Enum {
     static SigningLevel => 3
 
     /**
+     * Native name: MemSectionExtendedParameterAttributeFlags
+     * @type {Integer (Int32)}
+     */
+    static AttributeFlags => 4
+
+    /**
      * Native name: MemSectionExtendedParameterMax
      * @type {Integer (Int32)}
      */
-    static Max => 4
+    static Max => 5
 }

@@ -157,6 +157,11 @@ class Clustering {
     /**
      * @type {Integer (UInt32)}
      */
+    static NT14_MAJOR_VERSION => 14
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static WS2016_TP4_UPGRADE_VERSION => 6
 
     /**
@@ -242,6 +247,16 @@ class Clustering {
     /**
      * @type {Integer (UInt32)}
      */
+    static DT_UPGRADE_VERSION => 1
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SE_UPGRADE_VERSION => 2
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static HCI_UPGRADE_BIT => 32768
 
     /**
@@ -302,7 +317,17 @@ class Clustering {
     /**
      * @type {Integer (UInt32)}
      */
-    static CLUSAPI_VERSION => 3077
+    static CLUSAPI_VERSION_GE => 3078
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static CLUSAPI_VERSION_DT => 3079
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static CLUSAPI_VERSION => 3079
 
     /**
      * @type {Integer (UInt32)}
@@ -2678,6 +2703,21 @@ class Clustering {
      * @type {String}
      */
     static CLUSREG_NAME_NETNAME_DNN_DISABLE_CLONES => "DisableClones"
+
+    /**
+     * @type {String}
+     */
+    static CLUSREG_NAME_NETNAME_USE_DYNAMIC_DNS => "UseDynamicDNS"
+
+    /**
+     * @type {String}
+     */
+    static CLUSREG_NAME_NETNAME_DNS_AUTHENTICATION => "DnsAuthenticationMode"
+
+    /**
+     * @type {String}
+     */
+    static CLUSREG_NAME_NETNAME_USE_DNS => "DnsEnabled"
 
     /**
      * @type {String}

@@ -8678,6 +8678,18 @@ class EnhancedStorage {
     /**
      * @type {PROPERTYKEY}
      */
+    static PKEY_Devices_WiFiAware_IsSupported {
+        get {
+            value := PROPERTYKEY()
+            Guid("{9d2e9e67-70d4-4d1a-aefd-113cf6a7dfca}").CopyTo(value.fmtid.ptr)
+            value.pid := 2
+            return value
+        }
+    }
+
+    /**
+     * @type {PROPERTYKEY}
+     */
     static PKEY_Devices_WiFiDirect_DeviceAddress {
         get {
             value := PROPERTYKEY()

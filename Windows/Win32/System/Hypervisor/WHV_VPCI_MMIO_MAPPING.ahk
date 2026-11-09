@@ -5,6 +5,7 @@
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
+ * @architecture X64, Arm64
  */
 class WHV_VPCI_MMIO_MAPPING extends Win32Struct {
     static sizeof => 32

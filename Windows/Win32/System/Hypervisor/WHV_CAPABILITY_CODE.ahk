@@ -3,6 +3,7 @@
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
+ * @architecture X64
  */
 class WHV_CAPABILITY_CODE extends Win32Enum {
 
@@ -90,4 +91,94 @@ class WHV_CAPABILITY_CODE extends Win32Enum {
      * @type {Integer (Int32)}
      */
     static WHvCapabilityCodeProcessorPerfmonFeatures => 4105
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static WHvCapabilityCodePhysicalAddressWidth => 4106
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static WHvCapabilityCodeVmxBasic => 8192
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static WHvCapabilityCodeVmxPinbasedCtls => 8193
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static WHvCapabilityCodeVmxProcbasedCtls => 8194
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static WHvCapabilityCodeVmxExitCtls => 8195
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static WHvCapabilityCodeVmxEntryCtls => 8196
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static WHvCapabilityCodeVmxMisc => 8197
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static WHvCapabilityCodeVmxCr0Fixed0 => 8198
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static WHvCapabilityCodeVmxCr0Fixed1 => 8199
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static WHvCapabilityCodeVmxCr4Fixed0 => 8200
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static WHvCapabilityCodeVmxCr4Fixed1 => 8201
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static WHvCapabilityCodeVmxVmcsEnum => 8202
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static WHvCapabilityCodeVmxProcbasedCtls2 => 8203
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static WHvCapabilityCodeVmxEptVpidCap => 8204
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static WHvCapabilityCodeVmxTruePinbasedCtls => 8205
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static WHvCapabilityCodeVmxTrueProcbasedCtls => 8206
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static WHvCapabilityCodeVmxTrueExitCtls => 8207
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static WHvCapabilityCodeVmxTrueEntryCtls => 8208
 }

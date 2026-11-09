@@ -5729,6 +5729,11 @@ class Shell {
     /**
      * @type {Integer (UInt32)}
      */
+    static ABC_OVERLAYDESKTOPICONS => 1
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static FO_MOVE => 1
 
     /**
@@ -31788,16 +31793,13 @@ class Shell {
      * @param {Integer} dwSiteData 
      * @param {IUnknown} piunkOuter 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppvObj 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    static HlinkResolveShortcut(pwzShortcutFileName, pihlsite, dwSiteData, piunkOuter, riid, ppvObj) {
+    static HlinkResolveShortcut(pwzShortcutFileName, pihlsite, dwSiteData, piunkOuter, riid) {
         pwzShortcutFileName := pwzShortcutFileName is String ? StrPtr(pwzShortcutFileName) : pwzShortcutFileName
 
-        ppvObjMarshal := ppvObj is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("hlink.dll\HlinkResolveShortcut", "ptr", pwzShortcutFileName, "ptr", pihlsite, "uint", dwSiteData, "ptr", piunkOuter, "ptr", riid, ppvObjMarshal, ppvObj, "HRESULT")
-        return result
+        result := DllCall("hlink.dll\HlinkResolveShortcut", "ptr", pwzShortcutFileName, "ptr", pihlsite, "uint", dwSiteData, "ptr", piunkOuter, "ptr", riid, "ptr*", &ppvObj := 0, "HRESULT")
+        return ppvObj
     }
 
     /**
@@ -33196,9 +33198,8 @@ class Shell {
      */
     static RegisterAppStateChangeNotification(Routine, _Context, Registration) {
         _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
-        RegistrationMarshal := Registration is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("api-ms-win-core-psm-appnotify-l1-1-0.dll\RegisterAppStateChangeNotification", "ptr", Routine, _ContextMarshal, _Context, RegistrationMarshal, Registration, "uint")
+        result := DllCall("api-ms-win-core-psm-appnotify-l1-1-0.dll\RegisterAppStateChangeNotification", "ptr", Routine, _ContextMarshal, _Context, "ptr", Registration, "uint")
         return result
     }
 
@@ -33209,6 +33210,8 @@ class Shell {
      * @see https://learn.microsoft.com/windows/win32/api/appnotify/nf-appnotify-unregisterappstatechangenotification
      */
     static UnregisterAppStateChangeNotification(Registration) {
+        Registration := Registration is Win32Handle ? NumGet(Registration, "ptr") : Registration
+
         DllCall("api-ms-win-core-psm-appnotify-l1-1-0.dll\UnregisterAppStateChangeNotification", "ptr", Registration)
     }
 
@@ -33220,9 +33223,8 @@ class Shell {
      */
     static RegisterAppConstrainedChangeNotification(Routine, _Context, Registration) {
         _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
-        RegistrationMarshal := Registration is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("api-ms-win-core-psm-appnotify-l1-1-1.dll\RegisterAppConstrainedChangeNotification", "ptr", Routine, _ContextMarshal, _Context, RegistrationMarshal, Registration, "uint")
+        result := DllCall("api-ms-win-core-psm-appnotify-l1-1-1.dll\RegisterAppConstrainedChangeNotification", "ptr", Routine, _ContextMarshal, _Context, "ptr", Registration, "uint")
         return result
     }
 
@@ -33231,6 +33233,8 @@ class Shell {
      * @returns {String} Nothing - always returns an empty string
      */
     static UnregisterAppConstrainedChangeNotification(Registration) {
+        Registration := Registration is Win32Handle ? NumGet(Registration, "ptr") : Registration
+
         DllCall("api-ms-win-core-psm-appnotify-l1-1-1.dll\UnregisterAppConstrainedChangeNotification", "ptr", Registration)
     }
 

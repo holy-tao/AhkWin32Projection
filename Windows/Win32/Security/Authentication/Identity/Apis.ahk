@@ -1661,6 +1661,11 @@ class Identity {
     /**
      * @type {Integer (UInt32)}
      */
+    static LSA_LOOKUP_PREFER_EXTERNAL_SID => 1073741824
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static LSA_LOOKUP_DISALLOW_CONNECTED_ACCOUNT_INTERNET_SID => 2147483648
 
     /**
@@ -3591,6 +3596,11 @@ class Identity {
     /**
      * @type {Integer (UInt32)}
      */
+    static SECPKG_CALL_AGENT_LOGON => 524288
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static SECPKG_CALL_WOWX86 => 64
 
     /**
@@ -5261,6 +5271,11 @@ class Identity {
     /**
      * @type {Integer (UInt32)}
      */
+    static FACILITY_SL_ACS => 20
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static _FACILITY_WINDOWS_STORE => 63
 
     /**
@@ -5496,7 +5511,7 @@ class Identity {
     /**
      * @type {Integer (Int32)}
      */
-    static SL_E_CHPA_DIGITALMARKER_BINDING_NOT_CONFIGURED => -1073430446
+    static SL_E_CHPA_DIGITALMARKER_BINDING_NOT_CONFIGURED => -1072381870
 
     /**
      * @type {Integer (Int32)}

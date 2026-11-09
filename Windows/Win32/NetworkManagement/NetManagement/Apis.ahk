@@ -9089,6 +9089,16 @@ class NetManagement {
     /**
      * @type {Integer (Int32)}
      */
+    static EVENT_WINSOCK_TDI_PROVIDER_DETECTED => -2147467645
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static EVENT_WINSOCK_TDI_PROVIDER_BLOCKED => -2147467644
+
+    /**
+     * @type {Integer (Int32)}
+     */
     static EVENT_EQOS_INFO_MACHINE_POLICY_REFRESH_NO_CHANGE => 1073758324
 
     /**

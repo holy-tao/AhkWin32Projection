@@ -3,6 +3,7 @@
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
+ * @architecture X64, Arm64
  */
 class WHV_TRANSLATE_GVA_RESULT_CODE extends Win32Enum {
 

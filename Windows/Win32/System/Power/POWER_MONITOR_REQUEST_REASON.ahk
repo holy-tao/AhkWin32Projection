@@ -337,10 +337,10 @@ class POWER_MONITOR_REQUEST_REASON extends Win32Enum {
     static UserInputTouch => 54
 
     /**
-     * Native name: MonitorRequestReasonAusterityBatteryDrain
+     * Native name: MonitorRequestReasonRestrictedStandbyBatteryDrain
      * @type {Integer (Int32)}
      */
-    static AusterityBatteryDrain => 55
+    static RestrictedStandbyBatteryDrain => 55
 
     /**
      * Native name: MonitorRequestReasonDozeRestrictedStandby

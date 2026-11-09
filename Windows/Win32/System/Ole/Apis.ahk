@@ -1065,6 +1065,16 @@ class Ole {
     /**
      * @type {Integer (UInt32)}
      */
+    static DROPEFFECT_NEWTARGET => 1073741824
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static DROPEFFECT_BACKGROUNDTARGET => 536870912
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static DD_DEFSCROLLINSET => 11
 
     /**

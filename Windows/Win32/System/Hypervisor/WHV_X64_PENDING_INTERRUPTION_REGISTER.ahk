@@ -3,6 +3,7 @@
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
+ * @architecture X64
  */
 class WHV_X64_PENDING_INTERRUPTION_REGISTER extends Win32Struct {
     static sizeof => 16

@@ -3,6 +3,7 @@
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
+ * @architecture X64
  */
 class WHV_INTERRUPT_CONTROL extends Win32Struct {
     static sizeof => 16
@@ -14,6 +15,7 @@ class WHV_INTERRUPT_CONTROL extends Win32Struct {
      * - Type
      * - DestinationMode
      * - TriggerMode
+     * - TargetVtl
      * - Reserved
      * @type {Integer}
      */
@@ -44,6 +46,14 @@ class WHV_INTERRUPT_CONTROL extends Win32Struct {
     TriggerMode {
         get => (this._bitfield >> 12) & 0xF
         set => this._bitfield := ((value & 0xF) << 12) | (this._bitfield & ~(0xF << 12))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    TargetVtl {
+        get => (this._bitfield >> 16) & 0xFF
+        set => this._bitfield := ((value & 0xFF) << 16) | (this._bitfield & ~(0xFF << 16))
     }
 
     /**

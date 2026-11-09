@@ -4,6 +4,7 @@
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
+ * @architecture X64
  */
 class WHV_X64_XMM_CONTROL_STATUS_REGISTER extends Win32Struct {
     static sizeof => 48

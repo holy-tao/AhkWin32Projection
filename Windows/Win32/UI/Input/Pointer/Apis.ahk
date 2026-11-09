@@ -12,6 +12,7 @@
 #Include .\POINTER_PEN_INFO.ahk
 #Include .\POINTER_TOUCH_INFO.ahk
 #Include .\POINTER_TYPE_INFO.ahk
+#Include .\TOUCHPAD_ACTION.ahk
 #Include .\TOUCH_FEEDBACK_MODE.ahk
 #Include ..\..\WindowsAndMessaging\POINTER_INPUT_TYPE.ahk
 
@@ -829,6 +830,57 @@ class Pointer {
     }
 
     /**
+     * @param {Integer} pointerId 
+     * @param {Pointer<POINTER_TOUCH_INFO>} touchpadInfo 
+     * @returns {BOOL} 
+     */
+    static GetPointerTouchpadInfo(pointerId, touchpadInfo) {
+        result := DllCall("USER32.dll\GetPointerTouchpadInfo", "uint", pointerId, "ptr", touchpadInfo, "int")
+        return result
+    }
+
+    /**
+     * @param {Integer} pointerId 
+     * @param {Pointer<Integer>} entriesCount 
+     * @param {Pointer<POINTER_TOUCH_INFO>} touchpadInfo 
+     * @returns {BOOL} 
+     */
+    static GetPointerTouchpadInfoHistory(pointerId, entriesCount, touchpadInfo) {
+        entriesCountMarshal := entriesCount is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("USER32.dll\GetPointerTouchpadInfoHistory", "uint", pointerId, entriesCountMarshal, entriesCount, "ptr", touchpadInfo, "int")
+        return result
+    }
+
+    /**
+     * @param {Integer} pointerId 
+     * @param {Pointer<Integer>} pointerCount 
+     * @param {Pointer<POINTER_TOUCH_INFO>} touchpadInfo 
+     * @returns {BOOL} 
+     */
+    static GetPointerFrameTouchpadInfo(pointerId, pointerCount, touchpadInfo) {
+        pointerCountMarshal := pointerCount is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("USER32.dll\GetPointerFrameTouchpadInfo", "uint", pointerId, pointerCountMarshal, pointerCount, "ptr", touchpadInfo, "int")
+        return result
+    }
+
+    /**
+     * @param {Integer} pointerId 
+     * @param {Pointer<Integer>} entriesCount 
+     * @param {Pointer<Integer>} pointerCount 
+     * @param {Pointer<POINTER_TOUCH_INFO>} touchpadInfo 
+     * @returns {BOOL} 
+     */
+    static GetPointerFrameTouchpadInfoHistory(pointerId, entriesCount, pointerCount, touchpadInfo) {
+        entriesCountMarshal := entriesCount is VarRef ? "uint*" : "ptr"
+        pointerCountMarshal := pointerCount is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("USER32.dll\GetPointerFrameTouchpadInfoHistory", "uint", pointerId, entriesCountMarshal, entriesCount, pointerCountMarshal, pointerCount, "ptr", touchpadInfo, "int")
+        return result
+    }
+
+    /**
      * Determines which pointer input frame generated the most recently retrieved message for the specified pointer and discards any queued (unretrieved) pointer input messages generated from the same pointer input frame.
      * @remarks
      * Parallel-mode devices may report pointer input in frames, that is, they may report the state and position of all pointers from that device in a single input report to the system. Ideally, applications should view the entire frame as a single input unless the application-specific requirements dictate otherwise.
@@ -909,6 +961,18 @@ class Pointer {
         device := device is Win32Handle ? NumGet(device, "ptr") : device
 
         DllCall("USER32.dll\DestroySyntheticPointerDevice", "ptr", device)
+    }
+
+    /**
+     * @param {HSYNTHETICPOINTERDEVICE} hDevice 
+     * @param {TOUCHPAD_ACTION} action 
+     * @returns {BOOL} 
+     */
+    static InjectTouchpadAction(hDevice, action) {
+        hDevice := hDevice is Win32Handle ? NumGet(hDevice, "ptr") : hDevice
+
+        result := DllCall("USER32.dll\InjectTouchpadAction", "ptr", hDevice, "int", action, "int")
+        return result
     }
 
     /**

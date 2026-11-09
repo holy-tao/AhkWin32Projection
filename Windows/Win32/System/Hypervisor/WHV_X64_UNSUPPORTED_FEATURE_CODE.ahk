@@ -3,6 +3,7 @@
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
+ * @architecture X64
  */
 class WHV_X64_UNSUPPORTED_FEATURE_CODE extends Win32Enum {
 

@@ -5,8 +5,6 @@
 #Include .\WHV_CAPABILITY_FEATURES.ahk
 #Include .\WHV_CAPABILITY_PROCESSOR_FREQUENCY_CAP.ahk
 #Include .\WHV_EXTENDED_VM_EXITS.ahk
-#Include .\WHV_PROCESSOR_FEATURES.ahk
-#Include .\WHV_PROCESSOR_FEATURES1.ahk
 #Include .\WHV_PROCESSOR_FEATURES_BANKS.ahk
 #Include .\WHV_PROCESSOR_PERFMON_FEATURES.ahk
 #Include .\WHV_PROCESSOR_VENDOR.ahk
@@ -15,12 +13,15 @@
 #Include .\WHV_SYNTHETIC_PROCESSOR_FEATURES.ahk
 #Include .\WHV_SYNTHETIC_PROCESSOR_FEATURES_BANKS.ahk
 #Include .\WHV_X64_MSR_EXIT_BITMAP.ahk
+#Include .\WHV_X64_PROCESSOR_FEATURES.ahk
+#Include .\WHV_X64_PROCESSOR_FEATURES1.ahk
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
+ * @architecture X64
  */
 class WHV_CAPABILITY extends Win32Struct {
-    static sizeof => 256
+    static sizeof => 272
 
     static packingSize => 8
 
@@ -63,12 +64,12 @@ class WHV_CAPABILITY extends Win32Struct {
     }
 
     /**
-     * @type {WHV_PROCESSOR_FEATURES}
+     * @type {WHV_X64_PROCESSOR_FEATURES}
      */
     ProcessorFeatures {
         get {
             if(!this.HasProp("__ProcessorFeatures"))
-                this.__ProcessorFeatures := WHV_PROCESSOR_FEATURES(0, this)
+                this.__ProcessorFeatures := WHV_X64_PROCESSOR_FEATURES(0, this)
             return this.__ProcessorFeatures
         }
     }
@@ -85,17 +86,6 @@ class WHV_CAPABILITY extends Win32Struct {
     }
 
     /**
-     * @type {WHV_PROCESSOR_XSAVE_FEATURES}
-     */
-    ProcessorXsaveFeatures {
-        get {
-            if(!this.HasProp("__ProcessorXsaveFeatures"))
-                this.__ProcessorXsaveFeatures := WHV_PROCESSOR_XSAVE_FEATURES(0, this)
-            return this.__ProcessorXsaveFeatures
-        }
-    }
-
-    /**
      * @type {Integer}
      */
     ProcessorClFlushSize {
@@ -106,34 +96,7 @@ class WHV_CAPABILITY extends Win32Struct {
     /**
      * @type {Integer}
      */
-    ExceptionExitBitmap {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
-
-    /**
-     * @type {WHV_X64_MSR_EXIT_BITMAP}
-     */
-    X64MsrExitBitmap {
-        get {
-            if(!this.HasProp("__X64MsrExitBitmap"))
-                this.__X64MsrExitBitmap := WHV_X64_MSR_EXIT_BITMAP(0, this)
-            return this.__X64MsrExitBitmap
-        }
-    }
-
-    /**
-     * @type {Integer}
-     */
     ProcessorClockFrequency {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    InterruptClockFrequency {
         get => NumGet(this, 0, "uint")
         set => NumPut("uint", value, this, 0)
     }
@@ -172,6 +135,52 @@ class WHV_CAPABILITY extends Win32Struct {
     }
 
     /**
+     * @type {WHV_SCHEDULER_FEATURES}
+     */
+    SchedulerFeatures {
+        get {
+            if(!this.HasProp("__SchedulerFeatures"))
+                this.__SchedulerFeatures := WHV_SCHEDULER_FEATURES(0, this)
+            return this.__SchedulerFeatures
+        }
+    }
+
+    /**
+     * @type {Integer}
+     */
+    PhysicalAddressWidth {
+        get => NumGet(this, 0, "uint")
+        set => NumPut("uint", value, this, 0)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    NestedFeatureRegister {
+        get => NumGet(this, 0, "uint")
+        set => NumPut("uint", value, this, 0)
+    }
+
+    /**
+     * @type {WHV_PROCESSOR_XSAVE_FEATURES}
+     */
+    ProcessorXsaveFeatures {
+        get {
+            if(!this.HasProp("__ProcessorXsaveFeatures"))
+                this.__ProcessorXsaveFeatures := WHV_PROCESSOR_XSAVE_FEATURES(0, this)
+            return this.__ProcessorXsaveFeatures
+        }
+    }
+
+    /**
+     * @type {Integer}
+     */
+    InterruptClockFrequency {
+        get => NumGet(this, 0, "uint")
+        set => NumPut("uint", value, this, 0)
+    }
+
+    /**
      * @type {WHV_PROCESSOR_PERFMON_FEATURES}
      */
     ProcessorPerfmonFeatures {
@@ -183,13 +192,21 @@ class WHV_CAPABILITY extends Win32Struct {
     }
 
     /**
-     * @type {WHV_SCHEDULER_FEATURES}
+     * @type {WHV_X64_MSR_EXIT_BITMAP}
      */
-    SchedulerFeatures {
+    X64MsrExitBitmap {
         get {
-            if(!this.HasProp("__SchedulerFeatures"))
-                this.__SchedulerFeatures := WHV_SCHEDULER_FEATURES(0, this)
-            return this.__SchedulerFeatures
+            if(!this.HasProp("__X64MsrExitBitmap"))
+                this.__X64MsrExitBitmap := WHV_X64_MSR_EXIT_BITMAP(0, this)
+            return this.__X64MsrExitBitmap
         }
+    }
+
+    /**
+     * @type {Integer}
+     */
+    ExceptionExitBitmap {
+        get => NumGet(this, 0, "uint")
+        set => NumPut("uint", value, this, 0)
     }
 }

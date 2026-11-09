@@ -103,78 +103,13 @@ class ComponentServices {
      * <b>CoCreateActivity</b> returns a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/nn-comsvcs-iserviceactivity">IServiceActivity</a> interface of the object that is created by the call to <b>CoCreateActivity</b>. By using the methods of <b>IServiceActivity</b>, you determine whether the batch work is done synchronously or asynchronously. The batch work itself is implemented through the <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/nn-comsvcs-iservicecall">IServiceCall</a> interface.
      * @param {IUnknown} pIUnknown A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface of the object, created from the <a href="https://docs.microsoft.com/windows/desktop/cossdk/cserviceconfig">CServiceConfig</a> class, that contains the configuration information for the services to be used within the activity created by <b>CoCreateActivity</b>.
      * @param {Pointer<Guid>} riid The ID of the interface to be returned through the <i>ppObj</i> parameter. This parameter should always be IID_IServiceActivity so that a pointer to <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/nn-comsvcs-iserviceactivity">IServiceActivity</a> is returned.
-     * @param {Pointer<Pointer<Void>>} ppObj A pointer to the interface  of an activity object. The activity object is automatically created by the call to <b>CoCreateActivity</b>.
-     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, and E_FAIL, as well as the following values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The method completed successfully.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>CO_E_SXS_CONFIG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The side-by-side assembly configuration of the <a href="https://docs.microsoft.com/windows/desktop/cossdk/cserviceconfig">CServiceConfig</a> object is invalid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>CO_E_THREADPOOL_CONFIG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The thread pool configuration of the <a href="https://docs.microsoft.com/windows/desktop/cossdk/cserviceconfig">CServiceConfig</a> object is invalid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>CO_E_TRACKER_CONFIG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The tracker configuration of the <a href="https://docs.microsoft.com/windows/desktop/cossdk/cserviceconfig">CServiceConfig</a> object is invalid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>COMADMIN_E_PARTITION_ACCESSDENIED</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The caller does not have access permissions for the COM+ partition.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Pointer<Void>} A pointer to the interface  of an activity object. The activity object is automatically created by the call to <b>CoCreateActivity</b>.
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-cocreateactivity
      * @since windows5.1.2600
      */
-    static CoCreateActivity(pIUnknown, riid, ppObj) {
-        ppObjMarshal := ppObj is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("comsvcs.dll\CoCreateActivity", "ptr", pIUnknown, "ptr", riid, ppObjMarshal, ppObj, "HRESULT")
-        return result
+    static CoCreateActivity(pIUnknown, riid) {
+        result := DllCall("comsvcs.dll\CoCreateActivity", "ptr", pIUnknown, "ptr", riid, "ptr*", &ppObj := 0, "HRESULT")
+        return ppObj
     }
 
     /**
@@ -408,16 +343,13 @@ class ComponentServices {
      * 
      * <b>MTSCreateActivity</b> returns a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/nn-comsvcs-imtsactivity">IMTSActivity</a> interface of the object that is created by the call to <b>MTSCreateActivity</b>. By using the methods of <b>IMTSActivity</b>, you determine whether the batch work is done synchronously or asynchronously. The batch work itself is implemented through the <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/nn-comsvcs-imtscall">IMTSCall</a> interface.
      * @param {Pointer<Guid>} riid The ID of the interface to be returned by the <i>ppObj</i> parameter. This parameter should always be IID_IMTSActivity so that a pointer to <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/nn-comsvcs-imtsactivity">IMTSActivity</a> is returned.
-     * @param {Pointer<Pointer<Void>>} ppobj A pointer to the interface of an activity object. The activity object is automatically created by the call to <b>MTSCreateActivity</b>.
-     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_FAIL, and S_OK.
+     * @returns {Pointer<Void>} A pointer to the interface of an activity object. The activity object is automatically created by the call to <b>MTSCreateActivity</b>.
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-mtscreateactivity
      * @since windows5.0
      */
-    static MTSCreateActivity(riid, ppobj) {
-        ppobjMarshal := ppobj is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("comsvcs.dll\MTSCreateActivity", "ptr", riid, ppobjMarshal, ppobj, "HRESULT")
-        return result
+    static MTSCreateActivity(riid) {
+        result := DllCall("comsvcs.dll\MTSCreateActivity", "ptr", riid, "ptr*", &ppobj := 0, "HRESULT")
+        return ppobj
     }
 
     /**

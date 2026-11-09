@@ -3,6 +3,7 @@
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
+ * @architecture X64
  */
 class WHV_X64_PENDING_DEBUG_EXCEPTION extends Win32Struct {
     static sizeof => 16

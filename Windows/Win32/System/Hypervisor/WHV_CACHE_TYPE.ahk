@@ -3,6 +3,7 @@
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
+ * @architecture X64
  */
 class WHV_CACHE_TYPE extends Win32Enum {
 
@@ -20,6 +21,11 @@ class WHV_CACHE_TYPE extends Win32Enum {
      * @type {Integer (Int32)}
      */
     static WHvCacheTypeWriteThrough => 4
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static WHvCacheTypeWriteProtected => 5
 
     /**
      * @type {Integer (Int32)}

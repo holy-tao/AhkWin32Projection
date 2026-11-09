@@ -2933,6 +2933,16 @@ class WindowsProgramming {
      * @type {Guid}
      */
     static WLDP_HOST_OTHER => Guid("{626cbec3-e1fa-4227-9800-ed210274cf7c}")
+
+    /**
+     * @type {Guid}
+     */
+    static WLDP_HOST_MCPB => Guid("{df153c35-140e-4444-ab3a-83d6b9b7c15f}")
+
+    /**
+     * @type {Guid}
+     */
+    static WLDP_HOST_MSIX => Guid("{e96e8143-aa5a-4377-bb54-3b82fc4d90e7}")
 ;@endregion Constants
 
 ;@region Methods

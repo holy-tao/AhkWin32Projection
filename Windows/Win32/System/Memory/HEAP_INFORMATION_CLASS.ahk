@@ -50,4 +50,10 @@ class HEAP_INFORMATION_CLASS extends Win32Enum {
      * @type {Integer (Int32)}
      */
     static Tag => 7
+
+    /**
+     * Native name: HeapMemoryUsageInformation
+     * @type {Integer (Int32)}
+     */
+    static MemoryUsageInformation => 8
 }

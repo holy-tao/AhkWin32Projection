@@ -3,6 +3,7 @@
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
+ * @architecture X64, Arm64
  */
 class WHV_VPCI_DEVICE_REGISTER_SPACE extends Win32Enum {
 

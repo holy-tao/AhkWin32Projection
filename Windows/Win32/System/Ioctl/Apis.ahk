@@ -136,6 +136,11 @@ class Ioctl {
     static GUID_DEVICEDUMP_DRIVER_STORAGE_PORT => Guid("{da82441d-7142-4bc1-b844-0807c5a4b67f}")
 
     /**
+     * @type {Guid}
+     */
+    static GUID_STORPORT_PAGING_DEVICE_DUMP => Guid("{c939c73b-17dc-4a44-904c-e2d987f52649}")
+
+    /**
      * @type {DEVPROPKEY}
      */
     static DEVPKEY_Storage_Portable {
@@ -490,6 +495,21 @@ class Ioctl {
      * @type {Integer (UInt32)}
      */
     static IOCTL_STORAGE_FIRMWARE_ACTIVATE => 3005448
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static IOCTL_STORAGE_BOOT_PARTITION_DOWNLOAD => 3005452
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static IOCTL_STORAGE_BOOT_PARTITION_ACTIVATE => 3005456
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static IOCTL_STORAGE_BOOT_PARTITION_GET_INFO => 2956308
 
     /**
      * @type {Integer (UInt32)}
@@ -1039,6 +1059,26 @@ class Ioctl {
     /**
      * @type {Integer (UInt32)}
      */
+    static STOR_MAX_PAGING_DEVICES => 16
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static STOR_PAGING_DEVICE_MINIPORT_NAME_LENGTH => 32
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static STOR_PAGING_DEVICE_MODEL_NAME_LENGTH => 64
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static STOR_PAGING_DEVICE_FW_REVISION_LENGTH => 16
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static DEVICEDUMP_CAP_PRIVATE_SECTION => 1
 
     /**
@@ -1130,6 +1170,36 @@ class Ioctl {
      * @type {Integer (UInt32)}
      */
     static STORAGE_HW_FIRMWARE_REVISION_LENGTH => 16
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static STORAGE_HW_BOOT_PARTITION_REQUEST_FLAG_CONTROLLER => 1
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static STORAGE_HW_BOOT_PARTITION_REQUEST_REPLACE_EXISTING_BOOT_PARTITION => 1073741824
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static STORAGE_HW_BOOT_PARTITION_REQUEST_ACTIVATE_EXISTING_BOOT_PARTITION => 2147483648
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static STORAGE_HW_BOOT_PARTITION_ACTIVATE_STRUCTURE_VERSION => 1
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static STORAGE_HW_BOOT_PARTITION_DOWNLOAD_STRUCTURE_VERSION => 1
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static STORAGE_HW_BOOT_PARTITION_INFO_STRUCTURE_VERSION_V1 => 1
 
     /**
      * @type {Integer (UInt32)}
@@ -1685,6 +1755,16 @@ class Ioctl {
      * @type {Integer (UInt32)}
      */
     static FILE_DEVICE_I3C => 101
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static FILE_DEVICE_MULTITIER_MEMORY => 102
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static FILE_DEVICE_CXL_TYPE3 => 103
 
     /**
      * @type {Integer (UInt32)}
@@ -4009,6 +4089,36 @@ class Ioctl {
     /**
      * @type {Integer (UInt32)}
      */
+    static FSCTL_CIMFS_QUERY_BACKING_REGION_NAMES => 591008
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static FSCTL_REFS_VOLUME_ATTESTATION_PREPARE_TO_SIGN => 591012
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static FSCTL_REFS_VOLUME_ATTESTATION_INJECT_CERTIFICATE => 591016
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static FSCTL_REFS_VOLUME_ATTESTATION_BIND_TO_TPM => 591020
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static FSCTL_REFS_VOLUME_ATTESTATION_QUERY_STATUS => 591024
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static FSCTL_REFS_VOLUME_ATTESTATION_RESET => 591028
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static GET_VOLUME_BITMAP_FLAG_MASK_METADATA => 1
 
     /**
@@ -4839,6 +4949,21 @@ class Ioctl {
     /**
      * @type {Integer (UInt32)}
      */
+    static REQUEST_OPLOCK_INPUT_FLAG_RH_ALWAYS_BLOCK_UNTIL_ACK => 8
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static REQUEST_OPLOCK_INPUT_FLAG_RH_IGNORE_WRITES => 16
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static REQUEST_OPLOCK_INPUT_FLAG_RH_NO_NON_CACHED_IO => 32
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static REQUEST_OPLOCK_CURRENT_VERSION => 1
 
     /**
@@ -4855,6 +4980,11 @@ class Ioctl {
      * @type {Integer (UInt32)}
      */
     static REQUEST_OPLOCK_OUTPUT_FLAG_WRITABLE_SECTION_PRESENT => 4
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static REQUEST_OPLOCK_OUTPUT_FLAG_NON_CACHED_IO_PRESENT => 8
 
     /**
      * @type {Integer (UInt32)}
@@ -5420,6 +5550,116 @@ class Ioctl {
      * @type {Integer (UInt32)}
      */
     static SPACES_TRACKED_OFFSET_HEADER_FLAG => 2
+
+    /**
+     * @type {Guid}
+     */
+    static CxlType3CommandEffectsLog => Guid("{b5c0a90d-41bf-784b-8f79-96b1623b3f17}")
+
+    /**
+     * @type {Guid}
+     */
+    static CxlType3VendorDebugLog => Guid("{d919185e-a911-0c40-811f-d60719403d86}")
+
+    /**
+     * @type {Guid}
+     */
+    static CxlType3ComponentStateDumpLog => Guid("{cfb4fab3-b601-3243-943e-5e9962f23567}")
+
+    /**
+     * @type {Guid}
+     */
+    static CxlType3DDR5ErrorCheckScrubLog => Guid("{600d72f1-a9a7-0643-a003-11948f9e077c}")
+
+    /**
+     * @type {Guid}
+     */
+    static CxlType3MediaTestCapabilityLog => Guid("{2ca3dfe6-3ed1-5c4a-8ca8-99bebbf731a4}")
+
+    /**
+     * @type {Guid}
+     */
+    static CxlType3MediaTestResultsShortLog => Guid("{2255252c-e48c-ec11-b909-0242ac120002}")
+
+    /**
+     * @type {Guid}
+     */
+    static CxlType3MediaTestResultsLongLog => Guid("{3e0bfec1-007a-8e44-a24e-a6aabbfe587a}")
+
+    /**
+     * @type {Guid}
+     */
+    static CxlType3EventRecord_GeneralMedia => Guid("{770acdfb-60c2-7f41-85a9-088b1621eba6}")
+
+    /**
+     * @type {Guid}
+     */
+    static CxlType3EventRecord_DRAM => Guid("{b3cb1d60-069c-ab4e-b8af-4e9bfb5c9624}")
+
+    /**
+     * @type {Guid}
+     */
+    static CxlType3EventRecord_MemoryModule => Guid("{757492fe-59dd-3943-a586-79bab113b774}")
+
+    /**
+     * @type {Guid}
+     */
+    static CxlType3EventRecord_MemorySparing => Guid("{403a1fe7-292d-9240-8a39-4d1c966c7c65}")
+
+    /**
+     * @type {Guid}
+     */
+    static CxlType3EventRecord_DynamicCapacity => Guid("{a7af95ca-83f1-1840-8c2f-95268e101a2a}")
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static CXL_COMPONENT_REGISTER_BLOCK_ID => 1
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static CXL_DEVICE_REGISTER_BLOCK_ID => 3
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static CXL_MEMORY_LOW_PART_MASK => 4026531840
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static CXL_COMPONENT_REGISTER_SIZE => 65536
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static CXL_CACHEMEM_PRIMARY_RANGE_OFFSET => 4096
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static CXL_MAILBOX_COMMAND_TIMEOUT_IN_SEC => 2
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static CXL_FIRMWARE_REVISION_LENGTH => 16
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static CXL_MAXIMUM_FIRMWARE_SLOTS => 4
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static CXL_DPA_ADDRESS_MASK => 18446744073709551552
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static CXL_CLEAR_POISON_WRITE_DATA_SIZE => 64
 ;@endregion Constants
 
 ;@region Methods

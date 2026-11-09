@@ -35,4 +35,16 @@ class NVME_FIRMWARE_ACTIVATE_ACTIONS extends Win32Enum {
      * @type {Integer (Int32)}
      */
     static ACTION_DOWNLOAD_TO_SLOT_AND_ACTIVATE_IMMEDIATE => 3
+
+    /**
+     * Native name: NVME_FIRMWARE_ACTIVATE_ACTION_REPLACE_BOOT_PARTITION
+     * @type {Integer (Int32)}
+     */
+    static ACTION_REPLACE_BOOT_PARTITION => 6
+
+    /**
+     * Native name: NVME_FIRMWARE_ACTIVATE_ACTION_ACTIVATE_BOOT_PARTITION
+     * @type {Integer (Int32)}
+     */
+    static ACTION_ACTIVATE_BOOT_PARTITION => 7
 }

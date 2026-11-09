@@ -550,6 +550,11 @@ class TextServices {
     /**
      * @type {Integer (UInt32)}
      */
+    static TS_SD_DISABLEWRITINGSUGGESTIONS => 512
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static TS_SS_DISJOINTSEL => 1
 
     /**
@@ -581,6 +586,11 @@ class TextServices {
      * @type {Integer (UInt32)}
      */
     static TS_SS_UWPCONTROL => 64
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static TS_SS_MULTILINE => 128
 
     /**
      * @type {Integer (UInt32)}

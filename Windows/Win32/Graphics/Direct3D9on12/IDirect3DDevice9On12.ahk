@@ -34,28 +34,22 @@ class IDirect3DDevice9On12 extends IUnknown {
 
     /**
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppvDevice 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    GetD3D12Device(riid, ppvDevice) {
-        ppvDeviceMarshal := ppvDevice is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(3, this, "ptr", riid, ppvDeviceMarshal, ppvDevice, "HRESULT")
-        return result
+    GetD3D12Device(riid) {
+        result := ComCall(3, this, "ptr", riid, "ptr*", &ppvDevice := 0, "HRESULT")
+        return ppvDevice
     }
 
     /**
      * @param {IDirect3DResource9} pResource 
      * @param {ID3D12CommandQueue} pCommandQueue 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppvResource12 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    UnwrapUnderlyingResource(pResource, pCommandQueue, riid, ppvResource12) {
-        ppvResource12Marshal := ppvResource12 is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(4, this, "ptr", pResource, "ptr", pCommandQueue, "ptr", riid, ppvResource12Marshal, ppvResource12, "HRESULT")
-        return result
+    UnwrapUnderlyingResource(pResource, pCommandQueue, riid) {
+        result := ComCall(4, this, "ptr", pResource, "ptr", pCommandQueue, "ptr", riid, "ptr*", &ppvResource12 := 0, "HRESULT")
+        return ppvResource12
     }
 
     /**

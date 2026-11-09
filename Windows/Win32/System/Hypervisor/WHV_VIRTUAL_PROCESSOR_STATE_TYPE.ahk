@@ -3,6 +3,7 @@
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
+ * @architecture X64
  */
 class WHV_VIRTUAL_PROCESSOR_STATE_TYPE extends Win32Enum {
 
@@ -30,4 +31,9 @@ class WHV_VIRTUAL_PROCESSOR_STATE_TYPE extends Win32Enum {
      * @type {Integer (Int32)}
      */
     static WHvVirtualProcessorStateTypeXsaveState => 4097
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static WHvVirtualProcessorStateTypeNestedState => 4098
 }

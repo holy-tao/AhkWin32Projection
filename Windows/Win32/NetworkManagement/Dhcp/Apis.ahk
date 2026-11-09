@@ -431,6 +431,11 @@ class Dhcp {
     /**
      * @type {Integer (UInt32)}
      */
+    static OPTION_CAPTIVE_PORTAL => 114
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static OPTION_DNR => 162
 
     /**
@@ -1727,6 +1732,11 @@ class Dhcp {
      * @type {Integer (UInt32)}
      */
     static DHCPV6_OPTION_NISP_DOMAIN_NAME => 30
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static DHCPV6_OPTION_CAPTIVE_PORTAL => 103
 
     /**
      * @type {Integer (UInt32)}

@@ -264,5 +264,10 @@ class JOBOBJECTINFOCLASS extends Win32Enum {
     /**
      * @type {Integer (Int32)}
      */
-    static MaxJobObjectInfoClass => 52
+    static JobObjectCpuPartition => 52
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static MaxJobObjectInfoClass => 53
 }

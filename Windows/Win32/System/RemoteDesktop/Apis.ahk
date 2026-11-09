@@ -402,6 +402,16 @@ class RemoteDesktop {
     static WRDS_LICENSE_PREAMBLE_VERSION => 3
 
     /**
+     * @type {Guid}
+     */
+    static WRDS_CREDENTIAL_SCENARIO_INTERACTIVE_UNLOCK => Guid("{b419e9ce-25cd-44bc-8da5-6ff75edd1e28}")
+
+    /**
+     * @type {Guid}
+     */
+    static WRDS_CREDENTIAL_SCENARIO_INTERACTIVE_LOGON => Guid("{75cc6d06-3a48-43a1-bcd0-cb46eb8f9aae}")
+
+    /**
      * @type {Integer (UInt32)}
      */
     static SINGLE_SESSION => 1
@@ -1240,6 +1250,11 @@ class RemoteDesktop {
      * @type {Guid}
      */
     static RDCLIENT_BITMAP_RENDER_SERVICE => Guid("{e4cc08cb-942e-4b19-8504-bd5a89a747f5}")
+
+    /**
+     * @type {Guid}
+     */
+    static RDCLIENT_WINDOW_INFO_SERVICE => Guid("{a9a17a6b-cdb3-4e81-b5c8-bd63822a8d6c}")
 
     /**
      * @type {Guid}

@@ -257,7 +257,7 @@ class XAudio2 {
     /**
      * @type {Integer (UInt32)}
      */
-    static XAUDIO2_MAX_SAMPLE_RATE => 200000
+    static XAUDIO2_MAX_SAMPLE_RATE => 384000
 
     /**
      * @type {Float}
@@ -1027,7 +1027,7 @@ class XAudio2 {
     /**
      * @type {Integer (UInt32)}
      */
-    static XAPO_MAX_FRAMERATE => 200000
+    static XAPO_MAX_FRAMERATE => 384000
 
     /**
      * @type {Integer (UInt32)}

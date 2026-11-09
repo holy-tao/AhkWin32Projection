@@ -81,66 +81,12 @@ class IServicePool extends IUnknown {
     /**
      * Retrieves an object from the object pool.
      * @param {Pointer<Guid>} riid A reference to the identifier of the object requested.
-     * @param {Pointer<Pointer<Void>>} ppv The requested object.
-     * @returns {HRESULT} This method can return the following values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The method completed successfully.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>CO_E_ACTIVATION_FAILED</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Object activation failed.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>CO_E_ACTIVATIONFAILED_TIMEOUT</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Object activation failed due to time-out.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>CO_E_NOTINITIALIZED</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The object pool was not initialized.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Pointer<Void>} The requested object.
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-iservicepool-getobject
      */
-    GetObject(riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(4, this, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+    GetObject(riid) {
+        result := ComCall(4, this, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 
     /**

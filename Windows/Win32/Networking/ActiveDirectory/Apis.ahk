@@ -749,6 +749,11 @@ class ActiveDirectory {
     /**
      * @type {Integer (UInt32)}
      */
+    static DS_DIRECTORY_SERVICE_12_REQUIRED => 67108864
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static DS_RETURN_DNS_NAME => 1073741824
 
     /**
@@ -845,6 +850,11 @@ class ActiveDirectory {
      * @type {Integer (UInt32)}
      */
     static DS_DS_13_FLAG => 262144
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static DS_DS_12_FLAG => 524288
 
     /**
      * @type {Integer (UInt32)}
@@ -3587,24 +3597,17 @@ class ActiveDirectory {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * Interface identifier for a specified interface on this object.
-     * @param {Pointer<Pointer<Void>>} ppObject Type: <b>VOID**</b>
+     * @returns {Pointer<Void>} Type: <b>VOID**</b>
      * 
      * Pointer to a pointer to the requested Interface.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * This method supports the standard <b>HRESULT</b> return values, as well as the following.
-     * 
-     * For more information about other return values, see  <a href="https://docs.microsoft.com/windows/desktop/ADSI/adsi-error-codes">ADSI Error Codes</a>.
      * @see https://learn.microsoft.com/windows/win32/api/adshlp/nf-adshlp-adsgetobject
      * @since windows6.0.6000
      */
-    static ADsGetObject(lpszPathName, riid, ppObject) {
+    static ADsGetObject(lpszPathName, riid) {
         lpszPathName := lpszPathName is String ? StrPtr(lpszPathName) : lpszPathName
 
-        ppObjectMarshal := ppObject is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("ACTIVEDS.dll\ADsGetObject", "ptr", lpszPathName, "ptr", riid, ppObjectMarshal, ppObject, "HRESULT")
-        return result
+        result := DllCall("ACTIVEDS.dll\ADsGetObject", "ptr", lpszPathName, "ptr", riid, "ptr*", &ppObject := 0, "HRESULT")
+        return ppObject
     }
 
     /**
@@ -3849,26 +3852,19 @@ class ActiveDirectory {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * Interface identifier for the requested interface on this object.
-     * @param {Pointer<Pointer<Void>>} ppObject Type: <b>VOID**</b>
+     * @returns {Pointer<Void>} Type: <b>VOID**</b>
      * 
      * Pointer to a  pointer to the requested interface.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * This method supports the standard <b>HRESULT</b> return values, including the following.
-     * 
-     * For more information, see  <a href="https://docs.microsoft.com/windows/desktop/ADSI/adsi-error-codes">ADSI Error Codes</a>.
      * @see https://learn.microsoft.com/windows/win32/api/adshlp/nf-adshlp-adsopenobject
      * @since windows6.0.6000
      */
-    static ADsOpenObject(lpszPathName, lpszUserName, lpszPassword, dwReserved, riid, ppObject) {
+    static ADsOpenObject(lpszPathName, lpszUserName, lpszPassword, dwReserved, riid) {
         lpszPathName := lpszPathName is String ? StrPtr(lpszPathName) : lpszPathName
         lpszUserName := lpszUserName is String ? StrPtr(lpszUserName) : lpszUserName
         lpszPassword := lpszPassword is String ? StrPtr(lpszPassword) : lpszPassword
 
-        ppObjectMarshal := ppObject is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("ACTIVEDS.dll\ADsOpenObject", "ptr", lpszPathName, "ptr", lpszUserName, "ptr", lpszPassword, "uint", dwReserved, "ptr", riid, ppObjectMarshal, ppObject, "HRESULT")
-        return result
+        result := DllCall("ACTIVEDS.dll\ADsOpenObject", "ptr", lpszPathName, "ptr", lpszUserName, "ptr", lpszPassword, "uint", dwReserved, "ptr", riid, "ptr*", &ppObject := 0, "HRESULT")
+        return ppObject
     }
 
     /**

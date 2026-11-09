@@ -216,19 +216,17 @@ class ClrHosting {
      * @param {Integer} startupFlags 
      * @param {Pointer<Guid>} rclsid 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    static CorBindToRuntimeHost(pwszVersion, pwszBuildFlavor, pwszHostConfigFile, pReserved, startupFlags, rclsid, riid, ppv) {
+    static CorBindToRuntimeHost(pwszVersion, pwszBuildFlavor, pwszHostConfigFile, pReserved, startupFlags, rclsid, riid) {
         pwszVersion := pwszVersion is String ? StrPtr(pwszVersion) : pwszVersion
         pwszBuildFlavor := pwszBuildFlavor is String ? StrPtr(pwszBuildFlavor) : pwszBuildFlavor
         pwszHostConfigFile := pwszHostConfigFile is String ? StrPtr(pwszHostConfigFile) : pwszHostConfigFile
 
         pReservedMarshal := pReserved is VarRef ? "ptr" : "ptr"
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("MSCorEE.dll\CorBindToRuntimeHost", "ptr", pwszVersion, "ptr", pwszBuildFlavor, "ptr", pwszHostConfigFile, pReservedMarshal, pReserved, "uint", startupFlags, "ptr", rclsid, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+        result := DllCall("MSCorEE.dll\CorBindToRuntimeHost", "ptr", pwszVersion, "ptr", pwszBuildFlavor, "ptr", pwszHostConfigFile, pReservedMarshal, pReserved, "uint", startupFlags, "ptr", rclsid, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 
     /**
@@ -237,17 +235,14 @@ class ClrHosting {
      * @param {Integer} startupFlags 
      * @param {Pointer<Guid>} rclsid 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    static CorBindToRuntimeEx(pwszVersion, pwszBuildFlavor, startupFlags, rclsid, riid, ppv) {
+    static CorBindToRuntimeEx(pwszVersion, pwszBuildFlavor, startupFlags, rclsid, riid) {
         pwszVersion := pwszVersion is String ? StrPtr(pwszVersion) : pwszVersion
         pwszBuildFlavor := pwszBuildFlavor is String ? StrPtr(pwszBuildFlavor) : pwszBuildFlavor
 
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("MSCorEE.dll\CorBindToRuntimeEx", "ptr", pwszVersion, "ptr", pwszBuildFlavor, "uint", startupFlags, "ptr", rclsid, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+        result := DllCall("MSCorEE.dll\CorBindToRuntimeEx", "ptr", pwszVersion, "ptr", pwszBuildFlavor, "uint", startupFlags, "ptr", rclsid, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 
     /**
@@ -256,14 +251,11 @@ class ClrHosting {
      * @param {Integer} startupFlags 
      * @param {Pointer<Guid>} rclsid 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    static CorBindToRuntimeByCfg(pCfgStream, reserved, startupFlags, rclsid, riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("MSCorEE.dll\CorBindToRuntimeByCfg", "ptr", pCfgStream, "uint", reserved, "uint", startupFlags, "ptr", rclsid, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+    static CorBindToRuntimeByCfg(pCfgStream, reserved, startupFlags, rclsid, riid) {
+        result := DllCall("MSCorEE.dll\CorBindToRuntimeByCfg", "ptr", pCfgStream, "uint", reserved, "uint", startupFlags, "ptr", rclsid, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 
     /**
@@ -271,48 +263,39 @@ class ClrHosting {
      * @param {PWSTR} pwszBuildFlavor 
      * @param {Pointer<Guid>} rclsid 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    static CorBindToRuntime(pwszVersion, pwszBuildFlavor, rclsid, riid, ppv) {
+    static CorBindToRuntime(pwszVersion, pwszBuildFlavor, rclsid, riid) {
         pwszVersion := pwszVersion is String ? StrPtr(pwszVersion) : pwszVersion
         pwszBuildFlavor := pwszBuildFlavor is String ? StrPtr(pwszBuildFlavor) : pwszBuildFlavor
 
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("MSCorEE.dll\CorBindToRuntime", "ptr", pwszVersion, "ptr", pwszBuildFlavor, "ptr", rclsid, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+        result := DllCall("MSCorEE.dll\CorBindToRuntime", "ptr", pwszVersion, "ptr", pwszBuildFlavor, "ptr", rclsid, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 
     /**
      * @param {PWSTR} pwszFileName 
      * @param {Pointer<Guid>} rclsid 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    static CorBindToCurrentRuntime(pwszFileName, rclsid, riid, ppv) {
+    static CorBindToCurrentRuntime(pwszFileName, rclsid, riid) {
         pwszFileName := pwszFileName is String ? StrPtr(pwszFileName) : pwszFileName
 
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("MSCorEE.dll\CorBindToCurrentRuntime", "ptr", pwszFileName, "ptr", rclsid, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+        result := DllCall("MSCorEE.dll\CorBindToCurrentRuntime", "ptr", pwszFileName, "ptr", rclsid, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 
     /**
      * @param {PWSTR} pTypeName 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppObject 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    static ClrCreateManagedInstance(pTypeName, riid, ppObject) {
+    static ClrCreateManagedInstance(pTypeName, riid) {
         pTypeName := pTypeName is String ? StrPtr(pTypeName) : pTypeName
 
-        ppObjectMarshal := ppObject is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("MSCorEE.dll\ClrCreateManagedInstance", "ptr", pTypeName, "ptr", riid, ppObjectMarshal, ppObject, "HRESULT")
-        return result
+        result := DllCall("MSCorEE.dll\ClrCreateManagedInstance", "ptr", pTypeName, "ptr", riid, "ptr*", &ppObject := 0, "HRESULT")
+        return ppObject
     }
 
     /**

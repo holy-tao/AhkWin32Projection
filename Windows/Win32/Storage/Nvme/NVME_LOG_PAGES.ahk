@@ -160,10 +160,10 @@ class NVME_LOG_PAGES extends Win32Enum {
     static PAGE_COMMAND_AND_FEATURE_LOCKDOWN => 20
 
     /**
-     * Native name: NVME_LOG_PAGE_BOOT_PARTITON
+     * Native name: NVME_LOG_PAGE_BOOT_PARTITION
      * @type {Integer (Int32)}
      */
-    static PAGE_BOOT_PARTITON => 21
+    static PAGE_BOOT_PARTITION => 21
 
     /**
      * Native name: NVME_LOG_PAGE_ROTATIONAL_MEDIA_INFORMATION

@@ -3,6 +3,7 @@
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
+ * @architecture X64
  */
 class WHV_PROCESSOR_XSAVE_FEATURES extends Win32Struct {
     static sizeof => 16
@@ -42,6 +43,13 @@ class WHV_PROCESSOR_XSAVE_FEATURES extends Win32Struct {
      * - AmxBf16Support
      * - AmxInt8Support
      * - AvxVnniSupport
+     * - AvxIfmaSupport
+     * - AvxNeConvertSupport
+     * - AvxVnniInt8Support
+     * - AvxVnniInt16Support
+     * - Avx10_1_256Support
+     * - Avx10_1_512Support
+     * - AmxFp16Support
      * - Reserved
      * @type {Integer}
      */
@@ -296,6 +304,62 @@ class WHV_PROCESSOR_XSAVE_FEATURES extends Win32Struct {
     AvxVnniSupport {
         get => (this._bitfield >> 30) & 0x1
         set => this._bitfield := ((value & 0x1) << 30) | (this._bitfield & ~(0x1 << 30))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    AvxIfmaSupport {
+        get => (this._bitfield >> 31) & 0x1
+        set => this._bitfield := ((value & 0x1) << 31) | (this._bitfield & ~(0x1 << 31))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    AvxNeConvertSupport {
+        get => (this._bitfield >> 32) & 0x1
+        set => this._bitfield := ((value & 0x1) << 32) | (this._bitfield & ~(0x1 << 32))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    AvxVnniInt8Support {
+        get => (this._bitfield >> 33) & 0x1
+        set => this._bitfield := ((value & 0x1) << 33) | (this._bitfield & ~(0x1 << 33))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    AvxVnniInt16Support {
+        get => (this._bitfield >> 34) & 0x1
+        set => this._bitfield := ((value & 0x1) << 34) | (this._bitfield & ~(0x1 << 34))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Avx10_1_256Support {
+        get => (this._bitfield >> 35) & 0x1
+        set => this._bitfield := ((value & 0x1) << 35) | (this._bitfield & ~(0x1 << 35))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Avx10_1_512Support {
+        get => (this._bitfield >> 36) & 0x1
+        set => this._bitfield := ((value & 0x1) << 36) | (this._bitfield & ~(0x1 << 36))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    AmxFp16Support {
+        get => (this._bitfield >> 37) & 0x1
+        set => this._bitfield := ((value & 0x1) << 37) | (this._bitfield & ~(0x1 << 37))
     }
 
     /**

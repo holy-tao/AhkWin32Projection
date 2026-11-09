@@ -8,6 +8,7 @@
 #Include .\PROCESSOR_CACHE_TYPE.ahk
 #Include .\PROCESSOR_GROUP_INFO.ahk
 #Include .\PROCESSOR_RELATIONSHIP.ahk
+#Include ..\SystemServices\SHARED_COMPUTE_UNIT_RELATIONSHIP.ahk
 
 /**
  * Contains information about the relationships of logical processors and related hardware. The GetLogicalProcessorInformationEx function uses this structure.
@@ -78,6 +79,17 @@ class SYSTEM_LOGICAL_PROCESSOR_INFORMATION_EX extends Win32Struct {
             if(!this.HasProp("__Group"))
                 this.__Group := GROUP_RELATIONSHIP(8, this)
             return this.__Group
+        }
+    }
+
+    /**
+     * @type {SHARED_COMPUTE_UNIT_RELATIONSHIP}
+     */
+    SharedComputeUnit {
+        get {
+            if(!this.HasProp("__SharedComputeUnit"))
+                this.__SharedComputeUnit := SHARED_COMPUTE_UNIT_RELATIONSHIP(8, this)
+            return this.__SharedComputeUnit
         }
     }
 }

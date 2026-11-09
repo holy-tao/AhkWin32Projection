@@ -3067,6 +3067,11 @@ class MediaFoundation {
     /**
      * @type {Guid}
      */
+    static MFSampleExtension_VideoEncodeD3D12ReconstructedPicture => Guid("{3e8a1b7f-5c92-4d6e-b834-f0a729e65c48}")
+
+    /**
+     * @type {Guid}
+     */
     static MFSampleExtension_PhotoThumbnail => Guid("{74bbc85c-c8bb-42dc-b586-da17ffd35dcc}")
 
     /**
@@ -10568,6 +10573,11 @@ class MediaFoundation {
     /**
      * @type {Guid}
      */
+    static MF_READWRITE_USE_ONLY_HARDWARE_TRANSFORMS => Guid("{f9074427-bf8b-4f69-bbaf-524969056fb6}")
+
+    /**
+     * @type {Guid}
+     */
     static MF_READWRITE_MMCSS_CLASS => Guid("{39384300-d0eb-40b1-87a0-3318871b5a53}")
 
     /**
@@ -12124,34 +12134,13 @@ class MediaFoundation {
     /**
      * Creates the scheme handler for the network source.
      * @param {Pointer<Guid>} riid Interface identifier (IID) of the interface to retrieve.
-     * @param {Pointer<Pointer<Void>>} ppvHandler Receives a pointer to the requested interface. The caller must release the interface. The scheme handler exposes the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfschemehandler">IMFSchemeHandler</a> interface.
-     * @returns {HRESULT} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The function succeeded.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Pointer<Void>} Receives a pointer to the requested interface. The caller must release the interface. The scheme handler exposes the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfschemehandler">IMFSchemeHandler</a> interface.
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-mfcreatenetschemeplugin
      * @since windows6.0.6000
      */
-    static MFCreateNetSchemePlugin(riid, ppvHandler) {
-        ppvHandlerMarshal := ppvHandler is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("MF.dll\MFCreateNetSchemePlugin", "ptr", riid, ppvHandlerMarshal, ppvHandler, "HRESULT")
-        return result
+    static MFCreateNetSchemePlugin(riid) {
+        result := DllCall("MF.dll\MFCreateNetSchemePlugin", "ptr", riid, "ptr*", &ppvHandler := 0, "HRESULT")
+        return ppvHandler
     }
 
     /**

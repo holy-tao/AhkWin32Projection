@@ -3,6 +3,7 @@
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
+ * @architecture X64, Arm64
  */
 class WHV_SYNIC_EVENT_PARAMETERS extends Win32Struct {
     static sizeof => 8
@@ -28,7 +29,7 @@ class WHV_SYNIC_EVENT_PARAMETERS extends Win32Struct {
     /**
      * @type {Integer}
      */
-    Reserved {
+    TargetVtl {
         get => NumGet(this, 5, "char")
         set => NumPut("char", value, this, 5)
     }

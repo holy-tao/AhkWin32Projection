@@ -9,6 +9,7 @@
 #Include .\ARM64_NT_NEON128.ahk
 #Include .\CONTEXT.ahk
 #Include .\CONTEXT_FLAGS.ahk
+#Include .\MINIDUMP_COMPRESSED_MEMORY_STREAM_FINISH_CALLBACK.ahk
 #Include .\MINIDUMP_INCLUDE_MODULE_CALLBACK.ahk
 #Include .\MINIDUMP_INCLUDE_THREAD_CALLBACK.ahk
 #Include .\MINIDUMP_IO_CALLBACK.ahk
@@ -190,6 +191,17 @@ class MINIDUMP_CALLBACK_INPUT extends Win32Struct {
             if(!this.HasProp("__VmPostRead"))
                 this.__VmPostRead := MINIDUMP_VM_POST_READ_CALLBACK(24, this)
             return this.__VmPostRead
+        }
+    }
+
+    /**
+     * @type {MINIDUMP_COMPRESSED_MEMORY_STREAM_FINISH_CALLBACK}
+     */
+    CompressedMemoryStreamFinish {
+        get {
+            if(!this.HasProp("__CompressedMemoryStreamFinish"))
+                this.__CompressedMemoryStreamFinish := MINIDUMP_COMPRESSED_MEMORY_STREAM_FINISH_CALLBACK(24, this)
+            return this.__CompressedMemoryStreamFinish
         }
     }
 }

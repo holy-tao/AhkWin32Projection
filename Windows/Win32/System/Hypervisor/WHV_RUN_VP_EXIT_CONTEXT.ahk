@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\WHV_HYPERCALL_CONTEXT.ahk
 #Include .\WHV_MEMORY_ACCESS_CONTEXT.ahk
 #Include .\WHV_MEMORY_ACCESS_INFO.ahk
 #Include .\WHV_RUN_VP_CANCELED_CONTEXT.ahk
@@ -10,13 +9,13 @@
 #Include .\WHV_UINT128.ahk
 #Include .\WHV_VP_EXCEPTION_CONTEXT.ahk
 #Include .\WHV_VP_EXCEPTION_INFO.ahk
-#Include .\WHV_VP_EXIT_CONTEXT.ahk
 #Include .\WHV_X64_APIC_EOI_CONTEXT.ahk
 #Include .\WHV_X64_APIC_INIT_SIPI_CONTEXT.ahk
 #Include .\WHV_X64_APIC_SMI_CONTEXT.ahk
 #Include .\WHV_X64_APIC_WRITE_CONTEXT.ahk
 #Include .\WHV_X64_APIC_WRITE_TYPE.ahk
 #Include .\WHV_X64_CPUID_ACCESS_CONTEXT.ahk
+#Include .\WHV_X64_HYPERCALL_CONTEXT.ahk
 #Include .\WHV_X64_INTERRUPTION_DELIVERABLE_CONTEXT.ahk
 #Include .\WHV_X64_IO_PORT_ACCESS_CONTEXT.ahk
 #Include .\WHV_X64_IO_PORT_ACCESS_INFO.ahk
@@ -29,9 +28,11 @@
 #Include .\WHV_X64_UNSUPPORTED_FEATURE_CODE.ahk
 #Include .\WHV_X64_UNSUPPORTED_FEATURE_CONTEXT.ahk
 #Include .\WHV_X64_VP_EXECUTION_STATE.ahk
+#Include .\WHV_X64_VP_EXIT_CONTEXT.ahk
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
+ * @architecture X64
  */
 class WHV_RUN_VP_EXIT_CONTEXT extends Win32Struct {
     static sizeof => 328
@@ -55,12 +56,12 @@ class WHV_RUN_VP_EXIT_CONTEXT extends Win32Struct {
     }
 
     /**
-     * @type {WHV_VP_EXIT_CONTEXT}
+     * @type {WHV_X64_VP_EXIT_CONTEXT}
      */
     VpContext {
         get {
             if(!this.HasProp("__VpContext"))
-                this.__VpContext := WHV_VP_EXIT_CONTEXT(8, this)
+                this.__VpContext := WHV_X64_VP_EXIT_CONTEXT(8, this)
             return this.__VpContext
         }
     }
@@ -73,6 +74,39 @@ class WHV_RUN_VP_EXIT_CONTEXT extends Win32Struct {
             if(!this.HasProp("__MemoryAccess"))
                 this.__MemoryAccess := WHV_MEMORY_ACCESS_CONTEXT(56, this)
             return this.__MemoryAccess
+        }
+    }
+
+    /**
+     * @type {WHV_RUN_VP_CANCELED_CONTEXT}
+     */
+    CancelReason {
+        get {
+            if(!this.HasProp("__CancelReason"))
+                this.__CancelReason := WHV_RUN_VP_CANCELED_CONTEXT(56, this)
+            return this.__CancelReason
+        }
+    }
+
+    /**
+     * @type {WHV_X64_HYPERCALL_CONTEXT}
+     */
+    Hypercall {
+        get {
+            if(!this.HasProp("__Hypercall"))
+                this.__Hypercall := WHV_X64_HYPERCALL_CONTEXT(56, this)
+            return this.__Hypercall
+        }
+    }
+
+    /**
+     * @type {WHV_SYNIC_SINT_DELIVERABLE_CONTEXT}
+     */
+    SynicSintDeliverable {
+        get {
+            if(!this.HasProp("__SynicSintDeliverable"))
+                this.__SynicSintDeliverable := WHV_SYNIC_SINT_DELIVERABLE_CONTEXT(56, this)
+            return this.__SynicSintDeliverable
         }
     }
 
@@ -143,17 +177,6 @@ class WHV_RUN_VP_EXIT_CONTEXT extends Win32Struct {
     }
 
     /**
-     * @type {WHV_RUN_VP_CANCELED_CONTEXT}
-     */
-    CancelReason {
-        get {
-            if(!this.HasProp("__CancelReason"))
-                this.__CancelReason := WHV_RUN_VP_CANCELED_CONTEXT(56, this)
-            return this.__CancelReason
-        }
-    }
-
-    /**
      * @type {WHV_X64_APIC_EOI_CONTEXT}
      */
     ApicEoi {
@@ -187,17 +210,6 @@ class WHV_RUN_VP_EXIT_CONTEXT extends Win32Struct {
     }
 
     /**
-     * @type {WHV_HYPERCALL_CONTEXT}
-     */
-    Hypercall {
-        get {
-            if(!this.HasProp("__Hypercall"))
-                this.__Hypercall := WHV_HYPERCALL_CONTEXT(56, this)
-            return this.__Hypercall
-        }
-    }
-
-    /**
      * @type {WHV_X64_APIC_INIT_SIPI_CONTEXT}
      */
     ApicInitSipi {
@@ -220,13 +232,13 @@ class WHV_RUN_VP_EXIT_CONTEXT extends Win32Struct {
     }
 
     /**
-     * @type {WHV_SYNIC_SINT_DELIVERABLE_CONTEXT}
+     * @type {Array<Integer>}
      */
-    SynicSintDeliverable {
+    AsUINT64 {
         get {
-            if(!this.HasProp("__SynicSintDeliverable"))
-                this.__SynicSintDeliverable := WHV_SYNIC_SINT_DELIVERABLE_CONTEXT(56, this)
-            return this.__SynicSintDeliverable
+            if(!this.HasProp("__AsUINT64ProxyArray"))
+                this.__AsUINT64ProxyArray := Win32FixedArray(this.ptr + 56, 22, Primitive, "uint")
+            return this.__AsUINT64ProxyArray
         }
     }
 }

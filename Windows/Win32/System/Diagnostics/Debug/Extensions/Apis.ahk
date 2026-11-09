@@ -1378,6 +1378,21 @@ class Extensions {
     /**
      * @type {Integer (UInt32)}
      */
+    static IMAGE_FILE_MACHINE_CHPE_X86 => 14948
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static IMAGE_FILE_MACHINE_ARM64EC => 42561
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static IMAGE_FILE_MACHINE_ARM64X => 42574
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static DEBUG_CLASS_UNINITIALIZED => 0
 
     /**
@@ -2959,6 +2974,16 @@ class Extensions {
      * @type {Integer (UInt32)}
      */
     static DEBUG_CES_TEXT_REPLACEMENTS => 16384
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static DEBUG_CES_VIEWS => 32768
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static DEBUG_CES_STEP_FILTERS => 65536
 
     /**
      * @type {Integer (UInt32)}

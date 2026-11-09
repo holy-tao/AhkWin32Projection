@@ -3,6 +3,7 @@
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
+ * @architecture X64
  */
 class WHV_X64_CPUID_RESULT2_FLAGS extends Win32BitflagEnum {
 

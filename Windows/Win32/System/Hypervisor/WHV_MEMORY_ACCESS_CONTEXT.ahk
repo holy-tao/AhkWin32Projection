@@ -4,9 +4,10 @@
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
+ * @architecture X64
  */
 class WHV_MEMORY_ACCESS_CONTEXT extends Win32Struct {
-    static sizeof => 48
+    static sizeof => 40
 
     static packingSize => 8
 
@@ -55,15 +56,15 @@ class WHV_MEMORY_ACCESS_CONTEXT extends Win32Struct {
      * @type {Integer}
      */
     Gpa {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 
     /**
      * @type {Integer}
      */
     Gva {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 }

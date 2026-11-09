@@ -3,8 +3,10 @@
 #Include ..\..\..\Foundation\BOOL.ahk
 #Include ..\..\..\Foundation\HANDLE.ahk
 #Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\MINIDUMP_COMPRESSED_MEMORY_STREAM_START_CALLBACK.ahk
 #Include .\MINIDUMP_MEMORY_INFO.ahk
 #Include ..\..\Memory\VIRTUAL_ALLOCATION_TYPE.ahk
+#Include ..\..\SystemInformation\NUMA_NODE_RELATIONSHIP.ahk
 
 /**
  * Contains information returned by the MiniDumpCallback function.
@@ -135,6 +137,17 @@ class MINIDUMP_CALLBACK_OUTPUT extends Win32Struct {
     VmReadBytesCompleted {
         get => NumGet(this, 4, "uint")
         set => NumPut("uint", value, this, 4)
+    }
+
+    /**
+     * @type {MINIDUMP_COMPRESSED_MEMORY_STREAM_START_CALLBACK}
+     */
+    CompressedMemoryStreamStart {
+        get {
+            if(!this.HasProp("__CompressedMemoryStreamStart"))
+                this.__CompressedMemoryStreamStart := MINIDUMP_COMPRESSED_MEMORY_STREAM_START_CALLBACK(0, this)
+            return this.__CompressedMemoryStreamStart
+        }
     }
 
     /**

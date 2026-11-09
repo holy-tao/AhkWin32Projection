@@ -587,7 +587,7 @@ class UpdateAgent {
     /**
      * @type {Integer (Int32)}
      */
-    static WU_E_STANDBY_ACTIVITY_NOT_ALLOWED => -2145124249
+    static WU_E_FEATURE_CONTAINMENT_NOT_ENABLED => -2145124249
 
     /**
      * @type {Integer (Int32)}
@@ -608,6 +608,11 @@ class UpdateAgent {
      * @type {Integer (Int32)}
      */
     static WU_E_SERVICE_REENABLE_ACCESS_DENIED => -2145124245
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static WU_E_UPDATE_SESSIONDATA_CONFLICT => -2145124244
 
     /**
      * @type {Integer (Int32)}
@@ -1467,6 +1472,21 @@ class UpdateAgent {
     /**
      * @type {Integer (Int32)}
      */
+    static WU_E_DS_UNKNOWNSERVICE_NOTFOUND => -2145091542
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static WU_E_DS_UNKNOWNSERVICE_DELETEPENDING => -2145091541
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static WU_E_DS_UNKNOWNSERVICE_REMOVED => -2145091540
+
+    /**
+     * @type {Integer (Int32)}
+     */
     static WU_E_DS_UNEXPECTED => -2145087489
 
     /**
@@ -1733,6 +1753,21 @@ class UpdateAgent {
      * @type {Integer (Int32)}
      */
     static WU_E_UH_RESERVICING_REQUIRED_BASELINE => -2145116122
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static WU_E_UH_TIMEOUT => -2145116121
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static WU_E_UH_DRV_PREINSTALL_OPERATION_FAILED => -2145116120
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static WU_E_UH_DRV_INSTALL_REJECTED_REBOOT_LEVEL => -2145116119
 
     /**
      * @type {Integer (Int32)}
