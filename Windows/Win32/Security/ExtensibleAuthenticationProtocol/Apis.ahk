@@ -575,6 +575,11 @@ class ExtensibleAuthenticationProtocol {
     /**
      * @type {Integer (UInt32)}
      */
+    static EAP_FLAG_DISABLE_SESSION_RESUMPTION => 67108864
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static EAP_CONFIG_INPUT_FIELD_PROPS_DEFAULT => 0
 
     /**

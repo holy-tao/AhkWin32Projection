@@ -56,4 +56,10 @@ class PackageOrigin extends Win32Enum {
      * @type {Integer (Int32)}
      */
     static LineOfBusiness => 6
+
+    /**
+     * Native name: PackageOrigin_SignedSBOM
+     * @type {Integer (Int32)}
+     */
+    static SignedSBOM => 7
 }

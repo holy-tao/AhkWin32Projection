@@ -34,12 +34,47 @@ class XSAVE_ARM64_SVE_HEADER extends Win32Struct {
     }
 
     /**
+     * @type {Integer}
+     */
+    Flags {
+        get => NumGet(this, 12, "uint")
+        set => NumPut("uint", value, this, 12)
+    }
+
+    /**
+     * This bitfield backs the following members:
+     * - Sm
+     * - ReservedFlags
+     * @type {Integer}
+     */
+    _bitfield {
+        get => NumGet(this, 12, "uint")
+        set => NumPut("uint", value, this, 12)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Sm {
+        get => (this._bitfield >> 0) & 0x1
+        set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    ReservedFlags {
+        get => (this._bitfield >> 1) & 0x7FFFFFFF
+        set => this._bitfield := ((value & 0x7FFFFFFF) << 1) | (this._bitfield & ~(0x7FFFFFFF << 1))
+    }
+
+    /**
      * @type {Array<Integer>}
      */
     Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 12, 5, Primitive, "uint")
+                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 16, 4, Primitive, "uint")
             return this.__ReservedProxyArray
         }
     }

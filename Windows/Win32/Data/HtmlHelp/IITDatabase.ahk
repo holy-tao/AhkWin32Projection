@@ -186,70 +186,12 @@ class IITDatabase extends IUnknown {
      * Retrieves a specified IUnknown-based interface on the object identified by the dwObjInstance parameter.
      * @param {Integer} dwObjInstance Identifier for object.
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppvObj Interface ID requested.
-     * @returns {HRESULT} This method can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The operation completed successfully.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument was not valid.
-     * 
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_NOTINIT</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The database has not been opened.
-     * 
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The memory required for internal structures could not be allocated.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Pointer<Void>} Interface ID requested.
      * @see https://learn.microsoft.com/windows/win32/api/infotech/nf-infotech-iitdatabase-getobject
      */
-    GetObject(dwObjInstance, riid, ppvObj) {
-        ppvObjMarshal := ppvObj is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(6, this, "uint", dwObjInstance, "ptr", riid, ppvObjMarshal, ppvObj, "HRESULT")
-        return result
+    GetObject(dwObjInstance, riid) {
+        result := ComCall(6, this, "uint", dwObjInstance, "ptr", riid, "ptr*", &ppvObj := 0, "HRESULT")
+        return ppvObj
     }
 
     /**

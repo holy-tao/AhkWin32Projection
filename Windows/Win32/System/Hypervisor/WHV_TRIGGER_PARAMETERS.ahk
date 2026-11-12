@@ -1,14 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\WHV_INTERRUPT_CONTROL.ahk
+#Include .\WHV_INTERRUPT_TYPE.ahk
 #Include .\WHV_SYNIC_EVENT_PARAMETERS.ahk
 #Include .\WHV_TRIGGER_TYPE.ahk
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
+ * @architecture X64, Arm64
  */
 class WHV_TRIGGER_PARAMETERS extends Win32Struct {
-    static sizeof => 32
+    static sizeof => 48
 
     static packingSize => 8
 

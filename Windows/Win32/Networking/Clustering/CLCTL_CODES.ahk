@@ -754,6 +754,12 @@ class CLCTL_CODES extends Win32Enum {
     static GET_NODE_NETWORK_CONNECTIVITY => 797
 
     /**
+     * Native name: CLCTL_RLUA_GET_PWD
+     * @type {Integer (Int32)}
+     */
+    static RLUA_GET_PWD => 802
+
+    /**
      * Native name: CLCTL_STORAGE_GET_AVAILABLE_DISKS_EX2_INT
      * @type {Integer (Int32)}
      */

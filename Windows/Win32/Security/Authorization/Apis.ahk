@@ -733,6 +733,11 @@ class Authorization {
     /**
      * @type {String}
      */
+    static SDDL_CUA_USERS => "CU"
+
+    /**
+     * @type {String}
+     */
     static SDDL_ML_LOW => "LW"
 
     /**

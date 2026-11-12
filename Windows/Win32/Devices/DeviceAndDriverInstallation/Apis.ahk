@@ -515,6 +515,11 @@ class DeviceAndDriverInstallation {
     /**
      * @type {Guid}
      */
+    static GUID_DEVCLASS_MIDIENDPOINT => Guid("{762ec895-f9c4-4107-a81a-08d8e437c3e5}")
+
+    /**
+     * @type {Guid}
+     */
     static GUID_DEVCLASS_MODEM => Guid("{4d36e96d-e325-11ce-bfc1-08002be10318}")
 
     /**
@@ -620,6 +625,11 @@ class DeviceAndDriverInstallation {
     /**
      * @type {Guid}
      */
+    static GUID_DEVCLASS_PROXIMITY => Guid("{5630831c-06c9-4856-b327-f5d32586e060}")
+
+    /**
+     * @type {Guid}
+     */
     static GUID_DEVCLASS_SBP2 => Guid("{d48179be-ec20-11d1-b6b8-00c04fa372a7}")
 
     /**
@@ -640,7 +650,17 @@ class DeviceAndDriverInstallation {
     /**
      * @type {Guid}
      */
+    static GUID_DEVCLASS_SDHOST => Guid("{a0a588a4-c46f-4b37-b7ea-c82fe89870c6}")
+
+    /**
+     * @type {Guid}
+     */
     static GUID_DEVCLASS_SECURITYACCELERATOR => Guid("{268c95a1-edfe-11d3-95c3-0010dc4050a5}")
+
+    /**
+     * @type {Guid}
+     */
+    static GUID_DEVCLASS_SECURITYDEVICES => Guid("{d94ee5d8-d189-4994-83d2-f68d7d41b0e6}")
 
     /**
      * @type {Guid}
@@ -671,6 +691,11 @@ class DeviceAndDriverInstallation {
      * @type {Guid}
      */
     static GUID_DEVCLASS_SOFTWARECOMPONENT => Guid("{5c4c3332-344d-483c-8739-259e934c9cc8}")
+
+    /**
+     * @type {Guid}
+     */
+    static GUID_DEVCLASS_SOFTWAREDEVICE => Guid("{62f9c741-b25a-46ce-b54c-9bccce08b6f2}")
 
     /**
      * @type {Guid}
@@ -706,6 +731,16 @@ class DeviceAndDriverInstallation {
      * @type {Guid}
      */
     static GUID_DEVCLASS_USB => Guid("{36fc9e60-c465-11cf-8056-444553540000}")
+
+    /**
+     * @type {Guid}
+     */
+    static GUID_DEVCLASS_USBDEVICE => Guid("{88bae032-5a81-49f0-bc3d-a4ff138216d6}")
+
+    /**
+     * @type {Guid}
+     */
+    static GUID_DEVCLASS_USBFUNCTIONCONTROLLER => Guid("{bbbe8734-08fa-4966-b6a6-4e5ad010cdd7}")
 
     /**
      * @type {Guid}
@@ -4825,6 +4860,11 @@ class DeviceAndDriverInstallation {
     /**
      * @type {Guid}
      */
+    static GUID_CXL_INTERFACE => Guid("{2e09f4ea-f674-4716-8c8e-45887658065f}")
+
+    /**
+     * @type {Guid}
+     */
     static GUID_BUS_INTERFACE_STANDARD => Guid("{496b8280-6f25-11d0-beaf-08002be2092f}")
 
     /**
@@ -5051,6 +5091,16 @@ class DeviceAndDriverInstallation {
      * @type {Guid}
      */
     static GUID_PCI_ATS_INTERFACE => Guid("{010a7fe8-96f5-4943-bedf-95e651b93412}")
+
+    /**
+     * @type {Guid}
+     */
+    static GUID_MTM_BUS_INTERFACE => Guid("{09b81ce9-9e67-4e37-9289-c6ecc3001972}")
+
+    /**
+     * @type {Guid}
+     */
+    static GUID_PCI_DOE_INTERFACE => Guid("{631801ec-40bd-474d-89d2-0fd9d7b3d6a9}")
 
     /**
      * @type {Guid}

@@ -1949,6 +1949,11 @@ class Foundation {
     /**
      * @type {Integer (Int32)}
      */
+    static STATUS_FAILED_SUBMITTED_DEVICE_COMMAND => -2147483594
+
+    /**
+     * @type {Integer (Int32)}
+     */
     static DBG_EXCEPTION_NOT_HANDLED => -2147418111
 
     /**
@@ -6604,6 +6609,11 @@ class Foundation {
     /**
      * @type {Integer (Int32)}
      */
+    static STATUS_DEVICE_NACKED => -1073740571
+
+    /**
+     * @type {Integer (Int32)}
+     */
     static STATUS_INVALID_TASK_NAME => -1073740544
 
     /**
@@ -6725,6 +6735,11 @@ class Foundation {
      * @type {Integer (Int32)}
      */
     static STATUS_FS_METADATA_INCONSISTENT => -1073740520
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_INVALID_OPLOCK_REQUEST => -1073740519
 
     /**
      * @type {Integer (Int32)}
@@ -7304,6 +7319,11 @@ class Foundation {
     /**
      * @type {Integer (Int32)}
      */
+    static STATUS_FIPS_FAILURE => -1073700855
+
+    /**
+     * @type {Integer (Int32)}
+     */
     static STATUS_IPSEC_QUEUE_OVERFLOW => -1073700848
 
     /**
@@ -7524,11 +7544,6 @@ class Foundation {
     /**
      * @type {Integer (Int32)}
      */
-    static STATUS_ADMINLESS_ACCESS_DENIED => -1073700348
-
-    /**
-     * @type {Integer (Int32)}
-     */
     static STATUS_APP_DATA_NOT_FOUND => -1073700223
 
     /**
@@ -7595,6 +7610,11 @@ class Foundation {
      * @type {Integer (Int32)}
      */
     static STATUS_CIMFS_IMAGE_VERSION_NOT_SUPPORTED => -1073692670
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_CIMFS_VERIFICATION_FAILED => -1073692669
 
     /**
      * @type {Integer (Int32)}
@@ -7880,6 +7900,11 @@ class Foundation {
      * @type {Integer (Int32)}
      */
     static STATUS_UNIONFS_NESTED_UNION_NOT_ALLOWED => -1058209780
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_UNIONFS_BOOT_LAYER_NOT_ATTACHED => -1058209779
 
     /**
      * @type {Integer (Int32)}
@@ -11534,6 +11559,11 @@ class Foundation {
     /**
      * @type {Integer (Int32)}
      */
+    static STATUS_FVE_BOOT_CRIT_DEVICE_UNEXPECTED_BEHAVIOR => -1071579045
+
+    /**
+     * @type {Integer (Int32)}
+     */
     static STATUS_FVE_FW_UPDATE_PCRS_BLOCK => -1071579044
 
     /**
@@ -11559,7 +11589,27 @@ class Foundation {
     /**
      * @type {Integer (Int32)}
      */
-    static STATUS_FVE_TPM_PCRS_DO_NOT_MATCH_LOG => -1071579039
+    static STATUS_FVE_NOT_ALLOWED_ON_EPHEMERAL_VOLUME => -1071579039
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_FVE_UNTRUSTED_OFFLOAD_STORAGE => -1071579038
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_FVE_TPM_PCRS_DO_NOT_MATCH_LOG => -1071579037
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_FVE_MISSING_PROTECTORS => -1071579036
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_FVE_VOLUME_HANDLE_OPEN => -1071579035
 
     /**
      * @type {Integer (Int32)}
@@ -13529,6 +13579,11 @@ class Foundation {
     /**
      * @type {Integer (Int32)}
      */
+    static STATUS_HV_DEVICE_ALREADY_IN_DOMAIN => -1070268314
+
+    /**
+     * @type {Integer (Int32)}
+     */
     static STATUS_HV_INVALID_CPU_GROUP_ID => -1070268305
 
     /**
@@ -13860,6 +13915,141 @@ class Foundation {
      * @type {Integer (Int32)}
      */
     static STATUS_VID_PROCESS_ALREADY_SET => -1070137296
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_VID_PARTITION_INVARIANTS_MISMATCH => -1070137295
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_VID_MEMORY_BLOCK_INVARIANTS_MISMATCH => -1070137294
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_VID_MEMORY_BLOCK_RESTORE_STATE_MISMATCH => -1070137293
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_VID_KSR_PERSISTED_ITEMS_STILL_REGISTERED => -1070137292
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_VID_MEMORY_PARTITION_SETUP_FAILED => -1070137291
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_VID_MEMORY_RESERVE_NOT_ENABLED => -1070137290
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_VID_MEMORY_BLOCK_PAGECOUNT_MISMATCH => -1070137289
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_VID_KSR_IOHANDLER_PROPERTY_MISMATCH => -1070137288
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_VID_KSR_MSR_HANDLER_PROPERTY_MISMATCH => -1070137287
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_VID_KSR_MEMORY_PARTITION_STATE_SIZE_MISMATCH => -1070137286
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_VID_KSR_METADATA_MISMATCH => -1070137285
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_VID_KSR_TOTAL_PAGE_COUNT_MISMATCH => -1070137284
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_VID_MBP_ARRAY_NOT_PERSISTED => -1070137283
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_VID_KSR_INVALID_PERSIST_ID => -1070137282
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_VID_KSR_INVALID_PERSISTENCE_OPTIONS => -1070137281
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_VID_GPA_RANGE_INVALID_FLAGS => -1070137280
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_VID_MEMORY_BLOCK_INVALID_FLAGS => -1070137279
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_VID_KSR_ALREADY_PERSISTED => -1070137278
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_VID_KSR_ALREADY_UNPERSISTED => -1070137277
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_VID_KSR_PERSISTENCE_DISALLOWED => -1070137276
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_VID_KSR_CLIENT_TYPE_MISMATCH => -1070137275
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_VID_KSR_INVALID_STATE => -1070137274
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_VID_KSR_NOT_READY => -1070137273
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_VID_GPA_RANGE_OVERLAP_PROHIBITED => -1070137272
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_VID_PARTITION_NOT_HIERARCHICAL_HOST => -1070137271
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_VID_GPA_RANGE_INVARIANTS_MISMATCH => -1070137270
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_VID_KSR_PSCI_HANDLER_PROPERTY_MISMATCH => -1070137269
 
     /**
      * @type {Integer (Int32)}
@@ -15424,6 +15614,11 @@ class Foundation {
     /**
      * @type {Integer (Int32)}
      */
+    static STATUS_SMB_ALTERNATIVE_PORT_CONFLICT => -1067646963
+
+    /**
+     * @type {Integer (Int32)}
+     */
     static STATUS_SECCORE_INVALID_COMMAND => -1058537472
 
     /**
@@ -15455,6 +15650,11 @@ class Foundation {
      * @type {Integer (Int32)}
      */
     static STATUS_VSMIDK_MODULUS_MISMATCH => -1069219835
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static STATUS_VSM_FW_MEASUREMENTS_SEAL_FAILURE => -1069219834
 
     /**
      * @type {Integer (Int32)}
@@ -19895,6 +20095,11 @@ class Foundation {
      * @type {Integer (Int32)}
      */
     static NTE_VBS_CANNOT_DECRYPT_KEY => -2146893766
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static NTE_FIPS_FAILURE => -2146893765
 
     /**
      * @type {Integer (Int32)}
@@ -27569,6 +27774,11 @@ class Foundation {
     /**
      * @type {Integer (Int32)}
      */
+    static FVE_E_BOOT_CRIT_DEVICE_UNEXPECTED_BEHAVIOR => -1070530291
+
+    /**
+     * @type {Integer (Int32)}
+     */
     static FVE_E_FW_UPDATE_PCRS_BLOCK => -1070530290
 
     /**
@@ -27609,7 +27819,27 @@ class Foundation {
     /**
      * @type {Integer (Int32)}
      */
-    static FVE_E_TPM_PCRS_DO_NOT_MATCH_LOG => -1070530282
+    static FVE_E_NOT_ALLOWED_ON_EPHEMERAL_VOLUME => -1070530282
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static FVE_E_UNTRUSTED_OFFLOAD_STORAGE => -1070530281
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static FVE_E_TPM_PCRS_DO_NOT_MATCH_LOG => -1070530280
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static FVE_E_MISSING_PROTECTORS => -1070530279
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static FVE_E_METHOD_MISMATCH => -1070530278
 
     /**
      * @type {Integer (Int32)}
@@ -28305,6 +28535,11 @@ class Foundation {
      * @type {Integer (Int32)}
      */
     static HCS_E_OPERATION_ALREADY_CANCELLED => -2143878879
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static HCS_E_INVALID_PROCESSOR_TOPOLOGY => -2143878878
 
     /**
      * @type {Integer (Int32)}
@@ -32454,6 +32689,11 @@ class Foundation {
     /**
      * @type {Integer (Int32)}
      */
+    static ERROR_SMB_ALTERNATIVE_PORT_CONFLICT => -1067646965
+
+    /**
+     * @type {Integer (Int32)}
+     */
     static WININET_E_OUT_OF_HANDLES => -2147012895
 
     /**
@@ -33784,6 +34024,16 @@ class Foundation {
     /**
      * @type {Integer (Int32)}
      */
+    static UTC_E_WINRE_COMPLIANCE_CAPTURE_FAILED => -2017128354
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static UTC_E_WINRE_ETM_ENABLED => -2017128353
+
+    /**
+     * @type {Integer (Int32)}
+     */
     static WINML_ERR_INVALID_DEVICE => -2003828735
 
     /**
@@ -34019,6 +34269,11 @@ class Foundation {
     /**
      * @type {Integer (Int32)}
      */
+    static UNIONFS_E_BOOT_LAYER_NOT_ATTACHED => -1994063859
+
+    /**
+     * @type {Integer (Int32)}
+     */
     static ERROR_PRM_HANDLER_NOT_FOUND => -920256000
 
     /**
@@ -34110,6 +34365,51 @@ class Foundation {
      * @type {Integer (Int32)}
      */
     static PPF_E_TRANSFORM_DIGEST_ALGO_NOT_PRESENT => -920125436
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static PPF_E_TRANSFORM_UNKNOWN_FORMAT => -920125435
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static PPF_E_JSONTX_INSERT_NO_MATCH_EVENTS => -920125434
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static PPF_E_JSONTX_MULTIPLE_MATCHES_FOR_UNIQUE => -920125433
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static PPF_E_TXGENBM_NO_EVENTS_GENERATED => -920125432
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static PPF_E_TRANSFORM_NOT_APPLICABLE => -920125431
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static PPF_E_JSONTX_NO_MATCH_EVENTS => -920125430
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static PPF_E_JSONTX_NO_NEW_EVENTS_TO_INSERT => -920125429
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static PPF_E_JSONTX_EMPTY_RULE => -920125428
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static PPF_E_JSONTX_EVENT_TYPE_ERROR => -920125427
 
     /**
      * @type {Integer (Int32)}

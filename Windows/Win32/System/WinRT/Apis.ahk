@@ -1120,7 +1120,8 @@ class WinRT {
     static RoRegisterActivationFactories(activatableClassIds, activationFactoryCallbacks, count) {
         activationFactoryCallbacksMarshal := activationFactoryCallbacks is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("api-ms-win-core-winrt-l1-1-0.dll\RoRegisterActivationFactories", "ptr", activatableClassIds, activationFactoryCallbacksMarshal, activationFactoryCallbacks, "uint", count, "ptr*", &cookie := 0, "HRESULT")
+        cookie := RO_REGISTRATION_COOKIE()
+        result := DllCall("api-ms-win-core-winrt-l1-1-0.dll\RoRegisterActivationFactories", "ptr", activatableClassIds, activationFactoryCallbacksMarshal, activationFactoryCallbacks, "uint", count, "ptr", cookie, "HRESULT")
         return cookie
     }
 
@@ -1134,6 +1135,8 @@ class WinRT {
      * @since windows8.0
      */
     static RoRevokeActivationFactories(cookie) {
+        cookie := cookie is Win32Handle ? NumGet(cookie, "ptr") : cookie
+
         DllCall("api-ms-win-core-winrt-l1-1-0.dll\RoRevokeActivationFactories", "ptr", cookie)
     }
 

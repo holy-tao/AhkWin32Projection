@@ -3,6 +3,7 @@
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
+ * @architecture X64
  */
 class WHV_REGISTER_NAME extends Win32Enum {
 
@@ -759,6 +760,111 @@ class WHV_REGISTER_NAME extends Win32Enum {
     /**
      * @type {Integer (Int32)}
      */
+    static WHvX64RegisterMsrIa32MiscEnable => 8352
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static WHvX64RegisterIa32FeatureControl => 8353
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static WHvX64RegisterIa32VmxBasic => 8354
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static WHvX64RegisterIa32VmxPinbasedCtls => 8355
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static WHvX64RegisterIa32VmxProcbasedCtls => 8356
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static WHvX64RegisterIa32VmxExitCtls => 8357
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static WHvX64RegisterIa32VmxEntryCtls => 8358
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static WHvX64RegisterIa32VmxMisc => 8359
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static WHvX64RegisterIa32VmxCr0Fixed0 => 8360
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static WHvX64RegisterIa32VmxCr0Fixed1 => 8361
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static WHvX64RegisterIa32VmxCr4Fixed0 => 8362
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static WHvX64RegisterIa32VmxCr4Fixed1 => 8363
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static WHvX64RegisterIa32VmxVmcsEnum => 8364
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static WHvX64RegisterIa32VmxProcbasedCtls2 => 8365
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static WHvX64RegisterIa32VmxEptVpidCap => 8366
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static WHvX64RegisterIa32VmxTruePinbasedCtls => 8367
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static WHvX64RegisterIa32VmxTrueProcbasedCtls => 8368
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static WHvX64RegisterIa32VmxTrueExitCtls => 8369
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static WHvX64RegisterIa32VmxTrueEntryCtls => 8370
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static WHvX64RegisterAmdVmHsavePa => 8371
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static WHvX64RegisterAmdVmCr => 8372
+
+    /**
+     * @type {Integer (Int32)}
+     */
     static WHvX64RegisterApicId => 12290
 
     /**
@@ -1109,6 +1215,26 @@ class WHV_REGISTER_NAME extends Win32Enum {
     /**
      * @type {Integer (Int32)}
      */
+    static WHvX64RegisterNestedGuestState => 20560
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static WHvX64RegisterNestedCurrentVmGpa => 20561
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static WHvX64RegisterNestedVmxInvEpt => 20562
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static WHvX64RegisterNestedVmxInvVpid => 20563
+
+    /**
+     * @type {Integer (Int32)}
+     */
     static WHvRegisterPendingInterruption => -2147483648
 
     /**
@@ -1124,7 +1250,17 @@ class WHV_REGISTER_NAME extends Win32Enum {
     /**
      * @type {Integer (Int32)}
      */
+    static WHvRegisterPendingEvent1 => -2147483645
+
+    /**
+     * @type {Integer (Int32)}
+     */
     static WHvX64RegisterDeliverabilityNotifications => -2147483644
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static WHvRegisterDeliverabilityNotifications => -2147483644
 
     /**
      * @type {Integer (Int32)}
@@ -1135,4 +1271,14 @@ class WHV_REGISTER_NAME extends Win32Enum {
      * @type {Integer (Int32)}
      */
     static WHvX64RegisterPendingDebugException => -2147483642
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static WHvRegisterPendingEvent2 => -2147483641
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static WHvRegisterPendingEvent3 => -2147483640
 }

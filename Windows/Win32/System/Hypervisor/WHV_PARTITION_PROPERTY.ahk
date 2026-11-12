@@ -5,8 +5,6 @@
 #Include .\WHV_EXTENDED_VM_EXITS.ahk
 #Include .\WHV_MSR_ACTION.ahk
 #Include .\WHV_MSR_ACTION_ENTRY.ahk
-#Include .\WHV_PROCESSOR_FEATURES.ahk
-#Include .\WHV_PROCESSOR_FEATURES1.ahk
 #Include .\WHV_PROCESSOR_FEATURES_BANKS.ahk
 #Include .\WHV_PROCESSOR_PERFMON_FEATURES.ahk
 #Include .\WHV_PROCESSOR_XSAVE_FEATURES.ahk
@@ -17,9 +15,12 @@
 #Include .\WHV_X64_CPUID_RESULT2_FLAGS.ahk
 #Include .\WHV_X64_LOCAL_APIC_EMULATION_MODE.ahk
 #Include .\WHV_X64_MSR_EXIT_BITMAP.ahk
+#Include .\WHV_X64_PROCESSOR_FEATURES.ahk
+#Include .\WHV_X64_PROCESSOR_FEATURES1.ahk
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
+ * @architecture X64
  */
 class WHV_PARTITION_PROPERTY extends Win32Struct {
     static sizeof => 344
@@ -38,12 +39,12 @@ class WHV_PARTITION_PROPERTY extends Win32Struct {
     }
 
     /**
-     * @type {WHV_PROCESSOR_FEATURES}
+     * @type {WHV_X64_PROCESSOR_FEATURES}
      */
     ProcessorFeatures {
         get {
             if(!this.HasProp("__ProcessorFeatures"))
-                this.__ProcessorFeatures := WHV_PROCESSOR_FEATURES(0, this)
+                this.__ProcessorFeatures := WHV_X64_PROCESSOR_FEATURES(0, this)
             return this.__ProcessorFeatures
         }
     }
@@ -56,17 +57,6 @@ class WHV_PARTITION_PROPERTY extends Win32Struct {
             if(!this.HasProp("__SyntheticProcessorFeaturesBanks"))
                 this.__SyntheticProcessorFeaturesBanks := WHV_SYNTHETIC_PROCESSOR_FEATURES_BANKS(0, this)
             return this.__SyntheticProcessorFeaturesBanks
-        }
-    }
-
-    /**
-     * @type {WHV_PROCESSOR_XSAVE_FEATURES}
-     */
-    ProcessorXsaveFeatures {
-        get {
-            if(!this.HasProp("__ProcessorXsaveFeatures"))
-                this.__ProcessorXsaveFeatures := WHV_PROCESSOR_XSAVE_FEATURES(0, this)
-            return this.__ProcessorXsaveFeatures
         }
     }
 
@@ -87,74 +77,6 @@ class WHV_PARTITION_PROPERTY extends Win32Struct {
     }
 
     /**
-     * @type {Array<Integer>}
-     */
-    CpuidExitList {
-        get {
-            if(!this.HasProp("__CpuidExitListProxyArray"))
-                this.__CpuidExitListProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "uint")
-            return this.__CpuidExitListProxyArray
-        }
-    }
-
-    /**
-     * @type {WHV_X64_CPUID_RESULT}
-     */
-    CpuidResultList {
-        get {
-            if(!this.HasProp("__CpuidResultListProxyArray"))
-                this.__CpuidResultListProxyArray := Win32FixedArray(this.ptr + 0, 1, WHV_X64_CPUID_RESULT, "")
-            return this.__CpuidResultListProxyArray
-        }
-    }
-
-    /**
-     * @type {WHV_X64_CPUID_RESULT2}
-     */
-    CpuidResultList2 {
-        get {
-            if(!this.HasProp("__CpuidResultList2ProxyArray"))
-                this.__CpuidResultList2ProxyArray := Win32FixedArray(this.ptr + 0, 1, WHV_X64_CPUID_RESULT2, "")
-            return this.__CpuidResultList2ProxyArray
-        }
-    }
-
-    /**
-     * @type {WHV_MSR_ACTION_ENTRY}
-     */
-    MsrActionList {
-        get {
-            if(!this.HasProp("__MsrActionListProxyArray"))
-                this.__MsrActionListProxyArray := Win32FixedArray(this.ptr + 0, 1, WHV_MSR_ACTION_ENTRY, "")
-            return this.__MsrActionListProxyArray
-        }
-    }
-
-    /**
-     * @type {WHV_MSR_ACTION}
-     */
-    UnimplementedMsrAction {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    ExceptionExitBitmap {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
-
-    /**
-     * @type {WHV_X64_LOCAL_APIC_EMULATION_MODE}
-     */
-    LocalApicEmulationMode {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
-
-    /**
      * @type {BOOL}
      */
     SeparateSecurityDomain {
@@ -171,38 +93,11 @@ class WHV_PARTITION_PROPERTY extends Win32Struct {
     }
 
     /**
-     * @type {WHV_X64_MSR_EXIT_BITMAP}
-     */
-    X64MsrExitBitmap {
-        get {
-            if(!this.HasProp("__X64MsrExitBitmap"))
-                this.__X64MsrExitBitmap := WHV_X64_MSR_EXIT_BITMAP(0, this)
-            return this.__X64MsrExitBitmap
-        }
-    }
-
-    /**
      * @type {Integer}
      */
     ProcessorClockFrequency {
         get => NumGet(this, 0, "uint")
         set => NumPut("uint", value, this, 0)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    InterruptClockFrequency {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
-
-    /**
-     * @type {BOOL}
-     */
-    ApicRemoteRead {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
     }
 
     /**
@@ -281,6 +176,71 @@ class WHV_PARTITION_PROPERTY extends Win32Struct {
     }
 
     /**
+     * @type {BOOL}
+     */
+    DisableSmt {
+        get => NumGet(this, 0, "int")
+        set => NumPut("int", value, this, 0)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    PhysicalAddressWidth {
+        get => NumGet(this, 0, "uint")
+        set => NumPut("uint", value, this, 0)
+    }
+
+    /**
+     * @type {WHV_PROCESSOR_XSAVE_FEATURES}
+     */
+    ProcessorXsaveFeatures {
+        get {
+            if(!this.HasProp("__ProcessorXsaveFeatures"))
+                this.__ProcessorXsaveFeatures := WHV_PROCESSOR_XSAVE_FEATURES(0, this)
+            return this.__ProcessorXsaveFeatures
+        }
+    }
+
+    /**
+     * @type {Array<Integer>}
+     */
+    CpuidExitList {
+        get {
+            if(!this.HasProp("__CpuidExitListProxyArray"))
+                this.__CpuidExitListProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "uint")
+            return this.__CpuidExitListProxyArray
+        }
+    }
+
+    /**
+     * @type {Integer}
+     */
+    ExceptionExitBitmap {
+        get => NumGet(this, 0, "uint")
+        set => NumPut("uint", value, this, 0)
+    }
+
+    /**
+     * @type {BOOL}
+     */
+    ApicRemoteRead {
+        get => NumGet(this, 0, "int")
+        set => NumPut("int", value, this, 0)
+    }
+
+    /**
+     * @type {WHV_X64_MSR_EXIT_BITMAP}
+     */
+    X64MsrExitBitmap {
+        get {
+            if(!this.HasProp("__X64MsrExitBitmap"))
+                this.__X64MsrExitBitmap := WHV_X64_MSR_EXIT_BITMAP(0, this)
+            return this.__X64MsrExitBitmap
+        }
+    }
+
+    /**
      * @type {WHV_PROCESSOR_PERFMON_FEATURES}
      */
     ProcessorPerfmonFeatures {
@@ -292,9 +252,58 @@ class WHV_PARTITION_PROPERTY extends Win32Struct {
     }
 
     /**
-     * @type {BOOL}
+     * @type {Integer}
      */
-    DisableSmt {
+    InterruptClockFrequency {
+        get => NumGet(this, 0, "uint")
+        set => NumPut("uint", value, this, 0)
+    }
+
+    /**
+     * @type {WHV_X64_CPUID_RESULT}
+     */
+    CpuidResultList {
+        get {
+            if(!this.HasProp("__CpuidResultListProxyArray"))
+                this.__CpuidResultListProxyArray := Win32FixedArray(this.ptr + 0, 1, WHV_X64_CPUID_RESULT, "")
+            return this.__CpuidResultListProxyArray
+        }
+    }
+
+    /**
+     * @type {WHV_X64_CPUID_RESULT2}
+     */
+    CpuidResultList2 {
+        get {
+            if(!this.HasProp("__CpuidResultList2ProxyArray"))
+                this.__CpuidResultList2ProxyArray := Win32FixedArray(this.ptr + 0, 1, WHV_X64_CPUID_RESULT2, "")
+            return this.__CpuidResultList2ProxyArray
+        }
+    }
+
+    /**
+     * @type {WHV_MSR_ACTION_ENTRY}
+     */
+    MsrActionList {
+        get {
+            if(!this.HasProp("__MsrActionListProxyArray"))
+                this.__MsrActionListProxyArray := Win32FixedArray(this.ptr + 0, 1, WHV_MSR_ACTION_ENTRY, "")
+            return this.__MsrActionListProxyArray
+        }
+    }
+
+    /**
+     * @type {WHV_MSR_ACTION}
+     */
+    UnimplementedMsrAction {
+        get => NumGet(this, 0, "int")
+        set => NumPut("int", value, this, 0)
+    }
+
+    /**
+     * @type {WHV_X64_LOCAL_APIC_EMULATION_MODE}
+     */
+    LocalApicEmulationMode {
         get => NumGet(this, 0, "int")
         set => NumPut("int", value, this, 0)
     }

@@ -47,4 +47,10 @@ class X509SCEPMessageType extends Win32Enum {
      * @type {Integer (Int32)}
      */
     static ClaimChallengeAnswer => 41
+
+    /**
+     * Native name: SCEPMessageGetCertifier
+     * @type {Integer (Int32)}
+     */
+    static GetCertifier => 198
 }

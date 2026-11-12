@@ -1072,6 +1072,11 @@ class FileSystem {
     /**
      * @type {Integer (UInt32)}
      */
+    static SHI1005_FLAGS_DISABLE_CLIENT_METADATA_CACHING => 8388608
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static SESI1_NUM_ELEMENTS => 8
 
     /**

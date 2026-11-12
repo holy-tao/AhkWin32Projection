@@ -3025,6 +3025,41 @@ class DirectShow {
     /**
      * @type {Guid}
      */
+    static DXVA_ModeAPV_VLD_422_10 => Guid("{226a709d-ae12-44c5-ba21-164feeb7f9b6}")
+
+    /**
+     * @type {Guid}
+     */
+    static DXVA_ModeAPV_VLD_422_12 => Guid("{f6f152ad-94e5-4bfa-9227-676cddeff42b}")
+
+    /**
+     * @type {Guid}
+     */
+    static DXVA_ModeAPV_VLD_444_10 => Guid("{6a4a8d7d-7610-469f-855f-39f13051c013}")
+
+    /**
+     * @type {Guid}
+     */
+    static DXVA_ModeAPV_VLD_444_12 => Guid("{f1039a1c-e208-45c1-952c-040841b67667}")
+
+    /**
+     * @type {Guid}
+     */
+    static DXVA_ModeAPV_VLD_4444_10 => Guid("{c83799b9-9655-4b95-8008-56a322ce5d81}")
+
+    /**
+     * @type {Guid}
+     */
+    static DXVA_ModeAPV_VLD_4444_12 => Guid("{6a763ee3-4d05-47fe-a429-723474b69d7c}")
+
+    /**
+     * @type {Guid}
+     */
+    static DXVA_ModeAPV_VLD_400_10 => Guid("{37148862-6bd6-4618-8293-777b686b0824}")
+
+    /**
+     * @type {Guid}
+     */
     static DXVA_NoEncrypt => Guid("{1b81bed0-a0c7-11d3-b984-00c04f2e73c5}")
 
     /**
@@ -3671,6 +3706,16 @@ class DirectShow {
      * @type {Integer (UInt32)}
      */
     static DXVA_CONFIG_BLEND_TYPE_BACK_HARDWARE => 1
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static DXVA_APV_MAX_COMPONENTS => 4
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static DXVA_APV_QM_DIMENSION => 8
 
     /**
      * @type {Integer (UInt32)}

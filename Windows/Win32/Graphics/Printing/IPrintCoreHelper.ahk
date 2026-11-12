@@ -164,13 +164,10 @@ class IPrintCoreHelper extends IUnknown {
      * @param {IUnknown} pUnkOuter 
      * @param {Integer} dwClsContext 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    CreateInstanceOfMSXMLObject(rclsid, pUnkOuter, dwClsContext, riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(11, this, "ptr", rclsid, "ptr", pUnkOuter, "uint", dwClsContext, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+    CreateInstanceOfMSXMLObject(rclsid, pUnkOuter, dwClsContext, riid) {
+        result := ComCall(11, this, "ptr", rclsid, "ptr", pUnkOuter, "uint", dwClsContext, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 }

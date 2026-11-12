@@ -18,6 +18,8 @@
 #Include .\MEMORY_MAPPED_VIEW_ADDRESS.ahk
 #Include .\MEMORY_RESOURCE_NOTIFICATION_TYPE.ahk
 #Include .\MEM_EXTENDED_PARAMETER.ahk
+#Include .\NUMA_NODE_MEMORY_PERFORMANCE_BANDWIDTH.ahk
+#Include .\NUMA_NODE_MEMORY_PERFORMANCE_LATENCY.ahk
 #Include .\OFFER_PRIORITY.ahk
 #Include .\PAGE_PROTECTION_FLAGS.ahk
 #Include .\PROCESS_HEAP_ENTRY.ahk
@@ -26,7 +28,6 @@
 #Include .\VIRTUAL_ALLOCATION_TYPE.ahk
 #Include .\VIRTUAL_FREE_TYPE.ahk
 #Include .\WIN32_MEMORY_INFORMATION_CLASS.ahk
-#Include .\WIN32_MEMORY_NUMA_PERFORMANCE_INFORMATION_OUTPUT.ahk
 #Include .\WIN32_MEMORY_PARTITION_INFORMATION_CLASS.ahk
 #Include .\WIN32_MEMORY_RANGE_ENTRY.ahk
 
@@ -61,31 +62,6 @@ class Memory {
      * @type {Integer (UInt32)}
      */
     static MEHC_PATROL_SCRUBBER_PRESENT => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static WIN32_MEMORY_NUMA_PERFORMANCE_ALL_TARGET_NODE => 4294967295
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static WIN32_MEMORY_NUMA_PERFORMANCE_READ_LATENCY => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static WIN32_MEMORY_NUMA_PERFORMANCE_READ_BANDWIDTH => 2
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static WIN32_MEMORY_NUMA_PERFORMANCE_WRITE_LATENCY => 4
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static WIN32_MEMORY_NUMA_PERFORMANCE_WRITE_BANDWIDTH => 8
 ;@endregion Constants
 
 ;@region Methods
@@ -4936,23 +4912,54 @@ class Memory {
      * @param {Pointer<Integer>} InitiatorNodeNumber 
      * @returns {BOOL} 
      */
-    static GetMemoryNumaClosestInitiatorNode(TargetNodeNumber, InitiatorNodeNumber) {
-        InitiatorNodeNumberMarshal := InitiatorNodeNumber is VarRef ? "uint*" : "ptr"
+    static GetNumaNodeMemoryClosestInitiatorNode(TargetNodeNumber, InitiatorNodeNumber) {
+        InitiatorNodeNumberMarshal := InitiatorNodeNumber is VarRef ? "ushort*" : "ptr"
 
-        result := DllCall("api-ms-win-core-memory-l1-1-9.dll\GetMemoryNumaClosestInitiatorNode", "uint", TargetNodeNumber, InitiatorNodeNumberMarshal, InitiatorNodeNumber, "int")
+        result := DllCall("api-ms-win-core-memory-l1-1-9.dll\GetNumaNodeMemoryClosestInitiatorNode", "ushort", TargetNodeNumber, InitiatorNodeNumberMarshal, InitiatorNodeNumber, "int")
         return result
     }
 
     /**
-     * @param {Integer} NodeNumber 
-     * @param {Integer} DataType 
-     * @param {Pointer<Pointer<WIN32_MEMORY_NUMA_PERFORMANCE_INFORMATION_OUTPUT>>} PerfInfo 
+     * @param {Integer} TargetNodeNumber 
+     * @param {Integer} InitiatorNodeNumber 
+     * @param {Pointer<NUMA_NODE_MEMORY_PERFORMANCE_LATENCY>} Latency 
      * @returns {BOOL} 
      */
-    static GetMemoryNumaPerformanceInformation(NodeNumber, DataType, PerfInfo) {
-        PerfInfoMarshal := PerfInfo is VarRef ? "ptr*" : "ptr"
+    static GetNumaNodeMemoryReadLatency(TargetNodeNumber, InitiatorNodeNumber, Latency) {
+        result := DllCall("api-ms-win-core-memory-l1-1-9.dll\GetNumaNodeMemoryReadLatency", "ushort", TargetNodeNumber, "ushort", InitiatorNodeNumber, "ptr", Latency, "int")
+        return result
+    }
 
-        result := DllCall("api-ms-win-core-memory-l1-1-9.dll\GetMemoryNumaPerformanceInformation", "uint", NodeNumber, "char", DataType, PerfInfoMarshal, PerfInfo, "int")
+    /**
+     * @param {Integer} TargetNodeNumber 
+     * @param {Integer} InitiatorNodeNumber 
+     * @param {Pointer<NUMA_NODE_MEMORY_PERFORMANCE_LATENCY>} Latency 
+     * @returns {BOOL} 
+     */
+    static GetNumaNodeMemoryWriteLatency(TargetNodeNumber, InitiatorNodeNumber, Latency) {
+        result := DllCall("api-ms-win-core-memory-l1-1-9.dll\GetNumaNodeMemoryWriteLatency", "ushort", TargetNodeNumber, "ushort", InitiatorNodeNumber, "ptr", Latency, "int")
+        return result
+    }
+
+    /**
+     * @param {Integer} TargetNodeNumber 
+     * @param {Integer} InitiatorNodeNumber 
+     * @param {Pointer<NUMA_NODE_MEMORY_PERFORMANCE_BANDWIDTH>} Bandwidth 
+     * @returns {BOOL} 
+     */
+    static GetNumaNodeMemoryReadBandwidth(TargetNodeNumber, InitiatorNodeNumber, Bandwidth) {
+        result := DllCall("api-ms-win-core-memory-l1-1-9.dll\GetNumaNodeMemoryReadBandwidth", "ushort", TargetNodeNumber, "ushort", InitiatorNodeNumber, "ptr", Bandwidth, "int")
+        return result
+    }
+
+    /**
+     * @param {Integer} TargetNodeNumber 
+     * @param {Integer} InitiatorNodeNumber 
+     * @param {Pointer<NUMA_NODE_MEMORY_PERFORMANCE_BANDWIDTH>} Bandwidth 
+     * @returns {BOOL} 
+     */
+    static GetNumaNodeMemoryWriteBandwidth(TargetNodeNumber, InitiatorNodeNumber, Bandwidth) {
+        result := DllCall("api-ms-win-core-memory-l1-1-9.dll\GetNumaNodeMemoryWriteBandwidth", "ushort", TargetNodeNumber, "ushort", InitiatorNodeNumber, "ptr", Bandwidth, "int")
         return result
     }
 

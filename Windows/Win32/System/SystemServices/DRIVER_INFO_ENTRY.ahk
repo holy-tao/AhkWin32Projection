@@ -102,7 +102,7 @@ class DRIVER_INFO_ENTRY extends Win32Struct {
     /**
      * @type {Integer}
      */
-    LoadCount {
+    NumberOfLoadingTimes {
         get => NumGet(this, 44, "ushort")
         set => NumPut("ushort", value, this, 44)
     }

@@ -388,6 +388,11 @@ class Power {
     /**
      * @type {Integer (UInt32)}
      */
+    static BATTERY_TEST_EXEMPT => 16
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static BATTERY_UNKNOWN_TIME => 4294967295
 
     /**

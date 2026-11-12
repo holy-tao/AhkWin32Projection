@@ -450,4 +450,9 @@ class PROCESSOR_FEATURE_ID extends Win32Enum {
      * @type {Integer (UInt32)}
      */
     static PF_ARM_SME_FA64_INSTRUCTIONS_AVAILABLE => 88
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static PF_UMONITOR_INSTRUCTION_AVAILABLE => 89
 }

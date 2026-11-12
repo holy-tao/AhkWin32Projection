@@ -8137,81 +8137,6 @@ class IpHelper {
     }
 
     /**
-     * The GetBestInterfaceEx function retrieves the index of the interface that has the best route to the specified IPv4 or IPv6 address.
-     * @remarks
-     * The <b>GetBestInterfaceEx</b> function differs from the <a href="https://docs.microsoft.com/windows/desktop/api/iphlpapi/nf-iphlpapi-getbestinterface">GetBestInterface</a> function in that it can be used with either IPv4 or IPv6 addresses.
-     * 
-     * The <b>Family</b> member of the sockaddr structure pointed to by the <i>pDestAddr</i> parameter must be set to one of the following values: <b>AF_INET</b> or <b>AF_INET6</b>. 
-     * 
-     * On Windows Vista and later, the <i>pdwBestIfIndex</i> parameter is treated internally by IP Helper as a pointer to a <b>NET_IFINDEX</b> datatype.
-     * @param {Pointer<SOCKADDR>} pDestAddr The destination IPv6 or IPv4 address for which to retrieve the interface with the best route, in the form of a <a href="https://docs.microsoft.com/windows/desktop/WinSock/sockaddr-2">sockaddr</a> structure.
-     * @param {Pointer<Integer>} pdwBestIfIndex A pointer to the index of the interface with the best route to the IPv6 or IPv4 address specified by <i>pDestAddr</i>.
-     * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
-     * 
-     * If the function fails, the return value is one of the following error codes.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_CAN_NOT_COMPLETE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The operation could not be completed. 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_INVALID_PARAMETER</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * An invalid parameter was passed to the function. This error is returned if a <b>NULL</b> pointer is passed in the <i>pdwBestIfIndex</i> parameter or if the <i>pDestAddr </i> or <i>pdwBestIfIndex</i> parameters point to memory that cannot be accessed. This error can also be returned if the <i>pdwBestIfIndex</i> parameter points to memory that can't be written to.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_NOT_SUPPORTED</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The request is not supported. This error is returned if no IPv4 stack is on the local computer and an IPv4 address was specified in the <i>pDestAddr</i> parameter or no IPv6 stack is on the local computer and an IPv6 address was specified in the <i>pDestAddr</i> parameter.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>Other</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Use 
-     * the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function to obtain the message string for the returned error.
-     * 
-     * </td>
-     * </tr>
-     * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/nf-iphlpapi-getbestinterfaceex
-     * @since windows5.1.2600
-     */
-    static GetBestInterfaceEx(pDestAddr, pdwBestIfIndex) {
-        pdwBestIfIndexMarshal := pdwBestIfIndex is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("IPHLPAPI.dll\GetBestInterfaceEx", "ptr", pDestAddr, pdwBestIfIndexMarshal, pdwBestIfIndex, "uint")
-        return result
-    }
-
-    /**
      * The GetBestRoute function retrieves the best route to the specified destination IP address.
      * @param {Integer} dwDestAddr Destination IP address for which to obtain the best route.
      * @param {Integer} dwSourceAddr Source IP address. This IP address corresponds to an interface on the local computer. If multiple best routes to the destination address exist, the function selects the route that uses this interface. 
@@ -15779,6 +15704,81 @@ class IpHelper {
         SortedAddressPairCountMarshal := SortedAddressPairCount is VarRef ? "uint*" : "ptr"
 
         result := DllCall("IPHLPAPI.dll\CreateSortedAddressPairs", "ptr", SourceAddressList, "uint", SourceAddressCount, "ptr", DestinationAddressList, "uint", DestinationAddressCount, "uint", AddressSortOptions, SortedAddressPairListMarshal, SortedAddressPairList, SortedAddressPairCountMarshal, SortedAddressPairCount, "uint")
+        return result
+    }
+
+    /**
+     * The GetBestInterfaceEx function retrieves the index of the interface that has the best route to the specified IPv4 or IPv6 address.
+     * @remarks
+     * The <b>GetBestInterfaceEx</b> function differs from the <a href="https://docs.microsoft.com/windows/desktop/api/iphlpapi/nf-iphlpapi-getbestinterface">GetBestInterface</a> function in that it can be used with either IPv4 or IPv6 addresses.
+     * 
+     * The <b>Family</b> member of the sockaddr structure pointed to by the <i>pDestAddr</i> parameter must be set to one of the following values: <b>AF_INET</b> or <b>AF_INET6</b>. 
+     * 
+     * On Windows Vista and later, the <i>pdwBestIfIndex</i> parameter is treated internally by IP Helper as a pointer to a <b>NET_IFINDEX</b> datatype.
+     * @param {Pointer<SOCKADDR>} DestinationAddress 
+     * @param {Pointer<Integer>} BestIfIndex 
+     * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
+     * 
+     * If the function fails, the return value is one of the following error codes.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ERROR_CAN_NOT_COMPLETE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The operation could not be completed. 
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ERROR_INVALID_PARAMETER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An invalid parameter was passed to the function. This error is returned if a <b>NULL</b> pointer is passed in the <i>pdwBestIfIndex</i> parameter or if the <i>pDestAddr </i> or <i>pdwBestIfIndex</i> parameters point to memory that cannot be accessed. This error can also be returned if the <i>pdwBestIfIndex</i> parameter points to memory that can't be written to.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ERROR_NOT_SUPPORTED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The request is not supported. This error is returned if no IPv4 stack is on the local computer and an IPv4 address was specified in the <i>pDestAddr</i> parameter or no IPv6 stack is on the local computer and an IPv6 address was specified in the <i>pDestAddr</i> parameter.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>Other</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Use 
+     * the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function to obtain the message string for the returned error.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/nf-iphlpapi-getbestinterfaceex
+     * @since windows5.1.2600
+     */
+    static GetBestInterfaceEx(DestinationAddress, BestIfIndex) {
+        BestIfIndexMarshal := BestIfIndex is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("IPHLPAPI.dll\GetBestInterfaceEx", "ptr", DestinationAddress, BestIfIndexMarshal, BestIfIndex, "uint")
         return result
     }
 

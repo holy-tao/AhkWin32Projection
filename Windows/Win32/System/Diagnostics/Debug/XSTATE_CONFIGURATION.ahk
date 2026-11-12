@@ -6,7 +6,7 @@
  * @namespace Windows.Win32.System.Diagnostics.Debug
  */
 class XSTATE_CONFIGURATION extends Win32Struct {
-    static sizeof => 840
+    static sizeof => 856
 
     static packingSize => 8
 
@@ -149,6 +149,17 @@ class XSTATE_CONFIGURATION extends Win32Struct {
     }
 
     /**
+     * @type {Array<Integer>}
+     */
+    Amd64Spare1 {
+        get {
+            if(!this.HasProp("__Amd64Spare1ProxyArray"))
+                this.__Amd64Spare1ProxyArray := Win32FixedArray(this.ptr + 836, 3, Primitive, "uint")
+            return this.__Amd64Spare1ProxyArray
+        }
+    }
+
+    /**
      * @type {Integer}
      */
     MaxSveVectorLength {
@@ -159,8 +170,69 @@ class XSTATE_CONFIGURATION extends Win32Struct {
     /**
      * @type {Integer}
      */
-    Spare1 {
+    MaxSmeVectorLength {
         get => NumGet(this, 838, "ushort")
         set => NumPut("ushort", value, this, 838)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    SmeZTRegisterCount {
+        get => NumGet(this, 840, "ushort")
+        set => NumPut("ushort", value, this, 840)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Arm64Flags {
+        get => NumGet(this, 842, "ushort")
+        set => NumPut("ushort", value, this, 842)
+    }
+
+    /**
+     * This bitfield backs the following members:
+     * - SmeFa64
+     * @type {Integer}
+     */
+    _bitfield1 {
+        get => NumGet(this, 842, "ushort")
+        set => NumPut("ushort", value, this, 842)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    SmeFa64 {
+        get => (this._bitfield1 >> 0) & 0x1
+        set => this._bitfield1 := ((value & 0x1) << 0) | (this._bitfield1 & ~(0x1 << 0))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    SupportedSmeVectorLengths {
+        get => NumGet(this, 844, "char")
+        set => NumPut("char", value, this, 844)
+    }
+
+    /**
+     * @type {Array<Integer>}
+     */
+    Arm64Spare {
+        get {
+            if(!this.HasProp("__Arm64SpareProxyArray"))
+                this.__Arm64SpareProxyArray := Win32FixedArray(this.ptr + 845, 3, Primitive, "char")
+            return this.__Arm64SpareProxyArray
+        }
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Spare {
+        get => NumGet(this, 848, "uint")
+        set => NumPut("uint", value, this, 848)
     }
 }

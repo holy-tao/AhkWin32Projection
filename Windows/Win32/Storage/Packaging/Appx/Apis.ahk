@@ -9,6 +9,7 @@
 #Include ..\..\..\Security\PSID.ahk
 #Include .\AddPackageDependencyOptions.ahk
 #Include .\AddPackageDependencyOptions2.ahk
+#Include .\AppModelPackageFeature.ahk
 #Include .\AppPolicyClrCompat.ahk
 #Include .\AppPolicyCreateFileAccess.ahk
 #Include .\AppPolicyLifecycleManagement.ahk
@@ -27,6 +28,7 @@
 #Include .\PackageDependencyProcessorArchitectures.ahk
 #Include .\PackageInfo3Type.ahk
 #Include .\PackageOrigin.ahk
+#Include .\PackageOrigin2.ahk
 #Include .\PackagePathType.ahk
 #Include .\_PACKAGE_INFO_REFERENCE.ahk
 
@@ -1913,6 +1915,26 @@ class Appx {
     }
 
     /**
+     * @param {PWSTR} packageFullName 
+     * @returns {PackageOrigin2} 
+     */
+    static GetStagedPackageOrigin2(packageFullName) {
+        packageFullName := packageFullName is String ? StrPtr(packageFullName) : packageFullName
+
+        result := DllCall("api-ms-win-appmodel-runtime-l1-1-7.dll\GetStagedPackageOrigin2", "ptr", packageFullName, "int*", &origin := 0, "HRESULT")
+        return origin
+    }
+
+    /**
+     * @param {AppModelPackageFeature} feature 
+     * @returns {BOOL} 
+     */
+    static IsPackageFeatureSupported(feature) {
+        result := DllCall("api-ms-win-appmodel-runtime-l1-1-7.dll\IsPackageFeatureSupported", "int", feature, "int")
+        return result
+    }
+
+    /**
      * Gets the package information for the calling process. (GetCurrentPackageInfo)
      * @param {Integer} flags Type: <b>const UINT32</b>
      * 
@@ -2326,10 +2348,9 @@ class Appx {
     static AddPackageDependency(packageDependencyId, rank, options, packageDependencyContext, packageFullName) {
         packageDependencyId := packageDependencyId is String ? StrPtr(packageDependencyId) : packageDependencyId
 
-        packageDependencyContextMarshal := packageDependencyContext is VarRef ? "ptr*" : "ptr"
         packageFullNameMarshal := packageFullName is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("KERNELBASE.dll\AddPackageDependency", "ptr", packageDependencyId, "int", rank, "int", options, packageDependencyContextMarshal, packageDependencyContext, packageFullNameMarshal, packageFullName, "HRESULT")
+        result := DllCall("KERNELBASE.dll\AddPackageDependency", "ptr", packageDependencyId, "int", rank, "int", options, "ptr", packageDependencyContext, packageFullNameMarshal, packageFullName, "HRESULT")
         return result
     }
 
@@ -2344,10 +2365,9 @@ class Appx {
     static AddPackageDependency2(packageDependencyId, rank, options, packageDependencyContext, packageFullName) {
         packageDependencyId := packageDependencyId is String ? StrPtr(packageDependencyId) : packageDependencyId
 
-        packageDependencyContextMarshal := packageDependencyContext is VarRef ? "ptr*" : "ptr"
         packageFullNameMarshal := packageFullName is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("api-ms-win-appmodel-runtime-l1-1-7.dll\AddPackageDependency2", "ptr", packageDependencyId, "int", rank, "int", options, packageDependencyContextMarshal, packageDependencyContext, packageFullNameMarshal, packageFullName, "HRESULT")
+        result := DllCall("api-ms-win-appmodel-runtime-l1-1-7.dll\AddPackageDependency2", "ptr", packageDependencyId, "int", rank, "int", options, "ptr", packageDependencyContext, packageFullNameMarshal, packageFullName, "HRESULT")
         return result
     }
 
@@ -2369,6 +2389,8 @@ class Appx {
      * @see https://learn.microsoft.com/windows/win32/api/appmodel/nf-appmodel-removepackagedependency
      */
     static RemovePackageDependency(packageDependencyContext) {
+        packageDependencyContext := packageDependencyContext is Win32Handle ? NumGet(packageDependencyContext, "ptr") : packageDependencyContext
+
         result := DllCall("KERNELBASE.dll\RemovePackageDependency", "ptr", packageDependencyContext, "HRESULT")
         return result
     }
@@ -2414,6 +2436,8 @@ class Appx {
      * @see https://learn.microsoft.com/windows/win32/api/appmodel/nf-appmodel-getidforpackagedependencycontext
      */
     static GetIdForPackageDependencyContext(packageDependencyContext) {
+        packageDependencyContext := packageDependencyContext is Win32Handle ? NumGet(packageDependencyContext, "ptr") : packageDependencyContext
+
         result := DllCall("KERNELBASE.dll\GetIdForPackageDependencyContext", "ptr", packageDependencyContext, "ptr*", &packageDependencyId := 0, "HRESULT")
         return packageDependencyId
     }
@@ -2651,7 +2675,8 @@ class Appx {
     static CreatePackageVirtualizationContext(packageFamilyName) {
         packageFamilyName := packageFamilyName is String ? StrPtr(packageFamilyName) : packageFamilyName
 
-        result := DllCall("KERNEL32.dll\CreatePackageVirtualizationContext", "ptr", packageFamilyName, "ptr*", &_context := 0, "HRESULT")
+        _context := PACKAGE_VIRTUALIZATION_CONTEXT_HANDLE()
+        result := DllCall("KERNEL32.dll\CreatePackageVirtualizationContext", "ptr", packageFamilyName, "ptr", _context, "HRESULT")
         return _context
     }
 
@@ -2660,6 +2685,8 @@ class Appx {
      * @returns {Pointer} 
      */
     static ActivatePackageVirtualizationContext(_context) {
+        _context := _context is Win32Handle ? NumGet(_context, "ptr") : _context
+
         result := DllCall("KERNEL32.dll\ActivatePackageVirtualizationContext", "ptr", _context, "ptr*", &cookie := 0, "HRESULT")
         return cookie
     }
@@ -2669,6 +2696,8 @@ class Appx {
      * @returns {String} Nothing - always returns an empty string
      */
     static ReleasePackageVirtualizationContext(_context) {
+        _context := _context is Win32Handle ? NumGet(_context, "ptr") : _context
+
         DllCall("KERNEL32.dll\ReleasePackageVirtualizationContext", "ptr", _context)
     }
 
@@ -2685,7 +2714,10 @@ class Appx {
      * @returns {PACKAGE_VIRTUALIZATION_CONTEXT_HANDLE} 
      */
     static DuplicatePackageVirtualizationContext(sourceContext) {
-        result := DllCall("KERNEL32.dll\DuplicatePackageVirtualizationContext", "ptr", sourceContext, "ptr*", &destContext := 0, "HRESULT")
+        sourceContext := sourceContext is Win32Handle ? NumGet(sourceContext, "ptr") : sourceContext
+
+        destContext := PACKAGE_VIRTUALIZATION_CONTEXT_HANDLE()
+        result := DllCall("KERNEL32.dll\DuplicatePackageVirtualizationContext", "ptr", sourceContext, "ptr", destContext, "HRESULT")
         return destContext
     }
 
@@ -2694,7 +2726,8 @@ class Appx {
      */
     static GetCurrentPackageVirtualizationContext() {
         result := DllCall("KERNEL32.dll\GetCurrentPackageVirtualizationContext", "ptr")
-        return result
+        resultHandle := PACKAGE_VIRTUALIZATION_CONTEXT_HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**

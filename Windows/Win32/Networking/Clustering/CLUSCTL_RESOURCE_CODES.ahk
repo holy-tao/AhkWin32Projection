@@ -549,6 +549,12 @@ class CLUSCTL_RESOURCE_CODES extends Win32Enum {
     static RLUA_SET_PWD_INFOEX => 16778010
 
     /**
+     * Native name: CLUSCTL_RESOURCE_RLUA_GET_PWD
+     * @type {Integer (Int32)}
+     */
+    static RLUA_GET_PWD => 16778018
+
+    /**
      * See <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/clusctl-resource-delete">CLUSCTL_RESOURCE_DELETE</a>.
      * Native name: CLUSCTL_RESOURCE_DELETE
      * @type {Integer (Int32)}

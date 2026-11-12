@@ -3,6 +3,7 @@
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
+ * @architecture X64
  */
 class WHV_INTERRUPT_DESTINATION_MODE extends Win32Enum {
 

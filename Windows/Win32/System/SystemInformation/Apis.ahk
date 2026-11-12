@@ -600,7 +600,17 @@ class SystemInformation {
     /**
      * @type {Integer (UInt32)}
      */
-    static WDK_NTDDI_VERSION => 167772176
+    static NTDDI_WIN11_DT => 167772177
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static NTDDI_WIN11_BR => 167772178
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static WDK_NTDDI_VERSION => 167772178
 
     /**
      * @type {Integer (UInt32)}
@@ -620,7 +630,7 @@ class SystemInformation {
     /**
      * @type {Integer (UInt32)}
      */
-    static NTDDI_VERSION => 167772176
+    static NTDDI_VERSION => 167772178
 
     /**
      * @type {Integer (UInt32)}

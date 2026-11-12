@@ -82,4 +82,9 @@ class DXCoreAdapterState extends Win32Enum {
      * @type {Integer (UInt32)}
      */
     static MemoryFrequencyHertz => 10
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static SingleAdapterHybridMode => 11
 }

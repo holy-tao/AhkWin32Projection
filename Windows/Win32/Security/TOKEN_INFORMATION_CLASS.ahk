@@ -372,8 +372,20 @@ class TOKEN_INFORMATION_CLASS extends Win32Enum {
     static LearningMode => 50
 
     /**
+     * Native name: TokenIsSystemManagedAdmin
+     * @type {Integer (Int32)}
+     */
+    static IsSystemManagedAdmin => 51
+
+    /**
+     * Native name: TokenIsInstaller
+     * @type {Integer (Int32)}
+     */
+    static IsInstaller => 52
+
+    /**
      * The maximum value for this enumeration.
      * @type {Integer (Int32)}
      */
-    static MaxTokenInfoClass => 51
+    static MaxTokenInfoClass => 53
 }

@@ -30,6 +30,14 @@ class PARTITION_INFORMATION_EX extends Win32Struct {
     }
 
     /**
+     * @type {Integer}
+     */
+    PartitionOrdinal {
+        get => NumGet(this, 4, "ushort")
+        set => NumPut("ushort", value, this, 4)
+    }
+
+    /**
      * The starting offset of the partition.
      * @type {Integer}
      */

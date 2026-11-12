@@ -2623,6 +2623,221 @@ class Bluetooth {
     /**
      * @type {Integer (UInt32)}
      */
+    static HFP_AG_SDP_SUPPORTED_FEATURE_THREE_WAY_CALLING => 1
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static HFP_AG_SDP_SUPPORTED_FEATURE_ECHO_CANCELLATION => 2
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static HFP_AG_SDP_SUPPORTED_FEATURE_VOICE_RECOGNITION => 4
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static HFP_AG_SDP_SUPPORTED_FEATURE_INBAND_RING_TONE => 8
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static HFP_AG_SDP_SUPPORTED_FEATURE_VOICE_TAG => 16
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static HFP_AG_SDP_SUPPORTED_FEATURE_WIDE_BAND_SPEECH => 32
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static HFP_AG_SDP_SUPPORTED_FEATURE_ENHANCED_VOICE_RECOGNITION => 64
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static HFP_AG_SDP_SUPPORTED_FEATURE_VOICE_RECOGNITION_TEXT => 128
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static HFP_AG_SDP_SUPPORTED_FEATURE_SUPER_WIDE_BAND_SPEECH => 256
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static HFP_AG_BRSF_SUPPORTED_FEATURE_THREE_WAY_CALLING => 1
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static HFP_AG_BRSF_SUPPORTED_FEATURE_ECHO_CANCELLATION => 2
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static HFP_AG_BRSF_SUPPORTED_FEATURE_VOICE_RECOGNITION => 4
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static HFP_AG_BRSF_SUPPORTED_FEATURE_INBAND_RING_TONE => 8
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static HFP_AG_BRSF_SUPPORTED_FEATURE_VOICE_TAG => 16
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static HFP_AG_BRSF_SUPPORTED_FEATURE_REJECT_CALL => 32
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static HFP_AG_BRSF_SUPPORTED_FEATURE_ENHANCED_CALL_STATUS => 64
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static HFP_AG_BRSF_SUPPORTED_FEATURE_ENHANCED_CALL_CONTROL => 128
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static HFP_AG_BRSF_SUPPORTED_FEATURE_EXTENDED_ERROR_CODES => 256
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static HFP_AG_BRSF_SUPPORTED_FEATURE_CODEC_NEGOTIATION => 512
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static HFP_AG_BRSF_SUPPORTED_FEATURE_HF_INDICATORS => 1024
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static HFP_AG_BRSF_SUPPORTED_FEATURE_ESCO_S4_SETTINGS => 2048
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static HFP_NETWORK_NO_ABILITY_TO_REJECT => 0
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static HFP_NETWORK_ABILITY_TO_REJECT => 1
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static HFP_HF_SDP_SUPPORTED_FEATURE_ECHO_CANCELLATION => 1
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static HFP_HF_SDP_SUPPORTED_FEATURE_THREE_WAY_CALLING => 2
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static HFP_HF_SDP_SUPPORTED_FEATURE_CLI_PRESENTATION => 4
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static HFP_HF_SDP_SUPPORTED_FEATURE_VOICE_RECOGNITION => 8
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static HFP_HF_SDP_SUPPORTED_FEATURE_REMOTE_VOLUME_CONTROL => 16
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static HFP_HF_SDP_SUPPORTED_FEATURE_WIDE_BAND_SPEECH => 32
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static HFP_HF_SDP_SUPPORTED_FEATURE_ENHANCED_VOICE_RECOGNITION => 64
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static HFP_HF_SDP_SUPPORTED_FEATURE_SUPER_WIDE_BAND_SPEECH => 128
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static HFP_HF_BRSF_SUPPORTED_FEATURE_ECHO_CANCELLATION => 1
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static HFP_HF_BRSF_SUPPORTED_FEATURE_THREE_WAY_CALLING => 2
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static HFP_HF_BRSF_SUPPORTED_FEATURE_CLI_PRESENTATION => 4
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static HFP_HF_BRSF_SUPPORTED_FEATURE_VOICE_RECOGNITION => 8
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static HFP_HF_BRSF_SUPPORTED_FEATURE_REMOTE_VOLUME_CONTROL => 16
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static HFP_HF_BRSF_SUPPORTED_FEATURE_ENHANCED_CALL_STATUS => 32
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static HFP_HF_BRSF_SUPPORTED_FEATURE_ENHANCED_CALL_CONTROL => 64
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static HFP_HF_BRSF_SUPPORTED_FEATURE_CODEC_NEGOTIATION => 128
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static HFP_HF_BRSF_SUPPORTED_FEATURE_HF_INDICATORS => 256
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static HFP_HF_BRSF_SUPPORTED_FEATURE_ESCO_S4_SETTINGS => 512
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static HFP_HF_BRSF_SUPPORTED_FEATURE_ENHANCED_VOICE_RECOGNITION => 1024
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static HFP_HF_BRSF_SUPPORTED_FEATURE_VOICE_RECOGNITION_TEXT => 2048
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static CORDLESS_EXTERNAL_NETWORK_PSTN => 1
 
     /**

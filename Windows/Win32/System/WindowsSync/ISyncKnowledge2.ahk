@@ -265,55 +265,12 @@ class ISyncKnowledge2 extends ISyncKnowledge {
     /**
      * Returns an object that can be used to retrieve the contents of the knowledge object.
      * @param {Pointer<Guid>} riid The IID of the requested inspector. Must be <b>IID_ICoreFragmentInspector</b>.
-     * @param {Pointer<Pointer<Void>>} ppiInspector An object that implements <i>riid</i>, and that can retrieve the contents of the knowledge object.
-     * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The method succeeded.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_NOINTERFACE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * <i>riid</i> is not <b>IID_ICoreFragmentInspector</b>.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_POINTER</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Invalid pointer.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Pointer<Void>} An object that implements <i>riid</i>, and that can retrieve the contents of the knowledge object.
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncknowledge2-getinspector
      */
-    GetInspector(riid, ppiInspector) {
-        ppiInspectorMarshal := ppiInspector is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(31, this, "ptr", riid, ppiInspectorMarshal, ppiInspector, "HRESULT")
-        return result
+    GetInspector(riid) {
+        result := ComCall(31, this, "ptr", riid, "ptr*", &ppiInspector := 0, "HRESULT")
+        return ppiInspector
     }
 
     /**

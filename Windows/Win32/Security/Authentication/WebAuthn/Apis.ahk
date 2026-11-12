@@ -20,10 +20,13 @@
 #Include .\WEBAUTHN_CTAPCBOR_MAKE_CREDENTIAL_REQUEST.ahk
 #Include .\WEBAUTHN_GET_CREDENTIALS_OPTIONS.ahk
 #Include .\WEBAUTHN_PLUGIN_ADD_AUTHENTICATOR_OPTIONS.ahk
+#Include .\WEBAUTHN_PLUGIN_ADD_AUTHENTICATOR_OPTIONS_2.ahk
 #Include .\WEBAUTHN_PLUGIN_ADD_AUTHENTICATOR_RESPONSE.ahk
 #Include .\WEBAUTHN_PLUGIN_CREDENTIAL_DETAILS.ahk
 #Include .\WEBAUTHN_PLUGIN_UPDATE_AUTHENTICATOR_DETAILS.ahk
+#Include .\WEBAUTHN_PLUGIN_UPDATE_AUTHENTICATOR_DETAILS_2.ahk
 #Include .\WEBAUTHN_PLUGIN_USER_VERIFICATION_REQUEST.ahk
+#Include .\WEBAUTHN_PLUGIN_USER_VERIFICATION_REQUEST_2.ahk
 #Include .\WEBAUTHN_RP_ENTITY_INFORMATION.ahk
 #Include .\WEBAUTHN_USER_ENTITY_INFORMATION.ahk
 
@@ -1082,6 +1085,15 @@ class WebAuthn {
     }
 
     /**
+     * @param {Pointer<WEBAUTHN_PLUGIN_ADD_AUTHENTICATOR_OPTIONS_2>} pPluginAddAuthenticatorOptions 
+     * @returns {Pointer<WEBAUTHN_PLUGIN_ADD_AUTHENTICATOR_RESPONSE>} 
+     */
+    static WebAuthNPluginAddAuthenticator2(pPluginAddAuthenticatorOptions) {
+        result := DllCall("webauthn.dll\WebAuthNPluginAddAuthenticator2", "ptr", pPluginAddAuthenticatorOptions, "ptr*", &ppPluginAddAuthenticatorResponse := 0, "HRESULT")
+        return ppPluginAddAuthenticatorResponse
+    }
+
+    /**
      * @param {Pointer<WEBAUTHN_PLUGIN_ADD_AUTHENTICATOR_RESPONSE>} pPluginAddAuthenticatorResponse 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -1104,6 +1116,15 @@ class WebAuthn {
      */
     static WebAuthNPluginUpdateAuthenticatorDetails(pPluginUpdateAuthenticatorDetails) {
         result := DllCall("webauthn.dll\WebAuthNPluginUpdateAuthenticatorDetails", "ptr", pPluginUpdateAuthenticatorDetails, "HRESULT")
+        return result
+    }
+
+    /**
+     * @param {Pointer<WEBAUTHN_PLUGIN_UPDATE_AUTHENTICATOR_DETAILS_2>} pPluginUpdateAuthenticatorDetails 
+     * @returns {HRESULT} 
+     */
+    static WebAuthNPluginUpdateAuthenticatorDetails2(pPluginUpdateAuthenticatorDetails) {
+        result := DllCall("webauthn.dll\WebAuthNPluginUpdateAuthenticatorDetails2", "ptr", pPluginUpdateAuthenticatorDetails, "HRESULT")
         return result
     }
 
@@ -1172,6 +1193,20 @@ class WebAuthn {
         ppbResponseMarshal := ppbResponse is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("webauthn.dll\WebAuthNPluginPerformUserVerification", "ptr", pPluginUserVerification, pcbResponseMarshal, pcbResponse, ppbResponseMarshal, ppbResponse, "HRESULT")
+        return result
+    }
+
+    /**
+     * @param {Pointer<WEBAUTHN_PLUGIN_USER_VERIFICATION_REQUEST_2>} pPluginUserVerification 
+     * @param {Pointer<Integer>} pcbResponse 
+     * @param {Pointer<Pointer<Integer>>} ppbResponse 
+     * @returns {HRESULT} 
+     */
+    static WebAuthNPluginPerformUserVerification2(pPluginUserVerification, pcbResponse, ppbResponse) {
+        pcbResponseMarshal := pcbResponse is VarRef ? "uint*" : "ptr"
+        ppbResponseMarshal := ppbResponse is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("webauthn.dll\WebAuthNPluginPerformUserVerification2", "ptr", pPluginUserVerification, pcbResponseMarshal, pcbResponse, ppbResponseMarshal, ppbResponse, "HRESULT")
         return result
     }
 

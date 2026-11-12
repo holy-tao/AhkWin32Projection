@@ -388,6 +388,11 @@ class WindowsAndMessaging {
     /**
      * @type {Integer (UInt32)}
      */
+    static __WARNING_WRITE_OVERRUN => 6386
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static __WARNING_INVALID_PARAM_VALUE_1 => 6387
 
     /**
@@ -2339,6 +2344,16 @@ class WindowsAndMessaging {
      * @type {Integer (UInt32)}
      */
     static WM_POINTERDEVICEOUTOFRANGE => 570
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static WM_STOPINERTIA => 571
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static WM_ENDINERTIA => 572
 
     /**
      * @type {Integer (UInt32)}
@@ -14007,6 +14022,18 @@ class WindowsAndMessaging {
             throw OSError(A_LastError)
         }
 
+        return result
+    }
+
+    /**
+     * @param {HWND} _hWnd 
+     * @param {BOOL} bStartInertia 
+     * @returns {BOOL} 
+     */
+    static ReportWindowContentInertia(_hWnd, bStartInertia) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
+
+        result := DllCall("USER32.dll\ReportWindowContentInertia", "ptr", _hWnd, "int", bStartInertia, "int")
         return result
     }
 
@@ -31398,6 +31425,36 @@ class WindowsAndMessaging {
             throw OSError(A_LastError)
         }
 
+        return result
+    }
+
+    /**
+     * @param {HWND} _hWnd 
+     * @param {BOOL} fEnable 
+     * @returns {BOOL} 
+     */
+    static RegisterTouchpadCapableWindow(_hWnd, fEnable) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
+
+        result := DllCall("USER32.dll\RegisterTouchpadCapableWindow", "ptr", _hWnd, "int", fEnable, "int")
+        return result
+    }
+
+    /**
+     * @param {BOOL} fEnable 
+     * @returns {BOOL} 
+     */
+    static RegisterTouchpadCapableThread(fEnable) {
+        result := DllCall("USER32.dll\RegisterTouchpadCapableThread", "int", fEnable, "int")
+        return result
+    }
+
+    /**
+     * @param {BOOL} maxSensitivity 
+     * @returns {BOOL} 
+     */
+    static SetMaxTouchpadSensitivity(maxSensitivity) {
+        result := DllCall("USER32.dll\SetMaxTouchpadSensitivity", "int", maxSensitivity, "int")
         return result
     }
 

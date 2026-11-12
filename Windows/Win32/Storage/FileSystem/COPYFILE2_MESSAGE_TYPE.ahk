@@ -62,9 +62,21 @@ class COPYFILE2_MESSAGE_TYPE extends Win32Enum {
     static CALLBACK_ERROR => 6
 
     /**
+     * Native name: COPYFILE2_CALLBACK_SPARSE_CHUNK_STARTED
+     * @type {Integer (Int32)}
+     */
+    static CALLBACK_SPARSE_CHUNK_STARTED => 7
+
+    /**
+     * Native name: COPYFILE2_CALLBACK_SPARSE_CHUNK_FINISHED
+     * @type {Integer (Int32)}
+     */
+    static CALLBACK_SPARSE_CHUNK_FINISHED => 8
+
+    /**
      * An error was encountered during the copy operation.
      * Native name: COPYFILE2_CALLBACK_MAX
      * @type {Integer (Int32)}
      */
-    static CALLBACK_MAX => 7
+    static CALLBACK_MAX => 9
 }

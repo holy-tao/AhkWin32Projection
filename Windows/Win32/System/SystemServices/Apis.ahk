@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\IMAGE_FILE_MACHINES.ahk
 
 /**
  * @namespace Windows.Win32.System.SystemServices
@@ -2455,6 +2457,16 @@ class SystemServices {
     static ARM64_PREFETCH_STRM => 1
 
     /**
+     * @type {Integer (UInt64)}
+     */
+    static ARM64_SVCR_SM => 1
+
+    /**
+     * @type {Integer (UInt64)}
+     */
+    static ARM64_SVCR_ZA => 2
+
+    /**
      * @type {Integer (UInt32)}
      */
     static _ARM64_MULT_INTRINS_SUPPORTED => 0
@@ -2478,6 +2490,11 @@ class SystemServices {
      * @type {Integer (UInt32)}
      */
     static NONVOL_FP_NUMREG_ARM64 => 8
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static ARM64_TPIDR2_BLOCK_ALIGN => 16
 
     /**
      * @type {Integer (UInt32)}
@@ -2952,6 +2969,16 @@ class SystemServices {
     /**
      * @type {Integer (Int32)}
      */
+    static SECURITY_SHADOWADMINACCOUNT_RID => 100
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static SECURITY_AGENTIC_PLATFORM_BASE_RID => 101
+
+    /**
+     * @type {Integer (Int32)}
+     */
     static SECURITY_MAX_BASE_RID => 111
 
     /**
@@ -3313,6 +3340,11 @@ class SystemServices {
      * @type {Integer (Int32)}
      */
     static DOMAIN_ALIAS_RID_OPENSSH_USERS => 585
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static DOMAIN_ALIAS_RID_CUA_USERS => 586
 
     /**
      * @type {Integer (Int32)}
@@ -4040,6 +4072,11 @@ class SystemServices {
     static SE_APP_SILO_PRINT_CAPABILITY => "isolatedWin32-print"
 
     /**
+     * @type {String}
+     */
+    static SE_APP_SILO_SCANNER_CAPABILITY => "isolatedWin32-scanner"
+
+    /**
      * @type {Integer (UInt32)}
      */
     static POLICY_AUDIT_SUBCATEGORY_COUNT => 60
@@ -4632,6 +4669,21 @@ class SystemServices {
     /**
      * @type {Integer (UInt32)}
      */
+    static XSTATE_ARM64_SME_ZA => 3
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static XSTATE_ARM64_SME_TPIDR2 => 4
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static XSTATE_ARM64_SME_ZT => 5
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static XSTATE_FIRST_NON_LEGACY_FEATURE => 2
 
     /**
@@ -4698,6 +4750,16 @@ class SystemServices {
      * @type {Integer (UInt32)}
      */
     static DRIVER_REPORT_NAME_MAX_LENGTH => 32
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static CODE_INTEGRITY_REPORT_GENERATION_VERSION_CURRENT => 1
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static CODE_INTEGRITY_REPORT_RECORD_VERSION_CURRENT => 1
 
     /**
      * @type {Integer (UInt32)}
@@ -4807,12 +4869,27 @@ class SystemServices {
     /**
      * @type {Integer (UInt32)}
      */
+    static MEM_EXTENDED_PARAMETER_SECURE_PAGES => 128
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static MEM_EXTENDED_PARAMETER_TAGGED => 256
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static MEM_EXTENDED_PARAMETER_TYPE_BITS => 8
 
     /**
      * @type {Integer (UInt32)}
      */
     static SEC_HUGE_PAGES => 131072
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static MEM_SECTION_ATTRIBUTE_SECURE_PAGES => 1
 
     /**
      * @type {Integer (UInt32)}
@@ -6062,6 +6139,21 @@ class SystemServices {
     /**
      * @type {Guid}
      */
+    static GUID_PROCESSOR_FREQUENCY_MINIMUM => Guid("{2ac92cea-5efa-4a1b-bed5-1a2bd9aa0b94}")
+
+    /**
+     * @type {Guid}
+     */
+    static GUID_PROCESSOR_FREQUENCY_MINIMUM_1 => Guid("{2ac92cea-5efa-4a1b-bed5-1a2bd9aa0b95}")
+
+    /**
+     * @type {Guid}
+     */
+    static GUID_PROCESSOR_FREQUENCY_MINIMUM_2 => Guid("{2ac92cea-5efa-4a1b-bed5-1a2bd9aa0b96}")
+
+    /**
+     * @type {Guid}
+     */
     static GUID_PROCESSOR_ALLOW_THROTTLING => Guid("{3b04d4fd-1cc7-4f23-ab1c-d1337819c4bb}")
 
     /**
@@ -6427,6 +6519,11 @@ class SystemServices {
     /**
      * @type {Guid}
      */
+    static GUID_PROCESSOR_PACKAGE_C6_POLICY => Guid("{fc1b015c-eb75-496a-ab47-028b0459c8f8}")
+
+    /**
+     * @type {Guid}
+     */
     static GUID_PROCESSOR_PARKING_CORE_OVERRIDE => Guid("{a55612aa-f624-42c6-a443-7397d064c04f}")
 
     /**
@@ -6507,6 +6604,21 @@ class SystemServices {
     /**
      * @type {Guid}
      */
+    static GUID_PROCESSOR_PERF_LATENCY_HINT_FREQ => Guid("{81202931-acbb-405c-a7ee-3e2ba4866f6f}")
+
+    /**
+     * @type {Guid}
+     */
+    static GUID_PROCESSOR_PERF_LATENCY_HINT_FREQ_1 => Guid("{81202931-acbb-405c-a7ee-3e2ba4866f70}")
+
+    /**
+     * @type {Guid}
+     */
+    static GUID_PROCESSOR_PERF_LATENCY_HINT_FREQ_2 => Guid("{81202931-acbb-405c-a7ee-3e2ba4866f71}")
+
+    /**
+     * @type {Guid}
+     */
     static GUID_PROCESSOR_PERF_LATENCY_HINT_EPP => Guid("{4b70f900-cdd9-4e66-aa26-ae8417f98173}")
 
     /**
@@ -6553,6 +6665,26 @@ class SystemServices {
      * @type {Integer (UInt32)}
      */
     static PARKING_TOPOLOGY_POLICY_SEQUENTIAL => 2
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static PARKING_TOPOLOGY_POLICY_ROUNDROBIN_P_ROUNDROBIN_E => 3
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static PARKING_TOPOLOGY_POLICY_SEQUENTIAL_P_SEQUENTIAL_E => 4
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static PARKING_TOPOLOGY_POLICY_ROUNDROBIN_P_SEQUENTIAL_E => 5
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static PARKING_TOPOLOGY_POLICY_SEQUENTIAL_P_ROUNDROBIN_E => 6
 
     /**
      * @type {Guid}
@@ -9445,6 +9577,16 @@ class SystemServices {
     static IMAGE_HOT_PATCH_DYNAMIC_VALUE => 491520
 
     /**
+     * @type {String}
+     */
+    static IMAGE_HOTSWAP_ENDPOINT_TABLE_SECTION => ".shsept"
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static IMAGE_HOTSWAP_ENDPOINT_INFO_V2 => 2
+
+    /**
      * @type {Integer (UInt32)}
      */
     static IMAGE_GUARD_CF_INSTRUMENTED => 256
@@ -10107,6 +10249,11 @@ class SystemServices {
     /**
      * @type {Integer (UInt32)}
      */
+    static FAST_FAIL_INVALID_SME_STATE => 78
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static FAST_FAIL_INVALID_FAST_FAIL_CODE => 4294967295
 
     /**
@@ -10303,6 +10450,11 @@ class SystemServices {
      * @type {Integer (UInt32)}
      */
     static HEAP_OPTIMIZE_RESOURCES_CURRENT_VERSION => 1
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static HEAP_MEMORY_USAGE_INFO_CURRENT_VERSION => 1
 
     /**
      * @type {Integer (UInt32)}
@@ -11056,5 +11208,17 @@ class SystemServices {
 ;@endregion Constants
 
 ;@region Methods
+    /**
+     * @param {PWSTR} DosFileName 
+     * @param {Pointer<IMAGE_FILE_MACHINES>} MachineTypeFlags 
+     * @returns {Integer} 
+     */
+    static RtlGetImageFileMachines(DosFileName, MachineTypeFlags) {
+        DosFileName := DosFileName is String ? StrPtr(DosFileName) : DosFileName
+
+        result := DllCall("ntdll.dll\RtlGetImageFileMachines", "ptr", DosFileName, "ptr", MachineTypeFlags, "uint")
+        return result
+    }
+
 ;@endregion Methods
 }

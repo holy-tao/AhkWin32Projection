@@ -36,63 +36,12 @@ class IClockVector extends IUnknown {
     /**
      * Returns an enumerator that iterates through the clock vector elements.
      * @param {Pointer<Guid>} riid The IID of the enumeration interface that is requested. Must be either <b>IID_IEnumClockVector</b> or <b>IID_IEnumFeedClockVector</b>.
-     * @param {Pointer<Pointer<Void>>} ppiEnumClockVector Returns an object that implements <i>riid</i> and that can enumerate the clock vector elements.
-     * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The method succeeded.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_POINTER</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Invalid pointer.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%"></td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_NOINTERFACE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * <i>riid</i> is not  <b>IID_IEnumClockVector</b> or <b>IID_IEnumFeedClockVector</b>.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Pointer<Void>} Returns an object that implements <i>riid</i> and that can enumerate the clock vector elements.
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-iclockvector-getclockvectorelements
      */
-    GetClockVectorElements(riid, ppiEnumClockVector) {
-        ppiEnumClockVectorMarshal := ppiEnumClockVector is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(3, this, "ptr", riid, ppiEnumClockVectorMarshal, ppiEnumClockVector, "HRESULT")
-        return result
+    GetClockVectorElements(riid) {
+        result := ComCall(3, this, "ptr", riid, "ptr*", &ppiEnumClockVector := 0, "HRESULT")
+        return ppiEnumClockVector
     }
 
     /**

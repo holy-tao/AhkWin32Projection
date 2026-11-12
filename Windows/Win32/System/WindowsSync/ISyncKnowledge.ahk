@@ -326,57 +326,12 @@ class ISyncKnowledge extends IUnknown {
      * @remarks
      * Be aware that there is no single representation of knowledge. Equivalent knowledge might be represented in different forms and return different values from <b>GetScopeVector</b>.
      * @param {Pointer<Guid>} riid The IID of the object to retrieve. Must be <b>IID_IClockVector</b>.
-     * @param {Pointer<Pointer<Void>>} ppUnk Returns an object that implements <i>riid</i> and that represents the clock vector that defines the changes that are contained in the knowledge.
-     * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The method succeeded.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%"></td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_NOINTERFACE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%"></td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%"></td>
-     * </tr>
-     * </table>
+     * @returns {Pointer<Void>} Returns an object that implements <i>riid</i> and that represents the clock vector that defines the changes that are contained in the knowledge.
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncknowledge-getscopevector
      */
-    GetScopeVector(riid, ppUnk) {
-        ppUnkMarshal := ppUnk is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(8, this, "ptr", riid, ppUnkMarshal, ppUnk, "HRESULT")
-        return result
+    GetScopeVector(riid) {
+        result := ComCall(8, this, "ptr", riid, "ptr*", &ppUnk := 0, "HRESULT")
+        return ppUnk
     }
 
     /**
@@ -762,57 +717,12 @@ class ISyncKnowledge extends IUnknown {
      * @remarks
      * Be aware that there is no single representation of knowledge. Equivalent knowledge might be represented in different forms and return different values from <b>GetRangeExceptions</b>.
      * @param {Pointer<Guid>} riid The IID of the object to retrieve. Must be <b>IID_IEnumRangeExceptions</b>.
-     * @param {Pointer<Pointer<Void>>} ppUnk Returns an object that implements <i>riid</i> and that can enumerate the list of <b>IRangeException</b> objects that is contained in the knowledge.
-     * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The method succeeded.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%"></td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_NOINTERFACE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%"></td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%"></td>
-     * </tr>
-     * </table>
+     * @returns {Pointer<Void>} Returns an object that implements <i>riid</i> and that can enumerate the list of <b>IRangeException</b> objects that is contained in the knowledge.
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncknowledge-getrangeexceptions
      */
-    GetRangeExceptions(riid, ppUnk) {
-        ppUnkMarshal := ppUnk is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(21, this, "ptr", riid, ppUnkMarshal, ppUnk, "HRESULT")
-        return result
+    GetRangeExceptions(riid) {
+        result := ComCall(21, this, "ptr", riid, "ptr*", &ppUnk := 0, "HRESULT")
+        return ppUnk
     }
 
     /**
@@ -820,57 +730,12 @@ class ISyncKnowledge extends IUnknown {
      * @remarks
      * Be aware that there is no single representation of knowledge. Equivalent knowledge might be represented in different forms and return different values from <b>GetSingleItemExceptions</b>.
      * @param {Pointer<Guid>} riid The IID of the object to retrieve. Must be <b>IID_IEnumSingleItemExceptions</b>.
-     * @param {Pointer<Pointer<Void>>} ppUnk Returns an object that implements <i>riid</i> and that can enumerate the list of <b>ISingleItemException</b> objects that is contained in the knowledge.
-     * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The method succeeded.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%"></td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_NOINTERFACE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%"></td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%"></td>
-     * </tr>
-     * </table>
+     * @returns {Pointer<Void>} Returns an object that implements <i>riid</i> and that can enumerate the list of <b>ISingleItemException</b> objects that is contained in the knowledge.
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncknowledge-getsingleitemexceptions
      */
-    GetSingleItemExceptions(riid, ppUnk) {
-        ppUnkMarshal := ppUnk is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(22, this, "ptr", riid, ppUnkMarshal, ppUnk, "HRESULT")
-        return result
+    GetSingleItemExceptions(riid) {
+        result := ComCall(22, this, "ptr", riid, "ptr*", &ppUnk := 0, "HRESULT")
+        return ppUnk
     }
 
     /**
@@ -878,115 +743,26 @@ class ISyncKnowledge extends IUnknown {
      * @remarks
      * Be aware that there is no single representation of knowledge. Equivalent knowledge might be represented in different forms and return different values from <b>GetChangeUnitExceptions</b>.
      * @param {Pointer<Guid>} riid The IID of the object to retrieve. Must be <b>IID_IEnumChangeUnitExceptions</b>.
-     * @param {Pointer<Pointer<Void>>} ppUnk Returns an object that implements <i>riid</i> and that can enumerate the list of <b>IChangeUnitException</b> objects that is contained in the knowledge.
-     * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The method succeeded.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%"></td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_NOINTERFACE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%"></td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%"></td>
-     * </tr>
-     * </table>
+     * @returns {Pointer<Void>} Returns an object that implements <i>riid</i> and that can enumerate the list of <b>IChangeUnitException</b> objects that is contained in the knowledge.
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncknowledge-getchangeunitexceptions
      */
-    GetChangeUnitExceptions(riid, ppUnk) {
-        ppUnkMarshal := ppUnk is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(23, this, "ptr", riid, ppUnkMarshal, ppUnk, "HRESULT")
-        return result
+    GetChangeUnitExceptions(riid) {
+        result := ComCall(23, this, "ptr", riid, "ptr*", &ppUnk := 0, "HRESULT")
+        return ppUnk
     }
 
     /**
      * Gets the clock vector that is associated with the specified item ID.
      * @param {Pointer<Integer>} pbItemId The ID of the item that is associated with the clock vector to find.
      * @param {Pointer<Guid>} riid The IID of the object to retrieve. Must be <b>IID_IFeedClockVector</b> or <b>IID_IClockVector</b>.
-     * @param {Pointer<Pointer<Void>>} ppUnk Returns an object that implements <i>riid</i> and that represents the clock vector associated with <i>pbItemId</i>.
-     * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The method succeeded.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%"></td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_NOINTERFACE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%"></td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%"></td>
-     * </tr>
-     * </table>
+     * @returns {Pointer<Void>} Returns an object that implements <i>riid</i> and that represents the clock vector associated with <i>pbItemId</i>.
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncknowledge-findclockvectorforitem
      */
-    FindClockVectorForItem(pbItemId, riid, ppUnk) {
+    FindClockVectorForItem(pbItemId, riid) {
         pbItemIdMarshal := pbItemId is VarRef ? "char*" : "ptr"
-        ppUnkMarshal := ppUnk is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(24, this, pbItemIdMarshal, pbItemId, "ptr", riid, ppUnkMarshal, ppUnk, "HRESULT")
-        return result
+        result := ComCall(24, this, pbItemIdMarshal, pbItemId, "ptr", riid, "ptr*", &ppUnk := 0, "HRESULT")
+        return ppUnk
     }
 
     /**
@@ -994,59 +770,15 @@ class ISyncKnowledge extends IUnknown {
      * @param {Pointer<Integer>} pbItemId The ID of the item that contains the change unit that is associated with the clock vector to retrieve.
      * @param {Pointer<Integer>} pbChangeUnitId The ID of the change unit that is associated with the clock vector to retrieve.
      * @param {Pointer<Guid>} riid The IID of the object to retrieve. Must be <b>IID_IEnumClockVector</b>.
-     * @param {Pointer<Pointer<Void>>} ppUnk Returns an object that implements <i>riid</i> and that can enumerate the list of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winsync/nn-winsync-iclockvector">IClockVector</a> objects that is associated with  <i>pbChangeUnitId</i>.
-     * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The method succeeded.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%"></td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_NOINTERFACE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%"></td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%"></td>
-     * </tr>
-     * </table>
+     * @returns {Pointer<Void>} Returns an object that implements <i>riid</i> and that can enumerate the list of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winsync/nn-winsync-iclockvector">IClockVector</a> objects that is associated with  <i>pbChangeUnitId</i>.
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncknowledge-findclockvectorforchangeunit
      */
-    FindClockVectorForChangeUnit(pbItemId, pbChangeUnitId, riid, ppUnk) {
+    FindClockVectorForChangeUnit(pbItemId, pbChangeUnitId, riid) {
         pbItemIdMarshal := pbItemId is VarRef ? "char*" : "ptr"
         pbChangeUnitIdMarshal := pbChangeUnitId is VarRef ? "char*" : "ptr"
-        ppUnkMarshal := ppUnk is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(25, this, pbItemIdMarshal, pbItemId, pbChangeUnitIdMarshal, pbChangeUnitId, "ptr", riid, ppUnkMarshal, ppUnk, "HRESULT")
-        return result
+        result := ComCall(25, this, pbItemIdMarshal, pbItemId, pbChangeUnitIdMarshal, pbChangeUnitId, "ptr", riid, "ptr*", &ppUnk := 0, "HRESULT")
+        return ppUnk
     }
 
     /**

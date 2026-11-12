@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\WHV_PROCESSOR_FEATURES.ahk
-#Include .\WHV_PROCESSOR_FEATURES1.ahk
+#Include .\WHV_X64_PROCESSOR_FEATURES.ahk
+#Include .\WHV_X64_PROCESSOR_FEATURES1.ahk
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
+ * @architecture X64, Arm64
  */
 class WHV_PROCESSOR_FEATURES_BANKS extends Win32Struct {
     static sizeof => 40
@@ -28,23 +29,23 @@ class WHV_PROCESSOR_FEATURES_BANKS extends Win32Struct {
     }
 
     /**
-     * @type {WHV_PROCESSOR_FEATURES}
+     * @type {WHV_X64_PROCESSOR_FEATURES}
      */
     Bank0 {
         get {
             if(!this.HasProp("__Bank0"))
-                this.__Bank0 := WHV_PROCESSOR_FEATURES(8, this)
+                this.__Bank0 := WHV_X64_PROCESSOR_FEATURES(8, this)
             return this.__Bank0
         }
     }
 
     /**
-     * @type {WHV_PROCESSOR_FEATURES1}
+     * @type {WHV_X64_PROCESSOR_FEATURES1}
      */
     Bank1 {
         get {
             if(!this.HasProp("__Bank1"))
-                this.__Bank1 := WHV_PROCESSOR_FEATURES1(24, this)
+                this.__Bank1 := WHV_X64_PROCESSOR_FEATURES1(24, this)
             return this.__Bank1
         }
     }

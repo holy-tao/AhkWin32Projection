@@ -81,9 +81,15 @@ class EVENT_INFO_CLASS extends Win32Enum {
     static ProviderUseDescriptorType => 3
 
     /**
+     * Native name: EventProviderSetReserved2
+     * @type {Integer (Int32)}
+     */
+    static ProviderSetReserved2 => 4
+
+    /**
      * The first invalid operation code. This value may change in subsequent versions
      * of the Windows SDK.
      * @type {Integer (Int32)}
      */
-    static MaxEventInfo => 4
+    static MaxEventInfo => 5
 }

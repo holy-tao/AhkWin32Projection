@@ -3,6 +3,7 @@
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
+ * @architecture X64, Arm64
  */
 class WHV_SYNTHETIC_PROCESSOR_FEATURES extends Win32Struct {
     static sizeof => 16
@@ -17,16 +18,16 @@ class WHV_SYNTHETIC_PROCESSOR_FEATURES extends Win32Struct {
      * - AccessPartitionReferenceCounter
      * - AccessSynicRegs
      * - AccessSyntheticTimerRegs
-     * - ReservedZ6
+     * - AccessIntrCtrlRegs
      * - AccessHypercallRegs
      * - AccessVpIndex
      * - AccessPartitionReferenceTsc
-     * - ReservedZ10
-     * - ReservedZ11
+     * - AccessGuestIdleReg
+     * - AccessFrequencyRegs
      * - ReservedZ12
      * - ReservedZ13
      * - ReservedZ14
-     * - ReservedZ15
+     * - EnableExtendedGvaRangesForFlushVirtualAddressList
      * - ReservedZ16
      * - ReservedZ17
      * - FastHypercallOutput
@@ -36,12 +37,28 @@ class WHV_SYNTHETIC_PROCESSOR_FEATURES extends Win32Struct {
      * - DirectSyntheticTimers
      * - ReservedZ23
      * - ExtendedProcessorMasks
-     * - ReservedZ25
+     * - TbFlushHypercalls
      * - SyntheticClusterIpi
      * - NotifyLongSpinWait
      * - QueryNumaDistance
      * - SignalEvents
      * - RetargetDeviceInterrupt
+     * - RestoreTime
+     * - EnlightenedVmcs
+     * - NestedDebugCtl
+     * - SyntheticTimeUnhaltedTimer
+     * - IdleSpecCtrl
+     * - ReservedZ36
+     * - WakeVps
+     * - AccessVpRegs
+     * - ReservedZ39
+     * - ReservedZ40
+     * - ReservedZ41
+     * - ReservedZ42
+     * - ReservedZ43
+     * - ReservedZ44
+     * - ReservedZ45
+     * - ReservedZ46
      * - Reserved
      * @type {Integer}
      */
@@ -101,7 +118,7 @@ class WHV_SYNTHETIC_PROCESSOR_FEATURES extends Win32Struct {
     /**
      * @type {Integer}
      */
-    ReservedZ6 {
+    AccessIntrCtrlRegs {
         get => (this._bitfield >> 6) & 0x1
         set => this._bitfield := ((value & 0x1) << 6) | (this._bitfield & ~(0x1 << 6))
     }
@@ -133,7 +150,7 @@ class WHV_SYNTHETIC_PROCESSOR_FEATURES extends Win32Struct {
     /**
      * @type {Integer}
      */
-    ReservedZ10 {
+    AccessGuestIdleReg {
         get => (this._bitfield >> 10) & 0x1
         set => this._bitfield := ((value & 0x1) << 10) | (this._bitfield & ~(0x1 << 10))
     }
@@ -141,7 +158,7 @@ class WHV_SYNTHETIC_PROCESSOR_FEATURES extends Win32Struct {
     /**
      * @type {Integer}
      */
-    ReservedZ11 {
+    AccessFrequencyRegs {
         get => (this._bitfield >> 11) & 0x1
         set => this._bitfield := ((value & 0x1) << 11) | (this._bitfield & ~(0x1 << 11))
     }
@@ -173,7 +190,7 @@ class WHV_SYNTHETIC_PROCESSOR_FEATURES extends Win32Struct {
     /**
      * @type {Integer}
      */
-    ReservedZ15 {
+    EnableExtendedGvaRangesForFlushVirtualAddressList {
         get => (this._bitfield >> 15) & 0x1
         set => this._bitfield := ((value & 0x1) << 15) | (this._bitfield & ~(0x1 << 15))
     }
@@ -253,7 +270,7 @@ class WHV_SYNTHETIC_PROCESSOR_FEATURES extends Win32Struct {
     /**
      * @type {Integer}
      */
-    ReservedZ25 {
+    TbFlushHypercalls {
         get => (this._bitfield >> 25) & 0x1
         set => this._bitfield := ((value & 0x1) << 25) | (this._bitfield & ~(0x1 << 25))
     }
@@ -296,6 +313,134 @@ class WHV_SYNTHETIC_PROCESSOR_FEATURES extends Win32Struct {
     RetargetDeviceInterrupt {
         get => (this._bitfield >> 30) & 0x1
         set => this._bitfield := ((value & 0x1) << 30) | (this._bitfield & ~(0x1 << 30))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    RestoreTime {
+        get => (this._bitfield >> 31) & 0x1
+        set => this._bitfield := ((value & 0x1) << 31) | (this._bitfield & ~(0x1 << 31))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    EnlightenedVmcs {
+        get => (this._bitfield >> 32) & 0x1
+        set => this._bitfield := ((value & 0x1) << 32) | (this._bitfield & ~(0x1 << 32))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    NestedDebugCtl {
+        get => (this._bitfield >> 33) & 0x1
+        set => this._bitfield := ((value & 0x1) << 33) | (this._bitfield & ~(0x1 << 33))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    SyntheticTimeUnhaltedTimer {
+        get => (this._bitfield >> 34) & 0x1
+        set => this._bitfield := ((value & 0x1) << 34) | (this._bitfield & ~(0x1 << 34))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    IdleSpecCtrl {
+        get => (this._bitfield >> 35) & 0x1
+        set => this._bitfield := ((value & 0x1) << 35) | (this._bitfield & ~(0x1 << 35))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    ReservedZ36 {
+        get => (this._bitfield >> 36) & 0x1
+        set => this._bitfield := ((value & 0x1) << 36) | (this._bitfield & ~(0x1 << 36))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    WakeVps {
+        get => (this._bitfield >> 37) & 0x1
+        set => this._bitfield := ((value & 0x1) << 37) | (this._bitfield & ~(0x1 << 37))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    AccessVpRegs {
+        get => (this._bitfield >> 38) & 0x1
+        set => this._bitfield := ((value & 0x1) << 38) | (this._bitfield & ~(0x1 << 38))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    ReservedZ39 {
+        get => (this._bitfield >> 39) & 0x1
+        set => this._bitfield := ((value & 0x1) << 39) | (this._bitfield & ~(0x1 << 39))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    ReservedZ40 {
+        get => (this._bitfield >> 40) & 0x1
+        set => this._bitfield := ((value & 0x1) << 40) | (this._bitfield & ~(0x1 << 40))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    ReservedZ41 {
+        get => (this._bitfield >> 41) & 0x1
+        set => this._bitfield := ((value & 0x1) << 41) | (this._bitfield & ~(0x1 << 41))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    ReservedZ42 {
+        get => (this._bitfield >> 42) & 0x1
+        set => this._bitfield := ((value & 0x1) << 42) | (this._bitfield & ~(0x1 << 42))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    ReservedZ43 {
+        get => (this._bitfield >> 43) & 0x1
+        set => this._bitfield := ((value & 0x1) << 43) | (this._bitfield & ~(0x1 << 43))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    ReservedZ44 {
+        get => (this._bitfield >> 44) & 0x1
+        set => this._bitfield := ((value & 0x1) << 44) | (this._bitfield & ~(0x1 << 44))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    ReservedZ45 {
+        get => (this._bitfield >> 45) & 0x1
+        set => this._bitfield := ((value & 0x1) << 45) | (this._bitfield & ~(0x1 << 45))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    ReservedZ46 {
+        get => (this._bitfield >> 46) & 0x1
+        set => this._bitfield := ((value & 0x1) << 46) | (this._bitfield & ~(0x1 << 46))
     }
 
     /**

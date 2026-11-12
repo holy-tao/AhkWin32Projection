@@ -31,4 +31,9 @@ class CLUSION_REASON extends Win32Enum {
      * @type {Integer (Int32)}
      */
     static CLUSIONREASON_GROUPPOLICY => 3
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static CLUSIONREASON_USAGE => 4
 }

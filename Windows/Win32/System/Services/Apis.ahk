@@ -6687,9 +6687,8 @@ class Services {
         hService := hService is Win32Handle ? NumGet(hService, "ptr") : hService
 
         pCallbackContextMarshal := pCallbackContext is VarRef ? "ptr" : "ptr"
-        pSubscriptionMarshal := pSubscription is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("SecHost.dll\SubscribeServiceChangeNotifications", "ptr", hService, "int", eEventType, "ptr", pCallback, pCallbackContextMarshal, pCallbackContext, pSubscriptionMarshal, pSubscription, "uint")
+        result := DllCall("SecHost.dll\SubscribeServiceChangeNotifications", "ptr", hService, "int", eEventType, "ptr", pCallback, pCallbackContextMarshal, pCallbackContext, "ptr", pSubscription, "uint")
         return result
     }
 
@@ -6702,6 +6701,8 @@ class Services {
      * @see https://learn.microsoft.com/windows/win32/Services/unsubscribeservicechangenotifications
      */
     static UnsubscribeServiceChangeNotifications(pSubscription) {
+        pSubscription := pSubscription is Win32Handle ? NumGet(pSubscription, "ptr") : pSubscription
+
         DllCall("SecHost.dll\UnsubscribeServiceChangeNotifications", "ptr", pSubscription)
     }
 

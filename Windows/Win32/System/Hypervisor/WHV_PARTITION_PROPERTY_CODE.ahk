@@ -3,6 +3,7 @@
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
+ * @architecture X64
  */
 class WHV_PARTITION_PROPERTY_CODE extends Win32Enum {
 
@@ -150,6 +151,11 @@ class WHV_PARTITION_PROPERTY_CODE extends Win32Enum {
      * @type {Integer (Int32)}
      */
     static WHvPartitionPropertyCodeUnimplementedMsrAction => 4112
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static WHvPartitionPropertyCodePhysicalAddressWidth => 4113
 
     /**
      * @type {Integer (Int32)}

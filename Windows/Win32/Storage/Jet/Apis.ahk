@@ -138,7 +138,7 @@ class Jet {
     /**
      * @type {Integer (UInt32)}
      */
-    static JET_efvWindows11v23H2 => 9600
+    static JET_efvWindowsServer2025 => 9620
 
     /**
      * @type {Integer (UInt32)}
@@ -1148,7 +1148,7 @@ class Jet {
     /**
      * @type {Integer (UInt32)}
      */
-    static JET_paramMaxValueInvalid => 232
+    static JET_paramMaxValueInvalid => 249
 
     /**
      * @type {Integer (UInt32)}
@@ -2876,6 +2876,11 @@ class Jet {
     static JET_errBBTBuffCorrupted => -365
 
     /**
+     * @type {Integer (Int32)}
+     */
+    static JET_errBadRootPageLink => -366
+
+    /**
      * @type {Integer (UInt32)}
      */
     static JET_wrnSeparateLongValue => 406
@@ -3323,7 +3328,17 @@ class Jet {
     /**
      * @type {Integer (Int32)}
      */
+    static JET_errPageInitializedMismatchUninitRemote => -596
+
+    /**
+     * @type {Integer (Int32)}
+     */
     static JET_errPageInitializedMismatch => -596
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static JET_errPageInitializedMismatchUninitLocal => -597
 
     /**
      * @type {Integer (Int32)}
@@ -4064,6 +4079,11 @@ class Jet {
      * @type {Integer (Int32)}
      */
     static JET_errTransactionsNotReadyDuringRecovery => -1232
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static JET_errBlockedByCorruptionMark => -1233
 
     /**
      * @type {Integer (UInt32)}
@@ -4844,6 +4864,16 @@ class Jet {
      * @type {Integer (Int32)}
      */
     static JET_errFileCompressed => -4005
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static JET_wrnCopyCompletedAlready => 8002
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static JET_errCopySignatureMismatchCannotRestart => -8003
 
     /**
      * @type {Integer (Int32)}

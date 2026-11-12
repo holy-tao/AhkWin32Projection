@@ -1045,6 +1045,12 @@ class DXGI_COLOR_SPACE_TYPE extends Win32Enum {
     static YCBCR_STUDIO_G24_TOPLEFT_P2020 => 24
 
     /**
+     * Native name: DXGI_COLOR_SPACE_RGB_FULL_G10_NONE_P2020
+     * @type {Integer (Int32)}
+     */
+    static RGB_FULL_G10_NONE_P2020 => 25
+
+    /**
      * A custom color definition is used.
      * Native name: DXGI_COLOR_SPACE_CUSTOM
      * @type {Integer (Int32)}

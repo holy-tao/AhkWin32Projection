@@ -99,7 +99,7 @@ class DEBUG_STACK_FRAME_EX extends Win32Struct {
     /**
      * @type {Integer}
      */
-    Reserved1 {
+    FrameMachine {
         get => NumGet(this, 132, "uint")
         set => NumPut("uint", value, this, 132)
     }

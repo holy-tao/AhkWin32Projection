@@ -5,6 +5,7 @@
 #Include .\DIMM_ADDR_VALID_BITS_DDR4.ahk
 #Include .\DIMM_ADDR_VALID_BITS_DDR5.ahk
 #Include .\DIMM_INFO.ahk
+#Include .\MEMORY_DEFECT_FLAGS.ahk
 #Include .\PAGE_OFFLINE_ERROR_TYPES.ahk
 
 /**
@@ -19,8 +20,19 @@ class MEMORY_DEFECT extends Win32Struct {
      * @type {Integer}
      */
     Version {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
+        get => NumGet(this, 0, "ushort")
+        set => NumPut("ushort", value, this, 0)
+    }
+
+    /**
+     * @type {MEMORY_DEFECT_FLAGS}
+     */
+    Flags {
+        get {
+            if(!this.HasProp("__Flags"))
+                this.__Flags := MEMORY_DEFECT_FLAGS(2, this)
+            return this.__Flags
+        }
     }
 
     /**

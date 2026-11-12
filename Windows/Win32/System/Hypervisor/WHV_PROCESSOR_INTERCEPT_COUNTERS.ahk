@@ -4,6 +4,7 @@
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
+ * @architecture X64
  */
 class WHV_PROCESSOR_INTERCEPT_COUNTERS extends Win32Struct {
     static sizeof => 224

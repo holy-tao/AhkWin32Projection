@@ -2278,6 +2278,11 @@ class Etw {
     /**
      * @type {Integer (UInt32)}
      */
+    static EVENT_DATA_DESCRIPTOR_TYPE_RESERVED1 => 4
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static EVENT_WRITE_FLAG_NO_FAULTING => 1
 
     /**
@@ -2449,6 +2454,11 @@ class Etw {
      * @type {Integer (UInt32)}
      */
     static EVENT_HEADER_FLAG_PROCESSOR_INDEX => 512
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static EVENT_HEADER_FLAG_RESERVED1 => 1024
 
     /**
      * @type {Integer (UInt32)}

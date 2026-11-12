@@ -77,15 +77,12 @@ class ISpObjectToken extends ISpDataKey {
      * @param {IUnknown} pUnkOuter 
      * @param {Integer} dwClsContext 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppvObject 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/wbemglue/nl-wbemglue-cwbemgluefactory
      */
-    CreateInstance(pUnkOuter, dwClsContext, riid, ppvObject) {
-        ppvObjectMarshal := ppvObject is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(18, this, "ptr", pUnkOuter, "uint", dwClsContext, "ptr", riid, ppvObjectMarshal, ppvObject, "HRESULT")
-        return result
+    CreateInstance(pUnkOuter, dwClsContext, riid) {
+        result := ComCall(18, this, "ptr", pUnkOuter, "uint", dwClsContext, "ptr", riid, "ptr*", &ppvObject := 0, "HRESULT")
+        return ppvObject
     }
 
     /**

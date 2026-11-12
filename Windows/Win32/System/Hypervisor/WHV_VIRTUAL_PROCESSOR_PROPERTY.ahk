@@ -4,6 +4,7 @@
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
+ * @architecture X64, Arm64
  */
 class WHV_VIRTUAL_PROCESSOR_PROPERTY extends Win32Struct {
     static sizeof => 16

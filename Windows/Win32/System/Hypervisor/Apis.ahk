@@ -50,8 +50,8 @@
 #Include .\WHV_VPCI_DEVICE_REGISTER.ahk
 #Include .\WHV_VPCI_INTERRUPT_TARGET.ahk
 #Include .\WHV_VPCI_MMIO_MAPPING.ahk
-#Include .\WHV_VP_EXIT_CONTEXT.ahk
 #Include .\WHV_X64_IO_PORT_ACCESS_CONTEXT.ahk
+#Include .\WHV_X64_VP_EXIT_CONTEXT.ahk
 #Include ..\Power\DEVICE_POWER_STATE.ahk
 
 /**
@@ -94,12 +94,27 @@ class Hypervisor {
     /**
      * @type {Integer (UInt32)}
      */
+    static WHV_EXTENDED_VM_EXITS_RESERVED_BITFIELD_COUNT => 49
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static WHV_PROCESSOR_FEATURES_BANKS_COUNT => 2
 
     /**
      * @type {Integer (UInt32)}
      */
+    static WHV_SYNTHETIC_PROCESSOR_FEATURES_RESERVED_BITFIELD_COUNT => 17
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static WHV_SYNTHETIC_PROCESSOR_FEATURES_BANKS_COUNT => 1
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static WHV_VTL_ALL => 15
 
     /**
      * @type {Integer (UInt32)}
@@ -110,6 +125,16 @@ class Hypervisor {
      * @type {Integer (UInt32)}
      */
     static WHV_HYPERCALL_CONTEXT_MAX_XMM_REGISTERS => 6
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static WHV_ARM64_GLOBAL_INTERRUPT_CONTROLLER_STATE_VERSION_CURRENT => 1
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static WHV_ARM64_INTERRUPT_CONTROLLER_STATE_VERSION_CURRENT => 1
 
     /**
      * @type {Integer (UInt32)}
@@ -1141,7 +1166,7 @@ class Hypervisor {
     /**
      * @param {Pointer<Void>} Emulator 
      * @param {Pointer<Void>} _Context 
-     * @param {Pointer<WHV_VP_EXIT_CONTEXT>} VpContext 
+     * @param {Pointer<WHV_X64_VP_EXIT_CONTEXT>} VpContext 
      * @param {Pointer<WHV_X64_IO_PORT_ACCESS_CONTEXT>} IoInstructionContext 
      * @param {Pointer<WHV_EMULATOR_STATUS>} EmulatorReturnStatus 
      * @returns {HRESULT} 
@@ -1157,7 +1182,7 @@ class Hypervisor {
     /**
      * @param {Pointer<Void>} Emulator 
      * @param {Pointer<Void>} _Context 
-     * @param {Pointer<WHV_VP_EXIT_CONTEXT>} VpContext 
+     * @param {Pointer<WHV_X64_VP_EXIT_CONTEXT>} VpContext 
      * @param {Pointer<WHV_MEMORY_ACCESS_CONTEXT>} MmioInstructionContext 
      * @param {Pointer<WHV_EMULATOR_STATUS>} EmulatorReturnStatus 
      * @returns {HRESULT} 

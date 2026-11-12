@@ -1,0 +1,43 @@
+#Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Struct.ahk
+
+/**
+ * @namespace Windows.Win32.System.SystemServices
+ */
+class ARM64_TPIDR2_BLOCK extends Win32Struct {
+    static sizeof => 16
+
+    static packingSize => 8
+
+    /**
+     * @type {Pointer<Void>}
+     */
+    ZaSaveBuffer {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    NumZaSaveSlices {
+        get => NumGet(this, 8, "ushort")
+        set => NumPut("ushort", value, this, 8)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Reserved1 {
+        get => NumGet(this, 10, "ushort")
+        set => NumPut("ushort", value, this, 10)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Reserved2 {
+        get => NumGet(this, 12, "uint")
+        set => NumPut("uint", value, this, 12)
+    }
+}

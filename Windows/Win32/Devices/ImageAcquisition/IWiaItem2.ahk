@@ -389,21 +389,16 @@ class IWiaItem2 extends IUnknown {
      * @param {Pointer<Guid>} riidExtensionInterface Type: **REFIID**
      * 
      * Specifies the identifier of the extension interface.
-     * @param {Pointer<Pointer<Void>>} ppOut Type: **VOID\*\***
+     * @returns {Pointer<Void>} Type: **VOID\*\***
      * 
      * Receives the address of a pointer to the extension interface.
-     * @returns {HRESULT} Type: **HRESULT**
-     * 
-     * If this method succeeds, it returns **S\_OK**. Otherwise, it returns an **HRESULT** error code.
      * @see https://learn.microsoft.com/windows/win32/wia/-wia-iwiaitem2-getextension
      */
-    GetExtension(lFlags, bstrName, riidExtensionInterface, ppOut) {
+    GetExtension(lFlags, bstrName, riidExtensionInterface) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
 
-        ppOutMarshal := ppOut is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(13, this, "int", lFlags, "ptr", bstrName, "ptr", riidExtensionInterface, ppOutMarshal, ppOut, "HRESULT")
-        return result
+        result := ComCall(13, this, "int", lFlags, "ptr", bstrName, "ptr", riidExtensionInterface, "ptr*", &ppOut := 0, "HRESULT")
+        return ppOut
     }
 
     /**

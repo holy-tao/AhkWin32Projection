@@ -5,6 +5,7 @@
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
+ * @architecture X64, Arm64
  */
 class WHV_ADVISE_GPA_RANGE_POPULATE extends Win32Struct {
     static sizeof => 12

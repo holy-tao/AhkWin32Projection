@@ -30,4 +30,9 @@ class DEVPROP_PCIDEVICE_SRIOVSUPPORT extends Win32Enum {
      * @type {Integer (UInt32)}
      */
     static DevProp_PciDevice_SriovSupport_DidntGetVfBarSpace => 4
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static DevProp_PciDevice_SriovSupport_NoSriovCap => 5
 }

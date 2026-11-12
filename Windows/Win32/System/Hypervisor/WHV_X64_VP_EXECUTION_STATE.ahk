@@ -3,6 +3,7 @@
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
+ * @architecture X64
  */
 class WHV_X64_VP_EXECUTION_STATE extends Win32Struct {
     static sizeof => 4

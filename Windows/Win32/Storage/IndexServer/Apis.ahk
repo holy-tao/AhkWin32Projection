@@ -31,6 +31,16 @@ class IndexServer {
     static CI_VERSION_WIN70 => 1792
 
     /**
+     * @type {Integer (UInt32)}
+     */
+    static CI_VERSION_CORRID => 2048
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static CI_VERSION_QUERY_METADATA => 2304
+
+    /**
      * @type {String}
      */
     static CINULLCATALOG => "::_noindex_::"

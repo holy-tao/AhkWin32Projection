@@ -80,6 +80,11 @@ class Environment {
     /**
      * @type {Integer (UInt32)}
      */
+    static VBS_ENCLAVE_VARDATA_PACKAGE => 2
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static ENCLAVE_VBS_BASIC_KEY_FLAG_MEASUREMENT => 1
 
     /**

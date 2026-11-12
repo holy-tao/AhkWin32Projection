@@ -35,4 +35,10 @@ class HCS_RESOURCE_TYPE extends Win32Enum {
      * @type {Integer (Int32)}
      */
     static Socket => 4
+
+    /**
+     * Native name: HcsResourceTypeSection
+     * @type {Integer (Int32)}
+     */
+    static Section => 5
 }

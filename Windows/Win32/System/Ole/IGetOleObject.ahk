@@ -35,16 +35,11 @@ class IGetOleObject extends IUnknown {
      * Gets a pointer to an OLE control on a Visual Basic container.
      * @param {Pointer<Guid>} riid Specifies the interface to retrieve. Pass <b>IID_IOleObject</b> to obtain a pointer to 
      *       the control.
-     * @param {Pointer<Pointer<Void>>} ppvObj Pointer to the control.
-     * @returns {HRESULT} This method supports the standard return values <b>E_INVALIDARG</b>, 
-     *       <b>E_OUTOFMEMORY</b>, and <b>E_UNEXPECTED</b>, as well as the 
-     *       following:
+     * @returns {Pointer<Void>} Pointer to the control.
      * @see https://learn.microsoft.com/windows/win32/api/vbinterf/nf-vbinterf-igetoleobject-getoleobject
      */
-    GetOleObject(riid, ppvObj) {
-        ppvObjMarshal := ppvObj is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(3, this, "ptr", riid, ppvObjMarshal, ppvObj, "HRESULT")
-        return result
+    GetOleObject(riid) {
+        result := ComCall(3, this, "ptr", riid, "ptr*", &ppvObj := 0, "HRESULT")
+        return ppvObj
     }
 }

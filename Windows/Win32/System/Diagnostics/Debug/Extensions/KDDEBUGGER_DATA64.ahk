@@ -7,7 +7,7 @@
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
  */
 class KDDEBUGGER_DATA64 extends Win32Struct {
-    static sizeof => 928
+    static sizeof => 936
 
     static packingSize => 8
 
@@ -1344,5 +1344,13 @@ class KDDEBUGGER_DATA64 extends Win32Struct {
     OffsetPrcbExceptionStack {
         get => NumGet(this, 920, "ushort")
         set => NumPut("ushort", value, this, 920)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    PointerIgnoreBits {
+        get => NumGet(this, 928, "uint")
+        set => NumPut("uint", value, this, 928)
     }
 }
